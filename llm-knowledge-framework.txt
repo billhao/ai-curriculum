@@ -1,0 +1,167 @@
+================================================================================
+                     MODERN LLM TECHNOLOGY KNOWLEDGE FRAMEWORK
+================================================================================
+
+Background: Built GPT-2 124M (nanoGPT), fine-tuned with Dolly 15k using SFT
+
+
+================================================================================
+                              COMPLETE STACK DIAGRAM
+================================================================================
+
+                            ┌─────────────────────────────────────┐
+                            │         MODERN LLM STACK            │
+                            └─────────────────────────────────────┘
+                                            │
+        ┌───────────────────────────────────┼───────────────────────────────────┐
+        │                                   │                                   │
+        ▼                                   ▼                                   ▼
+┌───────────────────┐             ┌───────────────────┐             ┌───────────────────┐
+│  1. ARCHITECTURE  │             │   2. TRAINING     │             │  3. ALIGNMENT     │
+│    INNOVATIONS    │             │    AT SCALE       │             │  (Post-Training)  │
+└───────────────────┘             └───────────────────┘             └───────────────────┘
+│                                 │                                 │
+├─ ★ RoPE (positions)             ├─ ★ Distributed Training         ├─ ★ SFT ✓ (done)
+├─ ★ GQA/MQA                      │    (DP, TP, PP, FSDP)           ├─ ★ RLHF
+├─ ★ Flash Attention              ├─ ★ Mixed Precision (BF16)       │    ├─ ★ Reward Model
+├─ ★ KV Cache                     ├─ ★ ZeRO Optimizer               │    └─ PPO
+├─ Mixture of Experts             ├─ Gradient Checkpointing         ├─ ★ DPO
+├─ Sliding Window                 ├─ Large Batch Training           ├─ RLAIF
+└─ ALiBi                          └─ Curriculum Learning            └─ Constitutional AI
+
+        ┌───────────────────────────────────┼───────────────────────────────────┐
+        │                                   │                                   │
+        ▼                                   ▼                                   ▼
+┌───────────────────┐             ┌───────────────────┐             ┌───────────────────┐
+│  4. INFERENCE     │             │  5. EFFICIENT     │             │  6. EXTENDED      │
+│   OPTIMIZATION    │             │   FINE-TUNING     │             │   CAPABILITIES    │
+└───────────────────┘             └───────────────────┘             └───────────────────┘
+│                                 │                                 │
+├─ ★ Quantization                 ├─ ★ LoRA / QLoRA                 ├─ ★ Long Context
+│   (INT8, INT4, AWQ, GPTQ)       ├─ Adapters                       │    (RoPE scaling)
+├─ Speculative Decoding           ├─ Prefix Tuning                  ├─ ★ Chain-of-Thought
+├─ ★ Continuous Batching          └─ DoRA                           ├─ ★ Tool Use / Agents
+├─ ★ KV Cache Paging                                                ├─ ★ RAG
+└─ vLLM / TensorRT-LLM                                              └─ Multi-modal (Vision)
+
+        ┌───────────────────────────────────┼───────────────────────────────────┐
+        │                                   │                                   │
+        ▼                                   ▼                                   ▼
+┌───────────────────┐             ┌───────────────────┐             ┌───────────────────┐
+│  7. DATA          │             │  8. EVALUATION    │             │  9. TOKENIZATION  │
+│   ENGINEERING     │             │   & SAFETY        │             │                   │
+└───────────────────┘             └───────────────────┘             └───────────────────┘
+│                                 │                                 │
+├─ ★ Data Filtering/Quality       ├─ ★ Benchmarks (MMLU,            ├─ ★ BPE ✓ (done)
+├─ ★ Deduplication                │    HumanEval, MATH)             ├─ SentencePiece
+├─ Data Mixing Ratios             ├─ Red Teaming                    ├─ Tiktoken
+└─ Synthetic Data Gen             └─ Adversarial Evaluation         └─ Unigram
+
+
+════════════════════════════════════════════════════════════════════════════════
+                              ▼ FOUNDATIONS ▼
+════════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                        0. TRANSFORMER FUNDAMENTALS                              │
+│                           (Learned in nanoGPT)                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────┐   ┌─────────────────────┐   ┌─────────────────────┐
+│   ATTENTION         │   │   ARCHITECTURE      │   │   OPTIMIZATION      │
+├─────────────────────┤   ├─────────────────────┤   ├─────────────────────┤
+│ ★ Self-Attention    │   │ ★ Transformer Block │   │ ★ Adam/AdamW        │
+│ ★ Multi-Head Attn   │   │ ★ Residual Conn     │   │ ★ Cross-Entropy     │
+│ ★ Scaled Dot-Product│   │ ★ Layer Norm        │   │ ★ Backprop          │
+│ ★ Causal Masking    │   │ ★ FFN (MLP)         │   │ ★ LR Scheduling     │
+│   Attention Scores  │   │ ★ Embeddings        │   │   Gradient Clipping │
+│   Softmax           │   │   Dropout           │   │   Weight Decay      │
+└─────────────────────┘   └─────────────────────┘   └─────────────────────┘
+
+┌─────────────────────┐   ┌─────────────────────┐   ┌─────────────────────┐
+│   MATH/THEORY       │   │   LANGUAGE MODEL    │   │   SCALING           │
+├─────────────────────┤   ├─────────────────────┤   ├─────────────────────┤
+│ ★ Matrix Multiply   │   │ ★ Next-Token Pred   │   │ ★ Scaling Laws      │
+│   Linear Algebra    │   │ ★ Autoregressive    │   │   Chinchilla        │
+│   Probability       │   │ ★ Perplexity        │   │   Compute-Optimal   │
+│   Information Theory│   │   Temperature       │   │   Emergent Abilities│
+│   Gradient Descent  │   │   Top-k / Top-p     │   │                     │
+└─────────────────────┘   └─────────────────────┘   └─────────────────────┘
+
+
+================================================================================
+                                    LEGEND
+================================================================================
+
+★  = Core technique - essential to understand modern LLMs
+✓  = Already learned/implemented
+
+
+================================================================================
+                           PRIORITY TIERS FOR LEARNING
+================================================================================
+
+TIER 1 (Must Know)          TIER 2 (Important)           TIER 3 (Advanced)
+─────────────────           ──────────────────           ─────────────────
+★ Foundations (done)        ★ Flash Attention            Mixture of Experts
+★ SFT (done)                ★ Distributed Training       Speculative Decoding
+★ RLHF / DPO                ★ ZeRO                       Constitutional AI
+★ RoPE                      ★ Continuous Batching        Sliding Window
+★ GQA                       ★ Long Context               RLAIF
+★ KV Cache                  ★ Tool Use                   Synthetic Data
+★ LoRA                      ★ Data Quality               Multi-modal
+★ Quantization              ★ Benchmarking
+★ RAG
+★ Chain-of-Thought
+
+
+================================================================================
+                           RECOMMENDED LEARNING PATHS
+================================================================================
+
+If you want to...                      Start with
+─────────────────                      ──────────
+Make your model actually helpful       3. Alignment → RLHF or DPO
+Understand Llama/Mistral internals     1. Architecture → RoPE, GQA, Flash Attention
+Train larger models                    2. Training at Scale → Distributed training
+Run models efficiently                 4. Inference → Quantization, vLLM
+Fine-tune cheaply                      5. Efficient Fine-tuning → LoRA/QLoRA
+Build ChatGPT-like apps                6. Capabilities → Tool use, RAG
+
+
+================================================================================
+                         SUGGESTED NEXT STEPS (POST-SFT)
+================================================================================
+
+1. RLHF/DPO    - Make your model align to human preferences
+2. LoRA        - Fine-tune efficiently without full training
+3. Architecture - Understand Llama/Mistral improvements over GPT-2
+
+
+================================================================================
+                              KEY PAPERS TO READ
+================================================================================
+
+FOUNDATIONS:
+- "Attention Is All You Need" (2017) - Original Transformer
+
+ARCHITECTURE:
+- "RoFormer: Enhanced Transformer with Rotary Position Embedding" (2021)
+- "GQA: Training Generalized Multi-Query Transformer" (2023)
+- "FlashAttention: Fast and Memory-Efficient Exact Attention" (2022)
+
+ALIGNMENT:
+- "Training language models to follow instructions with human feedback" (2022) - InstructGPT/RLHF
+- "Direct Preference Optimization" (2023) - DPO
+
+EFFICIENT FINE-TUNING:
+- "LoRA: Low-Rank Adaptation of Large Language Models" (2021)
+- "QLoRA: Efficient Finetuning of Quantized LLMs" (2023)
+
+SCALING:
+- "Scaling Laws for Neural Language Models" (2020) - OpenAI
+- "Training Compute-Optimal Large Language Models" (2022) - Chinchilla
+
+INFERENCE:
+- "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" (2022)
+- "Efficient Memory Management for Large Language Model Serving with PagedAttention" (2023) - vLLM

@@ -1,0 +1,1331 @@
+================================================================================
+                    TIER 1 DEEP DIVE: CORE LLM TECHNIQUES
+================================================================================
+
+Prerequisites: Transformer fundamentals, SFT (assumed known from nanoGPT + Dolly)
+
+Topics Covered:
+  1. RLHF (Reinforcement Learning from Human Feedback)
+  2. DPO (Direct Preference Optimization)
+  3. RoPE (Rotary Position Embeddings)
+  4. GQA (Grouped Query Attention)
+  5. KV Cache
+  6. LoRA (Low-Rank Adaptation)
+  7. Quantization
+  8. RAG (Retrieval Augmented Generation)
+  9. Chain-of-Thought (CoT)
+
+
+################################################################################
+#                                                                              #
+#                    1. RLHF - REINFORCEMENT LEARNING FROM                     #
+#                           HUMAN FEEDBACK                                     #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+RLHF is the technique that transformed GPT-3 into ChatGPT. It aligns language
+models to human preferences using reinforcement learning, making them helpful,
+harmless, and honest.
+
+WHY IT MATTERS
+──────────────
+- Base LLMs just predict next tokens - they don't know what humans actually want
+- SFT teaches format but not nuanced preferences
+- RLHF teaches the model to optimize for human satisfaction
+- This is THE key innovation behind ChatGPT's success
+
+THE THREE-STAGE PIPELINE
+────────────────────────
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Stage 1: Supervised Fine-Tuning (SFT)                                      │
+│  ─────────────────────────────────────                                      │
+│  • Start with pretrained base model                                         │
+│  • Fine-tune on high-quality demonstration data                             │
+│  • Human labelers write ideal responses to prompts                          │
+│  • Standard cross-entropy loss                                              │
+│  • Result: Model that can follow instructions (you did this!)               │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Stage 2: Reward Model Training                                             │
+│  ─────────────────────────────────                                          │
+│  • Collect comparison data: humans rank multiple outputs                    │
+│  • For prompt X, model generates responses A and B                          │
+│  • Human says: "A is better than B" (or vice versa)                         │
+│  • Train reward model to predict human preferences                          │
+│                                                                             │
+│  Architecture:                                                              │
+│  ┌──────────┐    ┌──────────┐    ┌────────┐                                │
+│  │  Prompt  │───▶│   LLM    │───▶│ Scalar │  (reward score)                │
+│  │+Response │    │ (frozen) │    │  Head  │                                │
+│  └──────────┘    └──────────┘    └────────┘                                │
+│                                                                             │
+│  Loss function (Bradley-Terry model):                                       │
+│  L = -log(σ(r(x,y_w) - r(x,y_l)))                                          │
+│                                                                             │
+│  Where:                                                                     │
+│    r(x,y) = reward for response y given prompt x                           │
+│    y_w = preferred (winning) response                                       │
+│    y_l = rejected (losing) response                                         │
+│    σ = sigmoid function                                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Stage 3: RL Fine-Tuning with PPO                                           │
+│  ────────────────────────────────                                           │
+│  • Use reward model to score generations                                    │
+│  • Optimize policy (the LLM) to maximize reward                             │
+│  • PPO (Proximal Policy Optimization) prevents too-large updates            │
+│                                                                             │
+│  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐          │
+│  │  Prompt  │────▶│  Policy  │────▶│ Response │────▶│  Reward  │          │
+│  │          │     │  (LLM)   │     │          │     │  Model   │          │
+│  └──────────┘     └──────────┘     └──────────┘     └────┬─────┘          │
+│                         ▲                                 │                 │
+│                         │         ┌──────────┐           │                 │
+│                         └─────────│   PPO    │◀──────────┘                 │
+│                          update   │ Optimize │   reward                    │
+│                                   └──────────┘                              │
+│                                                                             │
+│  Key components:                                                            │
+│  • Policy: The LLM being trained                                           │
+│  • Reference model: Frozen copy of SFT model (prevents drift)              │
+│  • KL penalty: Keeps policy close to reference                             │
+│                                                                             │
+│  Objective:                                                                 │
+│  maximize E[r(x,y)] - β * KL(π_θ || π_ref)                                 │
+│                                                                             │
+│  The KL term prevents reward hacking (gaming the reward model)              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+PPO SPECIFICS
+─────────────
+PPO is used because it's stable and sample-efficient:
+
+  L_PPO = min(r_t(θ) * A_t, clip(r_t(θ), 1-ε, 1+ε) * A_t)
+
+  Where:
+  - r_t(θ) = π_θ(a|s) / π_old(a|s)  (probability ratio)
+  - A_t = advantage estimate
+  - ε = clipping parameter (typically 0.2)
+
+The clipping prevents the policy from changing too drastically in one update.
+
+PRACTICAL CONSIDERATIONS
+────────────────────────
+• Reward hacking: Model finds exploits in reward model
+  - Solution: KL penalty, reward model ensembles
+• Labeler disagreement: Humans often disagree
+  - Solution: Multiple labelers, clear guidelines
+• Compute intensive: Need to run inference during training
+  - Solution: Efficient batching, model parallelism
+• Mode collapse: Model outputs become repetitive
+  - Solution: Entropy bonus, diverse prompts
+
+KEY PAPERS
+──────────
+• "Training language models to follow instructions with human feedback" (2022)
+  - The InstructGPT paper from OpenAI
+• "Learning to summarize from human feedback" (2020)
+  - Earlier work that laid groundwork
+
+
+################################################################################
+#                                                                              #
+#                    2. DPO - DIRECT PREFERENCE OPTIMIZATION                   #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+DPO is a simpler alternative to RLHF that skips the reward model entirely.
+It directly optimizes the language model on preference data.
+
+WHY IT MATTERS
+──────────────
+• RLHF is complex: 3 models (policy, reference, reward), PPO is finicky
+• DPO achieves similar results with just supervised learning
+• Much easier to implement and debug
+• More stable training dynamics
+• Becoming the preferred method for many practitioners
+
+THE KEY INSIGHT
+───────────────
+The optimal policy under RLHF has a closed-form solution!
+
+Given reward r(x,y) and reference policy π_ref:
+
+  π*(y|x) = (1/Z(x)) * π_ref(y|x) * exp(r(x,y)/β)
+
+This means we can express the reward in terms of policies:
+
+  r(x,y) = β * log(π*(y|x) / π_ref(y|x)) + β * log(Z(x))
+
+DPO substitutes this into the Bradley-Terry preference model and derives
+a loss that only depends on the policy (no explicit reward model needed).
+
+DPO LOSS FUNCTION
+─────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  L_DPO(π_θ; π_ref) = -E[ log σ( β * (log π_θ(y_w|x)/π_ref(y_w|x)           │
+│                                     - log π_θ(y_l|x)/π_ref(y_l|x)) ) ]      │
+│                                                                             │
+│  Simplified:                                                                │
+│  L = -log σ( β * (Δlog_prob_winner - Δlog_prob_loser) )                    │
+│                                                                             │
+│  Where:                                                                     │
+│  - y_w = preferred response                                                 │
+│  - y_l = rejected response                                                  │
+│  - β = temperature parameter (controls deviation from reference)            │
+│  - Δlog_prob = log π_θ(y|x) - log π_ref(y|x)                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+INTUITION
+─────────
+The loss increases the probability of preferred responses while decreasing
+the probability of rejected responses, relative to the reference model.
+
+  • If model prefers winner over loser → loss is low ✓
+  • If model prefers loser over winner → loss is high ✗
+
+The reference model acts as an anchor to prevent the model from
+degenerating (e.g., assigning all probability to one token).
+
+TRAINING PROCEDURE
+──────────────────
+1. Start with SFT model (this becomes both π_θ and π_ref initially)
+2. Freeze a copy as π_ref
+3. For each preference pair (x, y_w, y_l):
+   a. Compute log probs under π_θ for both responses
+   b. Compute log probs under π_ref for both responses (cached, no grad)
+   c. Compute DPO loss
+   d. Update π_θ
+
+COMPARISON: RLHF vs DPO
+───────────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         RLHF                    DPO                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Models needed      3 (policy, ref, reward)     2 (policy, ref)             │
+│ Training           RL (PPO) - unstable         Supervised - stable          │
+│ Hyperparameters    Many (PPO has ~10+)         Few (mainly β)              │
+│ Compute            High (online generation)    Lower (offline)              │
+│ Implementation     Complex                     Simple                       │
+│ Performance        Gold standard               Comparable                   │
+│ Data efficiency    Can use same data many      Fixed dataset                │
+│                    times via online sampling                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+VARIANTS
+────────
+• IPO (Identity Preference Optimization): Removes log sigmoid for stability
+• KTO (Kahneman-Tversky Optimization): Works with just good/bad labels
+• ORPO: Combines SFT and preference optimization in one step
+• SimPO: Simplified version without reference model
+
+PRACTICAL TIPS
+──────────────
+• β typically 0.1 to 0.5 (higher = more conservative)
+• Learning rate: lower than SFT (1e-6 to 1e-5)
+• Batch size matters: larger is generally better
+• Data quality > quantity for preference pairs
+• Reference model can be periodically updated (iterative DPO)
+
+KEY PAPER
+─────────
+• "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" (2023)
+
+
+################################################################################
+#                                                                              #
+#                    3. RoPE - ROTARY POSITION EMBEDDINGS                      #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+RoPE encodes position information by rotating the query and key vectors
+in attention. It's used in most modern LLMs (Llama, Mistral, etc.).
+
+WHY IT MATTERS
+──────────────
+• Original transformer used absolute position embeddings (limited)
+• RoPE provides relative position information naturally
+• Better extrapolation to longer sequences than seen in training
+• Enables efficient long-context extensions
+• Now the de facto standard for decoder-only models
+
+THE PROBLEM WITH ABSOLUTE POSITIONS
+───────────────────────────────────
+Original transformer: add position embedding to token embedding
+
+  x_i = token_embed(i) + pos_embed(i)
+
+Problems:
+• Model sees absolute positions, not relative distances
+• Fixed maximum length (e.g., 512 or 2048)
+• Poor generalization to longer sequences
+
+THE ROPE INSIGHT
+────────────────
+Key idea: Encode position through ROTATION in 2D subspaces.
+
+For position m, rotate the embedding by angle m*θ:
+
+  ┌         ┐   ┌                    ┐ ┌    ┐
+  │ q'_{2i} │   │ cos(mθ_i) -sin(mθ_i)│ │q_{2i}│
+  │         │ = │                    │ │    │
+  │q'_{2i+1}│   │ sin(mθ_i)  cos(mθ_i)│ │q_{2i+1}│
+  └         ┘   └                    ┘ └    ┘
+
+Where θ_i = 10000^(-2i/d) (similar to sinusoidal encoding)
+
+WHY ROTATION WORKS
+──────────────────
+When computing attention between positions m and n:
+
+  q_m · k_n = (R_m * q) · (R_n * k)
+            = q · (R_m^T * R_n) · k
+            = q · R_{n-m} · k        (rotation matrices compose!)
+
+The dot product only depends on RELATIVE position (n-m), not absolute positions!
+
+IMPLEMENTATION
+──────────────
+In practice, implemented as element-wise operations (more efficient):
+
+```python
+def apply_rope(x, cos, sin):
+    # x shape: (batch, seq_len, n_heads, head_dim)
+    # Split into pairs
+    x1 = x[..., ::2]   # even indices
+    x2 = x[..., ::2]   # odd indices
+
+    # Rotate
+    rotated = torch.cat([
+        x1 * cos - x2 * sin,
+        x1 * sin + x2 * cos
+    ], dim=-1)
+    return rotated
+
+# Precompute frequencies
+def precompute_freqs(dim, max_seq_len, base=10000):
+    freqs = 1.0 / (base ** (torch.arange(0, dim, 2) / dim))
+    t = torch.arange(max_seq_len)
+    freqs = torch.outer(t, freqs)  # (seq_len, dim/2)
+    cos = freqs.cos()
+    sin = freqs.sin()
+    return cos, sin
+```
+
+COMPARISON: POSITION ENCODING METHODS
+─────────────────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Method              Relative?   Extrapolate?   Used In                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Absolute Learned    No          No             GPT-2, BERT                  │
+│ Sinusoidal          No          Somewhat       Original Transformer         │
+│ ALiBi               Yes         Yes            BLOOM, MPT                   │
+│ RoPE                Yes         Yes*           Llama, Mistral, Qwen         │
+│ T5 Relative Bias    Yes         No             T5, Flan                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+* With appropriate scaling techniques
+
+EXTENDING CONTEXT LENGTH WITH ROPE
+──────────────────────────────────
+RoPE enables various context extension techniques:
+
+1. Position Interpolation (PI):
+   - Scale positions: pos' = pos * (L_train / L_target)
+   - Example: trained on 4K, extend to 16K by scaling by 0.25
+   - Requires some fine-tuning
+
+2. NTK-aware Scaling:
+   - Modify the base frequency: base' = base * α^(dim/(dim-2))
+   - Better preserves high-frequency information
+
+3. YaRN (Yet another RoPE extensioN):
+   - Combines interpolation with NTK scaling
+   - Different scaling for different frequency bands
+   - State-of-the-art for context extension
+
+4. Dynamic NTK:
+   - Adjust scaling based on actual sequence length
+   - No fine-tuning needed (but less optimal)
+
+KEY PAPER
+─────────
+• "RoFormer: Enhanced Transformer with Rotary Position Embedding" (2021)
+
+
+################################################################################
+#                                                                              #
+#                    4. GQA - GROUPED QUERY ATTENTION                          #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+GQA is an attention variant where multiple query heads share the same
+key-value heads. It's a middle ground between MHA and MQA.
+
+WHY IT MATTERS
+──────────────
+• KV cache is the memory bottleneck for long sequences
+• GQA reduces KV cache size significantly
+• Minimal quality loss compared to full MHA
+• Used in Llama 2 70B, Mistral, and most modern large models
+• Enables longer contexts and larger batch sizes
+
+THE EVOLUTION
+─────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  MHA (Multi-Head Attention) - Original Transformer                          │
+│  ─────────────────────────────────────────────────                          │
+│    • Each head has its own Q, K, V projections                              │
+│    • n_heads queries, n_heads keys, n_heads values                          │
+│    • Full expressiveness, high memory                                       │
+│                                                                             │
+│    Q heads:  [Q1] [Q2] [Q3] [Q4] [Q5] [Q6] [Q7] [Q8]                        │
+│    K heads:  [K1] [K2] [K3] [K4] [K5] [K6] [K7] [K8]                        │
+│    V heads:  [V1] [V2] [V3] [V4] [V5] [V6] [V7] [V8]                        │
+│                                                                             │
+│  MQA (Multi-Query Attention) - Google 2019                                  │
+│  ────────────────────────────────────────────                               │
+│    • All query heads share ONE key-value head                               │
+│    • n_heads queries, 1 key, 1 value                                        │
+│    • Massive memory savings, some quality loss                              │
+│                                                                             │
+│    Q heads:  [Q1] [Q2] [Q3] [Q4] [Q5] [Q6] [Q7] [Q8]                        │
+│    K heads:  [─────────────── K1 ───────────────────]                       │
+│    V heads:  [─────────────── V1 ───────────────────]                       │
+│                                                                             │
+│  GQA (Grouped Query Attention) - Google 2023                                │
+│  ───────────────────────────────────────────────                            │
+│    • Query heads grouped, each group shares K-V                             │
+│    • n_heads queries, n_kv_heads keys, n_kv_heads values                    │
+│    • Balance of quality and efficiency                                      │
+│                                                                             │
+│    Q heads:  [Q1] [Q2] [Q3] [Q4] | [Q5] [Q6] [Q7] [Q8]                      │
+│    K heads:  [───── K1 ─────────] [───── K2 ─────────]                      │
+│    V heads:  [───── V1 ─────────] [───── V2 ─────────]                      │
+│              └── group 1 ───────┘ └─── group 2 ──────┘                      │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+MEMORY ANALYSIS
+───────────────
+KV cache size per token = 2 * n_layers * n_kv_heads * head_dim * bytes
+
+Example: Llama 2 70B
+  • 80 layers, 64 query heads, 8 KV heads (GQA with 8 groups)
+  • head_dim = 128
+  • KV cache per token = 2 * 80 * 8 * 128 * 2 bytes = 328 KB
+
+If it were MHA (64 KV heads):
+  • KV cache per token = 2 * 80 * 64 * 128 * 2 bytes = 2.6 MB
+
+That's 8x memory savings! For a 4096 context, that's 10GB vs 1.3GB.
+
+IMPLEMENTATION
+──────────────
+```python
+class GroupedQueryAttention(nn.Module):
+    def __init__(self, d_model, n_heads, n_kv_heads):
+        super().__init__()
+        self.n_heads = n_heads
+        self.n_kv_heads = n_kv_heads
+        self.n_groups = n_heads // n_kv_heads  # queries per KV head
+        self.head_dim = d_model // n_heads
+
+        self.q_proj = nn.Linear(d_model, n_heads * self.head_dim)
+        self.k_proj = nn.Linear(d_model, n_kv_heads * self.head_dim)
+        self.v_proj = nn.Linear(d_model, n_kv_heads * self.head_dim)
+        self.o_proj = nn.Linear(n_heads * self.head_dim, d_model)
+
+    def forward(self, x):
+        B, L, _ = x.shape
+
+        q = self.q_proj(x).view(B, L, self.n_heads, self.head_dim)
+        k = self.k_proj(x).view(B, L, self.n_kv_heads, self.head_dim)
+        v = self.v_proj(x).view(B, L, self.n_kv_heads, self.head_dim)
+
+        # Expand K, V to match Q heads (repeat for each group)
+        k = k.repeat_interleave(self.n_groups, dim=2)
+        v = v.repeat_interleave(self.n_groups, dim=2)
+
+        # Standard attention from here
+        # ...
+```
+
+COMMON CONFIGURATIONS
+─────────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Model              n_heads    n_kv_heads    Ratio    Type                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ GPT-2              12         12            1:1      MHA                    │
+│ Llama 1            32         32            1:1      MHA                    │
+│ Llama 2 7B         32         32            1:1      MHA                    │
+│ Llama 2 70B        64         8             8:1      GQA                    │
+│ Mistral 7B         32         8             4:1      GQA                    │
+│ Falcon 40B         64         1             64:1     MQA                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+CONVERTING MHA TO GQA
+─────────────────────
+You can convert existing MHA models to GQA:
+1. Group the KV heads
+2. Average or select representative heads within each group
+3. Fine-tune briefly to recover quality
+
+KEY PAPER
+─────────
+• "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints" (2023)
+
+
+################################################################################
+#                                                                              #
+#                    5. KV CACHE                                               #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+KV Cache stores the key and value tensors from previous tokens during
+autoregressive generation, avoiding redundant computation.
+
+WHY IT MATTERS
+──────────────
+• Without KV cache: O(n²) computation per token (recompute all attention)
+• With KV cache: O(n) computation per token
+• Essential for practical inference speeds
+• Main memory bottleneck for long sequences
+• Understanding it is key to optimizing inference
+
+THE PROBLEM
+───────────
+Autoregressive generation: predict one token at a time
+
+  "The cat" → "sat" → "on" → "the" → "mat"
+
+Naive approach: For each new token, recompute attention over ALL previous tokens
+
+  Step 1: Attend over [The]           - 1 token
+  Step 2: Attend over [The, cat]      - 2 tokens
+  Step 3: Attend over [The, cat, sat] - 3 tokens
+  ...
+  Step n: Attend over all n tokens    - n tokens
+
+Total attention computations: 1 + 2 + 3 + ... + n = O(n²)
+
+THE SOLUTION: KV CACHE
+──────────────────────
+Key insight: K and V for previous tokens DON'T CHANGE!
+
+  Attention(Q, K, V) = softmax(QK^T / √d) V
+
+For token at position i:
+  • Q_i depends only on token i (the new token)
+  • K_j, V_j for j < i were computed in previous steps
+
+So: Cache all K and V, only compute new K_i, V_i, Q_i
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  Step 1: Input "The"                                                        │
+│  ──────────────────                                                         │
+│  Compute: Q₁, K₁, V₁                                                        │
+│  Cache:   K_cache = [K₁], V_cache = [V₁]                                   │
+│  Attend:  Q₁ @ [K₁]ᵀ                                                        │
+│                                                                             │
+│  Step 2: Input "cat"                                                        │
+│  ───────────────────                                                        │
+│  Compute: Q₂, K₂, V₂  (only for new token!)                                │
+│  Cache:   K_cache = [K₁, K₂], V_cache = [V₁, V₂]                           │
+│  Attend:  Q₂ @ [K₁, K₂]ᵀ                                                    │
+│                                                                             │
+│  Step 3: Input "sat"                                                        │
+│  ───────────────────                                                        │
+│  Compute: Q₃, K₃, V₃  (only for new token!)                                │
+│  Cache:   K_cache = [K₁, K₂, K₃], V_cache = [V₁, V₂, V₃]                   │
+│  Attend:  Q₃ @ [K₁, K₂, K₃]ᵀ                                                │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Each step only computes 1 new Q, K, V instead of all previous ones!
+
+MEMORY REQUIREMENTS
+───────────────────
+KV cache size = 2 * n_layers * seq_len * n_kv_heads * head_dim * bytes
+
+Example: Llama 2 7B, 4096 context, FP16
+  • 32 layers, 32 KV heads, head_dim = 128
+  • Size = 2 * 32 * 4096 * 32 * 128 * 2 = 2.1 GB
+
+This is why KV cache is often the bottleneck, not model weights!
+
+IMPLEMENTATION SKETCH
+─────────────────────
+```python
+class CachedAttention(nn.Module):
+    def forward(self, x, kv_cache=None, use_cache=True):
+        B, L, D = x.shape
+
+        q = self.q_proj(x)
+        k = self.k_proj(x)
+        v = self.v_proj(x)
+
+        if kv_cache is not None:
+            # Concatenate with cached K, V
+            k_cache, v_cache = kv_cache
+            k = torch.cat([k_cache, k], dim=1)
+            v = torch.cat([v_cache, v], dim=1)
+
+        # Standard attention computation
+        attn_out = scaled_dot_product_attention(q, k, v)
+
+        if use_cache:
+            new_cache = (k, v)
+            return attn_out, new_cache
+        return attn_out, None
+```
+
+ADVANCED KV CACHE TECHNIQUES
+────────────────────────────
+1. PagedAttention (vLLM):
+   • Manage KV cache like virtual memory pages
+   • Non-contiguous allocation reduces fragmentation
+   • Enables efficient batching of variable-length sequences
+
+2. Sliding Window Cache:
+   • Only keep last W tokens in cache
+   • Used in Mistral (W=4096)
+   • O(W) memory instead of O(n)
+
+3. KV Cache Quantization:
+   • Store cached K, V in lower precision (INT8, INT4)
+   • Reduces memory by 2-4x
+   • Minimal quality impact
+
+4. KV Cache Compression:
+   • Learned compression of cached states
+   • Trade compute for memory
+
+5. Speculative Decoding:
+   • Use smaller model to draft multiple tokens
+   • Verify with large model in parallel
+   • Amortizes KV cache updates
+
+PREFILL VS DECODE
+─────────────────
+Two distinct phases in generation:
+
+Prefill (prompt processing):
+  • Process entire prompt at once
+  • Compute-bound (matrix multiplications)
+  • KV cache is populated
+
+Decode (token generation):
+  • Generate one token at a time
+  • Memory-bound (KV cache reads)
+  • Much slower per-token than prefill
+
+This is why "time to first token" differs from "tokens per second"!
+
+
+################################################################################
+#                                                                              #
+#                    6. LoRA - LOW-RANK ADAPTATION                             #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+LoRA fine-tunes LLMs by adding small trainable low-rank matrices to frozen
+pretrained weights. It's the most popular parameter-efficient fine-tuning method.
+
+WHY IT MATTERS
+──────────────
+• Full fine-tuning requires storing full model gradients (huge memory)
+• LoRA reduces trainable parameters by 10,000x
+• Can fine-tune 65B models on consumer GPUs
+• Multiple LoRA adapters can be hot-swapped
+• Quality comparable to full fine-tuning
+
+THE CORE IDEA
+─────────────
+Weight updates during fine-tuning are low-rank!
+
+Instead of updating full weight W:
+  W' = W + ΔW
+
+Decompose ΔW into low-rank matrices:
+  ΔW = BA    where B ∈ R^(d×r), A ∈ R^(r×k), r << min(d,k)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│   Full Fine-tuning:                    LoRA:                                │
+│   ─────────────────                    ─────                                │
+│                                                                             │
+│   ┌───────────────┐                    ┌───────────────┐                   │
+│   │               │                    │               │                   │
+│   │   W + ΔW      │                    │   W (frozen)  │───┐               │
+│   │   (d × k)     │                    │   (d × k)     │   │               │
+│   │               │                    │               │   │               │
+│   └───────────────┘                    └───────────────┘   │  ┌─────┐      │
+│                                                            ├──│  +  │──▶   │
+│   Trainable: d × k                     ┌─────┐             │  └─────┘      │
+│   (millions of params)                 │  B  │─────────────┘               │
+│                                        │(d×r)│                              │
+│                                        └──┬──┘                              │
+│                                           │                                 │
+│                                        ┌──┴──┐                              │
+│                                        │  A  │                              │
+│                                        │(r×k)│ ◀── trainable               │
+│                                        └─────┘                              │
+│                                                                             │
+│                                        Trainable: r×(d+k)                   │
+│                                        (thousands of params)                │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+PARAMETER SAVINGS
+─────────────────
+Original matrix: d × k parameters
+LoRA: r × d + r × k = r(d + k) parameters
+
+Example: d=4096, k=4096, r=8
+  • Full: 16.7M parameters
+  • LoRA: 65K parameters (256x reduction!)
+
+WHICH LAYERS TO ADAPT?
+──────────────────────
+Typically applied to attention projection matrices:
+  • Q projection (most common)
+  • V projection (most common)
+  • K projection (sometimes)
+  • O projection (sometimes)
+  • FFN layers (less common, but can help)
+
+Common configs:
+  • Attention only: q_proj, v_proj
+  • All attention: q_proj, k_proj, v_proj, o_proj
+  • Full: + FFN layers
+
+IMPLEMENTATION
+──────────────
+```python
+class LoRALinear(nn.Module):
+    def __init__(self, original_layer, r=8, alpha=16):
+        super().__init__()
+        self.original = original_layer
+        self.original.weight.requires_grad = False  # Freeze
+
+        d, k = original_layer.weight.shape
+        self.lora_A = nn.Parameter(torch.randn(r, k) * 0.01)
+        self.lora_B = nn.Parameter(torch.zeros(d, r))
+
+        self.scaling = alpha / r  # Scale factor
+
+    def forward(self, x):
+        # Original path (frozen)
+        original_out = self.original(x)
+
+        # LoRA path (trainable)
+        lora_out = (x @ self.lora_A.T @ self.lora_B.T) * self.scaling
+
+        return original_out + lora_out
+```
+
+KEY HYPERPARAMETERS
+───────────────────
+• r (rank): 4, 8, 16, 32 typical. Higher = more capacity, more params
+• alpha: Scaling factor, typically 16 or 2*r. Affects learning rate effectively
+• Target modules: Which layers to apply LoRA to
+• Learning rate: Usually higher than full fine-tuning (1e-4 to 3e-4)
+
+MERGING LORA
+────────────
+After training, LoRA can be merged into base weights (no inference overhead):
+
+  W_merged = W + BA * (alpha/r)
+
+This means:
+  • Training: Keep LoRA separate
+  • Deployment: Merge for zero overhead OR keep separate for hot-swapping
+
+QLORA: COMBINING WITH QUANTIZATION
+──────────────────────────────────
+QLoRA = 4-bit quantized base + LoRA adapters
+
+• Base model in 4-bit NormalFloat (NF4)
+• LoRA adapters in FP16/BF16
+• Double quantization for further savings
+• Fine-tune 65B models on single 48GB GPU!
+
+VARIANTS
+────────
+• LoRA+: Different learning rates for A and B
+• DoRA: Decomposes into magnitude and direction
+• AdaLoRA: Adaptive rank allocation
+• QLoRA: Quantized base model
+• LongLoRA: Efficient long-context fine-tuning
+
+KEY PAPERS
+──────────
+• "LoRA: Low-Rank Adaptation of Large Language Models" (2021)
+• "QLoRA: Efficient Finetuning of Quantized LLMs" (2023)
+
+
+################################################################################
+#                                                                              #
+#                    7. QUANTIZATION                                           #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+Quantization reduces model precision from FP32/FP16 to INT8/INT4, making
+models smaller and faster while maintaining acceptable quality.
+
+WHY IT MATTERS
+──────────────
+• 70B parameter model in FP16 = 140GB (won't fit on most hardware)
+• Same model in INT4 = 35GB (fits on high-end consumer GPU)
+• 2-4x speedup from reduced memory bandwidth
+• Enables local deployment of large models
+• Critical for edge/mobile deployment
+
+PRECISION FORMATS
+─────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Format    Bits    Range              Use Case                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ FP32      32      ±3.4×10³⁸          Training (legacy)                     │
+│ FP16      16      ±65504             Training/Inference                    │
+│ BF16      16      ±3.4×10³⁸          Training (better range than FP16)     │
+│ INT8      8       -128 to 127        Inference                             │
+│ INT4      4       -8 to 7            Inference (aggressive)                │
+│ NF4       4       Normal dist        QLoRA (better for weights)            │
+│ FP8       8       Varies             Emerging for training                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+BASIC QUANTIZATION MATH
+───────────────────────
+Convert floating point to integer:
+
+  x_quant = round(x / scale) + zero_point
+  x_dequant = (x_quant - zero_point) * scale
+
+Where:
+  scale = (max_val - min_val) / (2^bits - 1)
+  zero_point = round(-min_val / scale)
+
+QUANTIZATION GRANULARITY
+────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  Per-tensor: One scale for entire tensor                                    │
+│  ────────────────────────────────────────                                   │
+│  ┌─────────────────────────┐                                               │
+│  │  scale = 0.5            │  Simple but less accurate                     │
+│  │  ░░░░░░░░░░░░░░░░░░░░░  │                                               │
+│  └─────────────────────────┘                                               │
+│                                                                             │
+│  Per-channel: One scale per output channel                                  │
+│  ─────────────────────────────────────────                                  │
+│  ┌─────────────────────────┐                                               │
+│  │  scale = [0.5, 0.3, 0.7]│  Better accuracy, standard for weights        │
+│  │  ░░░░░░░░░░░░░░░░░░░░░  │                                               │
+│  │  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  │                                               │
+│  │  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒  │                                               │
+│  └─────────────────────────┘                                               │
+│                                                                             │
+│  Per-group: One scale per group of values (e.g., 128 values)               │
+│  ───────────────────────────────────────────────────────────                │
+│  ┌─────────────────────────┐                                               │
+│  │  [s1][s2][s3][s4]...    │  Best accuracy for INT4, used in GPTQ/AWQ     │
+│  │  ░░░░ ▓▓▓▓ ▒▒▒▒ ████    │                                               │
+│  └─────────────────────────┘                                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUANTIZATION METHODS
+────────────────────
+
+1. POST-TRAINING QUANTIZATION (PTQ)
+   Quantize after training, no retraining needed
+
+   a) Naive Round-to-Nearest (RTN):
+      • Just round weights to nearest quantized value
+      • Fast but lower quality
+
+   b) GPTQ (GPT Quantization):
+      • Uses calibration data to minimize quantization error
+      • Quantizes weights one at a time, adjusting remaining weights
+      • Based on Optimal Brain Quantization
+      • Very popular for INT4
+
+   c) AWQ (Activation-aware Weight Quantization):
+      • Identifies important weights based on activation magnitudes
+      • Keeps important weights at higher precision
+      • Often better than GPTQ
+
+2. QUANTIZATION-AWARE TRAINING (QAT)
+   Simulate quantization during training
+
+   • Forward: Use quantized weights
+   • Backward: Use straight-through estimator (STE)
+   • Better quality but requires training
+
+WEIGHT VS ACTIVATION QUANTIZATION
+─────────────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  Weights (easy):                    Activations (hard):                     │
+│  • Static, known at compile time    • Dynamic, vary per input               │
+│  • Gaussian-ish distribution        • Can have outliers                     │
+│  • INT4 works well                  • Usually need INT8 or higher           │
+│                                                                             │
+│  Common setups:                                                             │
+│  • W8A8: INT8 weights, INT8 activations (balanced)                         │
+│  • W4A16: INT4 weights, FP16 activations (popular for inference)           │
+│  • W4A8: INT4 weights, INT8 activations (aggressive)                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+THE OUTLIER PROBLEM
+───────────────────
+LLMs have outlier features (very large activation values in few dimensions).
+These break naive quantization.
+
+Solutions:
+• LLM.int8(): Mixed precision for outlier channels
+• SmoothQuant: Migrate quantization difficulty from activations to weights
+• GPTQ/AWQ: Handle outliers through calibration
+
+PRACTICAL QUANTIZATION TOOLS
+────────────────────────────
+• bitsandbytes: Easy INT8/INT4 with LLM.int8(), used by QLoRA
+• AutoGPTQ: GPTQ implementation
+• AutoAWQ: AWQ implementation
+• llama.cpp: GGML/GGUF formats, CPU-optimized
+• TensorRT-LLM: NVIDIA's optimized inference
+
+QUALITY vs SIZE TRADEOFF
+────────────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Method      Size Reduction    Quality Loss    Notes                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ FP16→INT8   2x               ~0-1%           Very safe                      │
+│ FP16→INT4   4x               ~1-3%           Good with GPTQ/AWQ             │
+│ FP16→INT3   5.3x             ~3-5%           Noticeable degradation         │
+│ FP16→INT2   8x               ~10%+           Significant loss               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Quality loss depends heavily on model size (larger models quantize better).
+
+KEY PAPERS
+──────────
+• "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" (2022)
+• "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers" (2022)
+• "AWQ: Activation-aware Weight Quantization for LLM Compression" (2023)
+
+
+################################################################################
+#                                                                              #
+#                    8. RAG - RETRIEVAL AUGMENTED GENERATION                   #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+RAG enhances LLMs by retrieving relevant documents from an external knowledge
+base and including them in the prompt context.
+
+WHY IT MATTERS
+──────────────
+• LLMs have fixed knowledge (training cutoff date)
+• Fine-tuning for every knowledge update is expensive
+• RAG provides "infinite" updatable knowledge
+• Reduces hallucinations by grounding in sources
+• Enables domain-specific applications
+• Core technique for most production LLM applications
+
+THE RAG PIPELINE
+────────────────
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  INDEXING (Offline)                                                         │
+│  ──────────────────                                                         │
+│                                                                             │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐             │
+│  │Documents │───▶│  Chunk   │───▶│  Embed   │───▶│  Vector  │             │
+│  │          │    │          │    │          │    │    DB    │             │
+│  └──────────┘    └──────────┘    └──────────┘    └──────────┘             │
+│                                                                             │
+│  RETRIEVAL + GENERATION (Online)                                            │
+│  ───────────────────────────────                                            │
+│                                                                             │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐             │
+│  │  Query   │───▶│  Embed   │───▶│ Retrieve │───▶│ Rerank   │             │
+│  │          │    │  Query   │    │  Top-K   │    │(optional)│             │
+│  └──────────┘    └──────────┘    └──────────┘    └────┬─────┘             │
+│                                                       │                     │
+│                                                       ▼                     │
+│  ┌──────────┐    ┌──────────────────────────────────────────┐             │
+│  │ Response │◀───│  LLM: "Given context: {docs}, answer: {q}"│             │
+│  │          │    │                                          │             │
+│  └──────────┘    └──────────────────────────────────────────┘             │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+COMPONENT DEEP DIVE
+───────────────────
+
+1. CHUNKING
+   Split documents into smaller pieces for embedding
+
+   Strategies:
+   • Fixed size: Every N tokens (simple, can break mid-sentence)
+   • Recursive: Split by paragraphs, then sentences, then words
+   • Semantic: Split at topic boundaries
+   • Sentence-based: Keep sentence integrity
+
+   Typical chunk size: 256-512 tokens
+   Overlap: 10-20% (prevents losing context at boundaries)
+
+2. EMBEDDING
+   Convert text to dense vectors for similarity search
+
+   Popular models:
+   • OpenAI text-embedding-ada-002/3-small/3-large
+   • Cohere embed-v3
+   • BGE (open source, competitive)
+   • E5 (open source)
+   • GTE (open source)
+
+   Dimension: 384-3072 (higher = more capacity, more compute)
+
+3. VECTOR DATABASE
+   Store and search embeddings efficiently
+
+   Options:
+   • Pinecone (managed, scalable)
+   • Weaviate (open source, feature-rich)
+   • Milvus (open source, scalable)
+   • Chroma (open source, simple)
+   • Qdrant (open source, fast)
+   • pgvector (PostgreSQL extension)
+   • FAISS (library, not a DB)
+
+4. RETRIEVAL
+   Find relevant chunks for a query
+
+   Methods:
+   • Dense: Embedding similarity (cosine, dot product)
+   • Sparse: BM25, TF-IDF (keyword matching)
+   • Hybrid: Combine dense + sparse (often best)
+
+   Typical: Retrieve top 3-10 chunks
+
+5. RERANKING (Optional but recommended)
+   Re-score retrieved chunks with a more powerful model
+
+   • Cross-encoders score (query, document) pairs
+   • Much more accurate than bi-encoders
+   • But too slow for initial retrieval
+   • Examples: Cohere Rerank, BGE Reranker
+
+PROMPT CONSTRUCTION
+───────────────────
+```
+System: You are a helpful assistant. Answer based on the provided context.
+If the answer is not in the context, say "I don't know."
+
+Context:
+[Retrieved chunk 1]
+[Retrieved chunk 2]
+[Retrieved chunk 3]
+
+User: {user_question}
+```
+
+ADVANCED RAG TECHNIQUES
+───────────────────────
+
+1. Query Transformation:
+   • Query expansion: Add synonyms, related terms
+   • HyDE: Generate hypothetical answer, embed that instead
+   • Multi-query: Generate multiple query variations
+
+2. Hierarchical Retrieval:
+   • Summary-level → Document-level → Chunk-level
+   • Retrieve parents of matched chunks for more context
+
+3. Self-RAG:
+   • Model decides when to retrieve
+   • Model evaluates retrieval quality
+   • Model generates citations
+
+4. Agentic RAG:
+   • Multi-step retrieval with reasoning
+   • Query planning and decomposition
+   • Tool use for structured data
+
+5. Graph RAG:
+   • Build knowledge graph from documents
+   • Retrieve via graph traversal
+   • Better for multi-hop questions
+
+EVALUATION METRICS
+──────────────────
+Retrieval:
+  • Recall@K: % of relevant docs in top K
+  • MRR: Mean Reciprocal Rank
+  • NDCG: Normalized Discounted Cumulative Gain
+
+Generation:
+  • Faithfulness: Does answer match retrieved context?
+  • Relevance: Does answer address the question?
+  • RAGAS: Popular RAG evaluation framework
+
+COMMON PITFALLS
+───────────────
+• Chunk size too large: Dilutes relevance signal
+• Chunk size too small: Loses context
+• No reranking: Embedding similarity != relevance
+• Ignoring metadata: Dates, sources help filtering
+• No citation: Users can't verify answers
+
+KEY PAPERS
+──────────
+• "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks" (2020)
+• "Self-RAG: Learning to Retrieve, Generate, and Critique" (2023)
+
+
+################################################################################
+#                                                                              #
+#                    9. CHAIN-OF-THOUGHT (CoT)                                 #
+#                                                                              #
+################################################################################
+
+WHAT IS IT?
+───────────
+Chain-of-Thought prompting encourages LLMs to generate intermediate reasoning
+steps before giving a final answer, dramatically improving performance on
+complex tasks.
+
+WHY IT MATTERS
+──────────────
+• Enables reasoning capabilities not seen in base models
+• Can turn a failing model into a succeeding one
+• Simple to implement (just add "Let's think step by step")
+• Foundational for more advanced reasoning techniques
+• Key capability difference between GPT-3 and ChatGPT-era models
+
+THE CORE INSIGHT
+────────────────
+LLMs struggle with multi-step reasoning when asked directly:
+
+  Q: "If John has 3 apples and buys 2 more, then gives half to Mary,
+      how many does John have?"
+
+  Without CoT: "2" (wrong, guessing)
+  With CoT: "John starts with 3 apples. He buys 2 more, so 3+2=5.
+             He gives half to Mary, so 5/2=2.5. John has 2.5 apples." ✓
+
+Generating intermediate steps:
+1. Breaks complex problems into simpler sub-problems
+2. Provides "working memory" in the context
+3. Allows error detection and correction
+4. Matches how humans solve problems
+
+COT PROMPTING METHODS
+─────────────────────
+
+1. ZERO-SHOT COT
+   Just add "Let's think step by step"
+
+   ┌─────────────────────────────────────────────────────────────────────────┐
+   │ Q: [Complex question]                                                   │
+   │                                                                         │
+   │ A: Let's think step by step.                                           │
+   │    [Model generates reasoning...]                                       │
+   │    Therefore, the answer is [X].                                        │
+   └─────────────────────────────────────────────────────────────────────────┘
+
+   Effectiveness varies by model. Works well on GPT-4, Claude, etc.
+
+2. FEW-SHOT COT
+   Provide examples with reasoning chains
+
+   ┌─────────────────────────────────────────────────────────────────────────┐
+   │ Q: Roger has 5 tennis balls. He buys 2 more cans of balls. Each can    │
+   │    has 3 balls. How many tennis balls does he have now?                 │
+   │ A: Roger started with 5 balls. He bought 2 cans of 3 balls each,       │
+   │    so 2 * 3 = 6 balls. 5 + 6 = 11. The answer is 11.                   │
+   │                                                                         │
+   │ Q: [New question]                                                       │
+   │ A:                                                                      │
+   └─────────────────────────────────────────────────────────────────────────┘
+
+3. SELF-CONSISTENCY
+   Generate multiple CoT paths, take majority vote
+
+   ┌─────────────────────────────────────────────────────────────────────────┐
+   │                         Question                                        │
+   │                            │                                            │
+   │              ┌─────────────┼─────────────┐                              │
+   │              ▼             ▼             ▼                              │
+   │         CoT Path 1    CoT Path 2    CoT Path 3                         │
+   │         Answer: A     Answer: B     Answer: A                          │
+   │              │             │             │                              │
+   │              └─────────────┼─────────────┘                              │
+   │                            ▼                                            │
+   │                    Majority Vote: A                                     │
+   └─────────────────────────────────────────────────────────────────────────┘
+
+   Use temperature > 0 for diverse paths. Significantly improves accuracy.
+
+4. TREE OF THOUGHTS (ToT)
+   Explore multiple reasoning branches, backtrack if needed
+
+   ┌─────────────────────────────────────────────────────────────────────────┐
+   │                         Problem                                         │
+   │                            │                                            │
+   │              ┌─────────────┼─────────────┐                              │
+   │              ▼             ▼             ▼                              │
+   │          Thought 1    Thought 2    Thought 3                           │
+   │          (score: 8)   (score: 3)   (score: 7)                          │
+   │              │             ✗             │                              │
+   │         ┌────┴────┐              ┌───────┴────┐                         │
+   │         ▼         ▼              ▼            ▼                         │
+   │      T1.1       T1.2           T3.1         T3.2                        │
+   │     (score:9)  (score:4)      (score:6)    (score:8)                   │
+   │         │         ✗              ✗            │                         │
+   │         ▼                                     ▼                         │
+   │      Solution 1                           Solution 2                    │
+   └─────────────────────────────────────────────────────────────────────────┘
+
+   Uses LLM to evaluate promising paths. Good for planning problems.
+
+ADVANCED REASONING TECHNIQUES
+─────────────────────────────
+
+1. Least-to-Most Prompting:
+   • Decompose complex problem into sub-problems
+   • Solve sub-problems in order
+   • Use previous answers for later sub-problems
+
+2. Program-Aided Language (PAL):
+   • Generate code instead of natural language reasoning
+   • Execute code to get answer
+   • More reliable for math/logic
+
+3. ReAct (Reasoning + Acting):
+   • Interleave reasoning with tool use
+   • Thought → Action → Observation → Thought...
+   • Foundation for agents
+
+4. Reflection/Self-Critique:
+   • Generate answer
+   • Critique the answer
+   • Revise based on critique
+   • Repeat
+
+WHEN COT HELPS
+──────────────
+✓ Math word problems
+✓ Multi-step logic
+✓ Commonsense reasoning
+✓ Code generation
+✓ Planning tasks
+
+WHEN COT DOESN'T HELP
+─────────────────────
+✗ Simple factual recall
+✗ Tasks where direct answer is obvious
+✗ Very small models (need sufficient capability)
+✗ When speed matters (generates more tokens)
+
+COT IN TRAINING
+───────────────
+Modern models are trained with CoT:
+• Include reasoning traces in training data
+• Reward models score reasoning quality, not just final answer
+• "Process supervision" vs "outcome supervision"
+
+This is why ChatGPT-era models are better at reasoning than GPT-3.
+
+IMPLEMENTATION TIP
+──────────────────
+For production systems, often use:
+
+1. System prompt: "Think through problems step by step before answering."
+2. Structured output: Have model output {"reasoning": "...", "answer": "..."}
+3. Hide reasoning: Show user only the answer (CoT happens internally)
+
+KEY PAPERS
+──────────
+• "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models" (2022)
+• "Self-Consistency Improves Chain of Thought Reasoning" (2022)
+• "Tree of Thoughts: Deliberate Problem Solving with LLMs" (2023)
+• "ReAct: Synergizing Reasoning and Acting in Language Models" (2022)
+
+
+################################################################################
+#                                                                              #
+#                    SUMMARY: YOUR LEARNING PATH                               #
+#                                                                              #
+################################################################################
+
+You've now covered the theory for all Tier 1 topics. Here's a suggested
+practical progression:
+
+COMPLETED (from nanoGPT + Dolly):
+✓ Transformer fundamentals
+✓ SFT (Supervised Fine-Tuning)
+✓ BPE Tokenization
+
+RECOMMENDED NEXT IMPLEMENTATIONS:
+
+1. LoRA Fine-tuning
+   • Use HuggingFace PEFT library
+   • Fine-tune Llama 7B on your dataset
+   • Experiment with rank, alpha, target modules
+
+2. DPO Alignment
+   • Use TRL library
+   • Create preference dataset from your SFT model outputs
+   • Train DPO on top of your SFT model
+
+3. RAG System
+   • Use LangChain or LlamaIndex
+   • Build document Q&A over your own documents
+   • Experiment with chunking, embedding models, reranking
+
+4. Quantization
+   • Quantize your fine-tuned model with AutoGPTQ or bitsandbytes
+   • Compare inference speed and quality
+   • Try different bit widths (8, 4)
+
+5. Architecture Study
+   • Read Llama source code
+   • Implement RoPE from scratch
+   • Implement GQA attention
+
+RESOURCES:
+• HuggingFace Transformers: https://github.com/huggingface/transformers
+• TRL (Training with RL): https://github.com/huggingface/trl
+• PEFT (LoRA etc): https://github.com/huggingface/peft
+• LangChain: https://github.com/langchain-ai/langchain
+• vLLM: https://github.com/vllm-project/vllm

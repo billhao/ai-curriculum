@@ -34,7 +34,7 @@ Tokenization converts text to numbers that models can process. The choice of tok
 *   [Tokenizer comparison blog](https://huggingface.co/docs/transformers/tokenizer_summary)
 
 ---
-### Transformer Architecture Deep Dive
+### ✅ Transformer Architecture Deep Dive
 
 Transformers are the architecture behind all modern LLMs. Understanding attention mechanisms, positional encoding, and the encoder-decoder structure is essential for working with or modifying these models.
 
@@ -50,7 +50,7 @@ Transformers are the architecture behind all modern LLMs. Understanding attentio
 
 ---
 
-### Training & Pre-training
+### ✅ Training & Pre-training
 
 Pre-training is where models learn general language understanding from massive datasets. Understanding scaling laws and training dynamics helps you make informed decisions about compute, data, and model size tradeoffs.
 

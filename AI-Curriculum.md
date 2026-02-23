@@ -1,7 +1,5 @@
-TODO
-*   Production inference pipeline. what's processed in parallel and sequentially. explain prefill and decode steps
-
 ---
+
 ### PyTorch & Deep Learning Fundamentals
 
 Understanding neural networks and PyTorch is the foundation for everything else. You need to grasp backpropagation, gradient descent, and tensor operations before diving into transformers.
@@ -17,6 +15,7 @@ Understanding neural networks and PyTorch is the foundation for everything else.
 *   [Backpropagation lecture notes](http://cs231n.github.io/optimization-2/)
 
 ---
+
 ### Tokenization
 
 Tokenization converts text to numbers that models can process. The choice of tokenizer and vocabulary size significantly impacts model performance, training efficiency, and multilingual capabilities.
@@ -34,18 +33,21 @@ Tokenization converts text to numbers that models can process. The choice of tok
 *   [Tokenizer comparison blog](https://huggingface.co/docs/transformers/tokenizer_summary)
 
 ---
+
 ### ✅ Transformer Architecture Deep Dive
 
 Transformers are the architecture behind all modern LLMs. Understanding attention mechanisms, positional encoding, and the encoder-decoder structure is essential for working with or modifying these models.
 
 **Projects:**
+
 *   ✅ Implement a transformer from scratch following [The Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/)
 *   Complete [BuildAnLLM](https://github.com/jammastergirish/BuildAnLLM)
 
 **Reading:**
+
 *   ✅ [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
 *   ✅ [Transformer论文逐段精读](https://www.youtube.com/watch?v=nzqlFIcCSWQ)
-*    [Introduction to Transformers w/ Andrej Karpathy](https://www.youtube.com/watch?v=XfpMkf4rD6E)
+*   [Introduction to Transformers w/ Andrej Karpathy](https://www.youtube.com/watch?v=XfpMkf4rD6E)
 *   [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
 
 ---
@@ -95,7 +97,7 @@ Full fine-tuning requires updating all model weights, which is expensive. Parame
 
 ### Post-training Pipeline
 
-Post-training transforms a base model into an assistant. The pipeline is: **SFT** (teach instruction-following) → **Preference Optimization** (align with human preferences) → optionally **RLHF** (reinforce with reward model). This is what makes the difference between GPT-3 and ChatGPT.
+Post-training transforms a base model into an assistant. The pipeline is: **SFT** (teach instruction-following) → **Preference Optimization** (align with human preferences via DPO or GRPO) → optionally **RLHF** (reinforce with reward model). This is what makes the difference between GPT-3 and ChatGPT. Note: DeepSeek-R1-Zero showed RL can be applied directly to a base model, skipping SFT entirely.
 
 **Projects:**
 
@@ -108,6 +110,7 @@ _Step 2: Preference Optimization_
 
 *   Create preference pairs from your SFT model's outputs (chosen vs rejected)
 *   Apply DPO using [TRL library](https://huggingface.co/docs/trl) to align the SFT model
+*   Apply GRPO using [TRL's GRPOTrainer](https://huggingface.co/docs/trl/grpo_trainer) — compare results with DPO
 *   Compare before/after on safety and helpfulness prompts
 
 _Step 3: RLHF (Optional - more complex)_
@@ -127,6 +130,8 @@ _Step 3: RLHF (Optional - more complex)_
 
 *   [Training language models to follow instructions (InstructGPT)](https://arxiv.org/abs/2203.02155)
 *   [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290)
+*   [Group Relative Policy Optimization (GRPO) explainer](https://cameronrwolfe.substack.com/p/grpo)
+*   [It Takes Two: Your GRPO Is Secretly DPO](https://arxiv.org/abs/2510.00977)
 *   [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/abs/2212.08073)
 *   [LIMA: Less Is More for Alignment](https://arxiv.org/abs/2305.11206)
 
@@ -173,7 +178,7 @@ Interpretability helps us understand what's happening inside neural networks. As
 
 ### Inference & Deployment
 
-Efficient inference is essential for practical applications. Quantization and optimized serving can reduce costs by 10-100x while maintaining quality, making deployment feasible.
+Efficient inference is essential for practical applications. Quantization and optimized serving can reduce costs by 10-100x while maintaining quality, making deployment feasible. Understanding the production inference pipeline — what's processed in parallel vs sequentially, prefill and decode steps — is key.
 
 **Projects:**
 
@@ -181,6 +186,7 @@ Efficient inference is essential for practical applications. Quantization and op
 *   Set up a local inference server using [vLLM](https://github.com/vllm-project/vllm)
 *   Benchmark: measure tokens/second at FP16, INT8, INT4 quantization levels
 *   Deploy with a simple chat interface (Gradio or similar)
+*   Trace a production inference pipeline: understand prefill vs decode, KV cache, continuous batching
 
 **Reading:**
 
@@ -216,6 +222,51 @@ Modern LLM applications go beyond simple text generation. RAG grounds models in 
 
 ---
 
+### Reasoning Models & Test-Time Compute
+
+The biggest development of 2025. Reasoning models (o1, o3, DeepSeek-R1) achieve dramatically better results by "thinking longer" at inference time. GRPO enables training reasoning capabilities via RL with verifiable rewards (RLVR), without human-labeled reasoning traces.
+
+**Projects:**
+
+*   Train a small reasoning model with GRPO on math problems (e.g., GSM8K) using [TRL's GRPOTrainer](https://huggingface.co/docs/trl/grpo_trainer)
+*   Implement RLVR: use accuracy rewards + format rewards (no human labels needed)
+*   Experiment with test-time compute scaling: compare fixed vs adaptive compute budgets on reasoning tasks
+*   Replicate the DeepSeek-R1-Zero approach: apply RL directly to a base model without SFT
+
+**Datasets:**
+
+*   [GSM8K](https://huggingface.co/datasets/openai/gsm8k) - grade school math for verifiable rewards
+*   [MATH](https://huggingface.co/datasets/lighteval/MATH) - competition math problems
+*   [AIME 2024](https://huggingface.co/datasets/AI-MO/aimo-validation-aime) - American Invitational Math Exam
+
+**Reading:**
+
+*   [DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL](https://arxiv.org/abs/2501.12948)
+*   [Scaling LLM Test-Time Compute](https://arxiv.org/abs/2408.03314)
+*   [The Art of Scaling Test-Time Compute](https://arxiv.org/abs/2512.02008)
+*   [Group Relative Policy Optimization (GRPO) explainer](https://cameronrwolfe.substack.com/p/grpo)
+*   [Learning to Reason with LLMs (OpenAI)](https://openai.com/index/learning-to-reason-with-llms/)
+
+---
+
+### Synthetic Data & Data Curation
+
+Synthetic data generation is now standard practice for SFT and preference data. Distilling from frontier models and curating high-quality data can matter more than model architecture or scale.
+
+**Projects:**
+
+*   Generate synthetic instruction data by distilling from a frontier model (e.g., Claude, GPT-4)
+*   Create synthetic preference pairs for DPO training
+*   Experiment with data quality vs quantity: compare training on 1k high-quality vs 10k noisy examples
+
+**Reading:**
+
+*   [Self-Instruct: Aligning LMs with Self-Generated Instructions](https://arxiv.org/abs/2212.10560)
+*   [Textbooks Are All You Need (Phi-1)](https://arxiv.org/abs/2306.11644)
+*   [How to Align LLMs in 2025 with DPO & Synthetic Data](https://www.philschmid.de/rl-with-llms-in-2025-dpo)
+
+---
+
 ### Distributed Training (Optional)
 
 With 4-8 H100s, you can train much larger models. Distributed training techniques let you scale beyond single-GPU limits.
@@ -243,11 +294,12 @@ Putting it all together demonstrates mastery and creates a portfolio piece. This
 1.  ✅ Pre-train from scratch (done)
 2.  Continue pre-training on domain data
 3.  SFT on instruction dataset
-4.  Align with DPO
+4.  Align with DPO and GRPO (compare both)
 5.  Evaluate on benchmarks
 6.  Quantize and deploy
 7.  Add RAG for knowledge grounding
-8.  Interpretability analysis: what did each stage change?
+8.  Train reasoning with GRPO + verifiable rewards
+9.  Interpretability analysis: what did each stage change?
 
 ---
 
@@ -255,6 +307,8 @@ Putting it all together demonstrates mastery and creates a portfolio piece. This
 
 Essential reading for understanding state-of-the-art models.
 
+*   [DeepSeek-R1: Incentivizing Reasoning via RL](https://arxiv.org/abs/2501.12948)
+*   [DeepSeek-V3](https://arxiv.org/abs/2412.19437)
 *   [Llama 3 Technical Report](https://arxiv.org/abs/2407.21783)
 *   [Qwen 2.5 Technical Report](https://arxiv.org/abs/2412.15115)
 *   [DeepSeek-V2](https://arxiv.org/abs/2405.04434)
@@ -264,7 +318,7 @@ Essential reading for understanding state-of-the-art models.
 
 ### Conferences
 
-*   NeurIPS 2025
-*   ICML 2025
-*   ICLR 2025
-*   ACL 2025
+*   NeurIPS 2026
+*   ICML 2026
+*   ICLR 2026
+*   ACL 2026

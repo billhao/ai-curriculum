@@ -1,0 +1,32 @@
+The training function for nanoGPT-2, transformer and SFT are very similar.
+This doc describes the training function at conceptual level.
+
+- Preps
+	- Set training parameters like learning rate, etc
+	- Create tokenizer
+	- Create model with randomly initialized weights
+	- Create optimizer like AdamW
+	- Create train/val dataloaders
+- [Optional] Load checkpoint or pretrained weights
+- Training loop - # steps/epochs
+	- Training
+		- Optimizer.zero_grad()
+		- Micro-step for gradient accumulation
+			- Get batches from train dataloader
+			- Run through model forward pass: logits, loss = Model(x, y) (optionally with mask)
+			- loss.backward()
+			- Accumulate loss
+		- Clip gradient norm
+		- Update LR according to schedule
+		- Optimizer.step()
+	- Validation (every some steps)
+		- Get batches from val dataloader
+		- Run through model forward pass: logits, loss = Model(x, y) (torch.no_grad())
+		- Compute token accuracy
+	- Sample (every some steps)
+		- Sample data tokenize
+		- Loop max sequence length
+			- Run model forward pass: logits, loss = Model(x) (torch.no_grad())
+			- Append new token to x
+		- Tokenizer decode
+	- Checkpointing (every some steps)

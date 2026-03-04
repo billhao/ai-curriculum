@@ -1,5 +1,3 @@
----
-
 ### PyTorch & Deep Learning Fundamentals
 
 Understanding neural networks and PyTorch is the foundation for everything else. You need to grasp backpropagation, gradient descent, and tensor operations before diving into transformers.
@@ -41,6 +39,7 @@ Transformers are the architecture behind all modern LLMs. Understanding attentio
 **Projects:**
 
 *   ✅ Implement a transformer from scratch following [The Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/)
+*   Study [microGPT](https://karpathy.github.io/2026/02/12/microgpt/) — Karpathy's 243-line, zero-dependency GPT ([code](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95)). Includes autograd, tokenizer, transformer, Adam optimizer, training & inference in one file. Culmination of micrograd → makemore → nanoGPT.
 *   Complete [BuildAnLLM](https://github.com/jammastergirish/BuildAnLLM)
 
 **Reading:**
@@ -95,16 +94,23 @@ Full fine-tuning requires updating all model weights, which is expensive. Parame
 
 ---
 
-### Post-training Pipeline
+### 1️⃣ Post-training Pipeline
 
 Post-training transforms a base model into an assistant. The pipeline is: **SFT** (teach instruction-following) → **Preference Optimization** (align with human preferences via DPO or GRPO) → optionally **RLHF** (reinforce with reward model). This is what makes the difference between GPT-3 and ChatGPT. Note: DeepSeek-R1-Zero showed RL can be applied directly to a base model, skipping SFT entirely.
 
 **Projects:**
 
-_Step 1: Supervised Fine-Tuning (SFT)_
+✅ _Step 1a: Supervised Fine-Tuning (SFT)_
 
 *   SFT your GPT-2 124M on instruction data using [TRL's SFTTrainer](https://huggingface.co/docs/trl/sft_trainer)
 *   Format: `<|user|>question<|assistant|>answer` - teach it to follow instructions
+*   Eval and compare to base model
+
+✅ _Step 1b: SFT with own training code_
+* Write training code for SFT
+* Train GPT-2 124M and compare to TRL's loss and eval
+* Train with Dolly 15k and SlimOrca 520k
+* Summarize training function at conceptual level
 
 _Step 2: Preference Optimization_
 
@@ -156,7 +162,7 @@ You can't improve what you can't measure. Evaluation tells you if your training 
 
 ---
 
-### Interpretability & Mechanistic Understanding
+### 2️⃣ Interpretability & Mechanistic Understanding
 
 Interpretability helps us understand what's happening inside neural networks. As models become more powerful, understanding their internal representations and circuits becomes critical for safety and debugging.
 
@@ -196,7 +202,7 @@ Efficient inference is essential for practical applications. Quantization and op
 
 ---
 
-### Advanced Architectures
+### 3️⃣ Advanced Architectures
 
 Modern LLM applications go beyond simple text generation. RAG grounds models in external knowledge, tool use extends their capabilities, and architectures like MoE enable scaling efficiency.
 
@@ -222,7 +228,7 @@ Modern LLM applications go beyond simple text generation. RAG grounds models in 
 
 ---
 
-### Reasoning Models & Test-Time Compute
+### 3️⃣ Reasoning Models & Test-Time Compute
 
 The biggest development of 2025. Reasoning models (o1, o3, DeepSeek-R1) achieve dramatically better results by "thinking longer" at inference time. GRPO enables training reasoning capabilities via RL with verifiable rewards (RLVR), without human-labeled reasoning traces.
 

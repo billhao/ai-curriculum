@@ -112,10 +112,10 @@ Post-training transforms a base model into an assistant. The pipeline is: **SFT*
 * Train with Dolly 15k and SlimOrca 520k
 * Summarize training function at conceptual level
 
-_Step 2: Preference Optimization_
+✅ _Step 2: Preference Optimization_
 
 *   Create preference pairs from your SFT model's outputs (chosen vs rejected)
-*   Apply DPO using [TRL library](https://huggingface.co/docs/trl) to align the SFT model
+*   ✅ Apply DPO using [TRL library](https://huggingface.co/docs/trl) to align the SFT model (3/2-4)
 *   Apply GRPO using [TRL's GRPOTrainer](https://huggingface.co/docs/trl/grpo_trainer) — compare results with DPO
 *   Compare before/after on safety and helpfulness prompts
 

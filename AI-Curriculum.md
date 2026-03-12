@@ -313,29 +313,35 @@ Putting it all together demonstrates mastery and creates a portfolio piece. This
 
 Essential reading for understanding state-of-the-art models.
 
-#### Model Technical Reports
+#### Tier 1 — Must Read (defined the current era)
 
-*   [DeepSeek-R1: Incentivizing Reasoning via RL](https://arxiv.org/abs/2501.12948)
-*   [DeepSeek-V3](https://arxiv.org/abs/2412.19437)
-*   [Llama 3 Technical Report](https://arxiv.org/abs/2407.21783)
-*   [Qwen 2.5 Technical Report](https://arxiv.org/abs/2412.15115)
+*   [DeepSeek-R1: Incentivizing Reasoning via RL](https://arxiv.org/abs/2501.12948) — proved pure RL produces emergent reasoning; the most influential training paper of 2025
+*   [DeepSeek-V3](https://arxiv.org/abs/2412.19437) — MoE at scale with auxiliary-loss-free load balancing; base model behind R1
+*   [Llama 3 Technical Report](https://arxiv.org/abs/2407.21783) — definitive open-weights training recipe: data curation, scaling, post-training pipeline
+*   [OpenAI o1 System Card](https://arxiv.org/abs/2412.16720) — reasoning via large-scale RL and chain-of-thought; started the reasoning model paradigm
+
+#### Tier 2 — Important (strong models with novel techniques)
+
 *   [Qwen3 Technical Report](https://arxiv.org/abs/2505.09388) — dense + MoE models up to 235B, unified thinking/non-thinking modes
-*   [Gemma 3 Technical Report](https://arxiv.org/abs/2503.19786) — multimodal, 128K context, local/global attention for KV-cache efficiency
-*   [Gemma 2: Improving Open Language Models at a Practical Size](https://arxiv.org/abs/2408.00118)
+*   [Qwen 2.5 Technical Report](https://arxiv.org/abs/2412.15115)
+*   [Phi-4-reasoning Technical Report](https://arxiv.org/abs/2504.21318) — 14B reasoning model via SFT on o3-mini traces + outcome-based RL; distillation + RL case study
 *   [Phi-4 Technical Report](https://arxiv.org/abs/2412.08905) — 14B model focused on synthetic data and data quality
+*   [Gemma 3 Technical Report](https://arxiv.org/abs/2503.19786) — multimodal, 128K context, local/global attention for KV-cache efficiency
+*   [OLMo 2: Fully Open Language Models](https://arxiv.org/abs/2501.00656) — fully open weights, data, code, and training recipes; best for learning internals
+*   [DeepSeek-V2](https://arxiv.org/abs/2405.04434) — introduced DeepSeekMoE fine-grained expert design + Multi-head Latent Attention
+
+#### Tier 3 — Good Reference
+
+*   [Gemma 2: Improving Open Language Models at a Practical Size](https://arxiv.org/abs/2408.00118)
 *   [Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone](https://arxiv.org/abs/2404.14219)
-*   [Phi-4-reasoning Technical Report](https://arxiv.org/abs/2504.21318) — 14B reasoning model via SFT on o3-mini traces + outcome-based RL
-*   [OLMo 2: Fully Open Language Models](https://arxiv.org/abs/2501.00656) — fully open weights, data, code, and training recipes
+*   [Mistral 7B](https://arxiv.org/abs/2310.06825)
 *   [Yi-Lightning Technical Report](https://arxiv.org/abs/2412.01253) — MoE architecture with multi-stage training pipeline
 *   [Command A: An Enterprise-Ready Large Language Model](https://arxiv.org/abs/2504.00698) — Cohere's hybrid architecture, RAG-optimized
 *   [Qwen2.5-Coder Technical Report](https://arxiv.org/abs/2409.12186)
-*   [DeepSeek-V2](https://arxiv.org/abs/2405.04434)
-*   [Mistral 7B](https://arxiv.org/abs/2310.06825)
-*   [OpenAI o1 System Card](https://arxiv.org/abs/2412.16720) — reasoning via large-scale RL and chain-of-thought
 
 #### Training Methodology & Infrastructure
 
-*   [Tülu 3: Pushing Frontiers in Open Language Model Post-Training](https://arxiv.org/abs/2411.15124) — SFT + DPO + RLVR recipes, fully open
+*   [Tülu 3: Pushing Frontiers in Open Language Model Post-Training](https://arxiv.org/abs/2411.15124) — SFT + DPO + RLVR recipes, fully open; best post-training reference
 *   [Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters](https://arxiv.org/abs/2408.03314) — inference-time compute scaling laws
 *   [Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality](https://arxiv.org/abs/2405.21060) — Mamba-2, connections between SSMs and attention
 *   [Jamba: A Hybrid Transformer-Mamba Language Model](https://arxiv.org/abs/2403.19887) — hybrid Transformer-Mamba MoE architecture

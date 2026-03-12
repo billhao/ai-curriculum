@@ -313,18 +313,42 @@ Putting it all together demonstrates mastery and creates a portfolio piece. This
 
 Essential reading for understanding state-of-the-art models.
 
+#### Model Technical Reports
+
 *   [DeepSeek-R1: Incentivizing Reasoning via RL](https://arxiv.org/abs/2501.12948)
 *   [DeepSeek-V3](https://arxiv.org/abs/2412.19437)
 *   [Llama 3 Technical Report](https://arxiv.org/abs/2407.21783)
 *   [Qwen 2.5 Technical Report](https://arxiv.org/abs/2412.15115)
+*   [Qwen3 Technical Report](https://arxiv.org/abs/2505.09388) — dense + MoE models up to 235B, unified thinking/non-thinking modes
+*   [Gemma 3 Technical Report](https://arxiv.org/abs/2503.19786) — multimodal, 128K context, local/global attention for KV-cache efficiency
+*   [Gemma 2: Improving Open Language Models at a Practical Size](https://arxiv.org/abs/2408.00118)
+*   [Phi-4 Technical Report](https://arxiv.org/abs/2412.08905) — 14B model focused on synthetic data and data quality
+*   [Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone](https://arxiv.org/abs/2404.14219)
+*   [Phi-4-reasoning Technical Report](https://arxiv.org/abs/2504.21318) — 14B reasoning model via SFT on o3-mini traces + outcome-based RL
+*   [OLMo 2: Fully Open Language Models](https://arxiv.org/abs/2501.00656) — fully open weights, data, code, and training recipes
+*   [Yi-Lightning Technical Report](https://arxiv.org/abs/2412.01253) — MoE architecture with multi-stage training pipeline
+*   [Command A: An Enterprise-Ready Large Language Model](https://arxiv.org/abs/2504.00698) — Cohere's hybrid architecture, RAG-optimized
+*   [Qwen2.5-Coder Technical Report](https://arxiv.org/abs/2409.12186)
 *   [DeepSeek-V2](https://arxiv.org/abs/2405.04434)
 *   [Mistral 7B](https://arxiv.org/abs/2310.06825)
+*   [OpenAI o1 System Card](https://arxiv.org/abs/2412.16720) — reasoning via large-scale RL and chain-of-thought
+
+#### Training Methodology & Infrastructure
+
+*   [Tülu 3: Pushing Frontiers in Open Language Model Post-Training](https://arxiv.org/abs/2411.15124) — SFT + DPO + RLVR recipes, fully open
+*   [Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters](https://arxiv.org/abs/2408.03314) — inference-time compute scaling laws
+*   [Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality](https://arxiv.org/abs/2405.21060) — Mamba-2, connections between SSMs and attention
+*   [Jamba: A Hybrid Transformer-Mamba Language Model](https://arxiv.org/abs/2403.19887) — hybrid Transformer-Mamba MoE architecture
 
 ---
 
 ### Conferences
 
-*   NeurIPS 2026
-*   ICML 2026
-*   ICLR 2026
-*   ACL 2026
+*   AAAI 2026 — January 20–27, Singapore
+*   ICLR 2026 — April 23–27, Rio de Janeiro, Brazil
+*   CVPR 2026 — June 3–7, Denver, USA
+*   ACL 2026 — July 2–7, San Diego, USA
+*   ICML 2026 — July 6–11, Seoul, South Korea
+*   COLM 2026 — October 6–9, San Francisco, USA
+*   EMNLP 2026 — October 24–29, Budapest, Hungary
+*   NeurIPS 2026 — December 6–12, Sydney, Australia

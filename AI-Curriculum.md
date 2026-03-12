@@ -298,9 +298,9 @@ Putting it all together demonstrates mastery and creates a portfolio piece. This
 **The Journey of Your GPT-2 124M:**
 
 1.  ✅ Pre-train from scratch (done)
-2.  Continue pre-training on domain data
-3.  SFT on instruction dataset
-4.  Align with DPO and GRPO (compare both)
+2.  ✅ Continue pre-training on domain data
+3.  ✅ SFT on instruction dataset
+4.  ✅ Align with DPO and GRPO (compare both)
 5.  Evaluate on benchmarks
 6.  Quantize and deploy
 7.  Add RAG for knowledge grounding

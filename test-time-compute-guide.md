@@ -22,7 +22,21 @@ A guide to the new scaling frontier: spending more compute at inference to get b
 
 7. **The Art of Scaling Test-Time Compute** (Agarwal et al., Dec 2024, [arxiv 2512.02008](https://arxiv.org/abs/2512.02008)) — Large-scale empirical study across 8 LLMs (7B-235B), 30B+ generated tokens, 4 reasoning datasets. Key finding: no single test-time scaling strategy dominates — the optimal approach depends on model type, problem difficulty, and compute budget.
 
-**The shift**: For years, the recipe for better AI was simple — train bigger models on more data (GPT-2 → GPT-3 → GPT-4). Test-time compute opened a second axis: keep the model the same size, but let it think longer at inference. This is the new scaling frontier.
+8. **Claude Extended Thinking** (Anthropic, Feb 2025) — First major frontier model to expose visible chain-of-thought reasoning in the API, via thinking content blocks returned before the response. Introduced `budget_tokens` for developer control over thinking depth.
+
+9. **GPT-5 Unified Reasoning** (OpenAI, Aug 2025) — Folded o3 reasoning into a single unified model with a real-time router that automatically selects fast vs thinking behavior. Retired the separate o-series naming. GPT-5 Thinking outperformed o3 with 50-80% fewer tokens.
+
+10. **Inverse Scaling in Test-Time Compute** (Perez, Chen, Benton et al., Anthropic, Jul 2025) — Showed that extending reasoning length *deteriorates* performance on several task types. Models get distracted by irrelevant information as they reason longer. Directly informed the design of adaptive thinking — more thinking is not always better.
+
+11. **Gemini 2.5 Thinking** (Google, Jun 2025) — Introduced `thinkingBudget` for explicit token-level control over reasoning depth, plus "thought signatures" — encrypted reasoning state preserved across stateless multi-turn API calls.
+
+12. **Claude Opus 4.6 Adaptive Thinking** (Anthropic, Feb 2026) — Replaced manual `budget_tokens` with adaptive thinking where the model decides when and how much to think. Added `effort` parameter (low/medium/high/max) and interleaved thinking between tool calls.
+
+13. **Gemini 3.1 Pro Deep Think Mini** (Google, Feb 2026) — Three-tier thinking system (LOW/MEDIUM/HIGH) where HIGH triggers "Deep Think Mini" — extended CoT with sub-problem decomposition. GPQA Diamond: 94.3% (highest recorded).
+
+14. **GPT-5.4** (OpenAI, Mar 2026) — Most token-efficient reasoning model. `reasoning.effort` expanded to 6 levels (none→xhigh). Pro variant uses parallel test-time compute (undisclosed details). First general-purpose model with native computer use.
+
+**The shift**: For years, the recipe for better AI was simple — train bigger models on more data (GPT-2 → GPT-3 → GPT-4). Test-time compute opened a second axis: keep the model the same size, but let it think longer at inference. By early 2026, every frontier model has adopted this — the question is no longer whether to use test-time compute, but how to expose and control it.
 
 ## What Problem Does Test-Time Compute Solve?
 
@@ -385,15 +399,15 @@ In practice, you need a way to estimate problem difficulty before allocating com
 
 These models represent the "internalized search" approach — they spend test-time compute by generating long chain-of-thought reasoning traces rather than external best-of-N or tree search.
 
-### OpenAI o1 / o3
+### OpenAI o1 / o3 → GPT-5
 
-What we know (OpenAI hasn't published full technical details):
+The o-series was folded into GPT-5 (Aug 2025). Sam Altman announced GPT-4.5 would be "the last non-chain-of-thought model" — after that, reasoning and non-reasoning lines unified.
 
-- **Training**: RL (likely PPO or a variant) on top of a large base model. The reward signal is answer correctness. The model learns to produce extended reasoning chains that improve final answer accuracy.
-- **Inference**: The model generates a long internal chain-of-thought (hidden from the user), then outputs a final answer. The reasoning chain includes self-verification, backtracking, and trying alternative approaches.
+- **Training**: RL on top of a large base model. The reward signal is answer correctness. The model learns extended reasoning chains. OpenAI also rewards honest admission of inability on infeasible tasks, reducing deception vs o3 in 10/11 impediment types.
+- **Inference**: A real-time router selects fast vs thinking mode based on conversation type, complexity, tool needs, and user intent. The thinking model generates hidden chain-of-thought with self-verification, backtracking, and alternative approaches.
 - **Scaling**: Performance scales with both training compute (more RL) AND test-time compute (longer reasoning chains). OpenAI showed smooth scaling curves on both axes.
-- **o3 efficiency**: o3-mini is 63% cheaper than o1-mini for comparable performance — the model learned to reason more efficiently, not just longer.
-- **Benchmark**: o3 scored 87.5% on ARC-AGI, a benchmark for novel reasoning tasks.
+- **o3 → GPT-5 efficiency**: GPT-5 Thinking outperformed o3 with 50-80% fewer output tokens and ~6x fewer hallucinations.
+- **Benchmark**: o3 scored 87.5% on ARC-AGI. GPT-5 Thinking: AIME 94.6%, SWE-bench 74.9%. GPT-5.4: GPQA ~92%, OSWorld 75% (exceeds human 72.4%).
 
 ### DeepSeek R1
 
@@ -427,6 +441,172 @@ Used by         o1, o3, R1 (primary)            Can be applied on top of
 ```
 
 The most powerful configuration: use a reasoning model (sequential) AND sample multiple reasoning traces (parallel). This combines both scaling dimensions.
+
+## Test-Time Compute in Production: Frontier Models (2025-2026)
+
+By early 2026, every frontier closed-source model has internalized test-time compute. The interesting differences are in how providers expose it to developers: hidden vs visible CoT, effort knobs vs token budgets, and how reasoning state persists across multi-turn conversations.
+
+### OpenAI GPT-5.4
+
+GPT-5.4 (Mar 2026) ships in three variants:
+
+```
+GPT-5.4           Fast, general-purpose. reasoning.effort defaults to "none"
+GPT-5.4 Thinking  Extended hidden CoT. Default effort: "medium"
+GPT-5.4 Pro       Parallel test-time compute for hardest tasks
+```
+
+**Developer controls**:
+
+```python
+response = client.responses.create(
+    model="gpt-5.4",
+    reasoning={"effort": "high"},   # none | minimal | low | medium | high | xhigh
+    input="Prove sqrt(2) is irrational"
+)
+
+# Reasoning tokens are counted but content is hidden
+print(response.usage.completion_tokens_details.reasoning_tokens)  # e.g., 4,832
+# The actual CoT text is NOT returned
+```
+
+| Effort   | Description                                    | Relative cost  |
+|----------|------------------------------------------------|----------------|
+| none     | Default for standard variant, no reasoning     | Baseline       |
+| minimal  | Fastest reasoning                              | Very low       |
+| low      | Favors speed and token economy                 | Low            |
+| medium   | Default for Thinking variant                   | Medium         |
+| high     | More thorough reasoning                        | High           |
+| xhigh    | Maximum reasoning depth                        | 3-5x vs low    |
+
+**CoT visibility**: Fully hidden. Developers see `reasoning_tokens` count but not content. In ChatGPT, users see a slimmed-down reasoning summary and (in 5.4) an "upfront plan" of the model's thinking. CoT controllability is very low — the model successfully controls only 0.3% of 10k-character CoTs.
+
+**Parallel test-time compute**: GPT-5.4 Pro uses "scaled but efficient parallel test-time compute." Specific implementation (best-of-N, tree search, etc.) is not publicly disclosed. Pro only supports effort levels medium/high/xhigh.
+
+**Safety**: OpenAI monitors hidden CoT internally to detect deception and reward hacking. They report monitoring CoT is "highly effective at detecting misbehavior."
+
+### Anthropic Claude 4.6
+
+Claude 4.6 (Feb 2026) exposes the richest developer-facing test-time compute controls of any provider.
+
+**Developer controls**:
+
+```python
+# Adaptive thinking (recommended for 4.6)
+response = client.messages.create(
+    model="claude-opus-4-6-20260205",
+    max_tokens=16000,
+    thinking={"type": "adaptive"},   # model decides when/how much to think
+    effort="high",                   # low | medium | high (default) | max
+    messages=[{"role": "user", "content": "Debug this code..."}]
+)
+
+# Legacy manual mode (still supported, deprecated)
+response = client.messages.create(
+    model="claude-sonnet-4-5-20250514",
+    max_tokens=16000,
+    thinking={"type": "enabled", "budget_tokens": 10000},   # min 1024, must be < max_tokens
+    messages=[...]
+)
+```
+
+| Effort | Behavior                                    | Use Case                          |
+|--------|---------------------------------------------|-----------------------------------|
+| low    | May skip thinking entirely for simple tasks | High-volume, latency-sensitive    |
+| medium | Balanced speed/cost/performance             | Agentic coding, tool workflows    |
+| high   | Almost always thinks (default)              | Complex reasoning, research       |
+| max    | Maximum reasoning depth (Opus 4.6 only)     | Hardest problems, proofs          |
+
+**CoT visibility**: Partially visible. The API returns thinking content blocks (`type: "thinking"`) containing a **summary** of Claude's full reasoning. The complete unredacted thinking is encrypted in a `signature` field. You are billed for the full thinking, not just the summary — so billed output tokens > visible tokens.
+
+**Interleaved thinking**: A key differentiator. Claude can think *between* tool calls, not just before the first response:
+
+```
+Think → call tool → think about result → call another tool → think → respond
+```
+
+With adaptive thinking on 4.6, interleaved thinking is automatically enabled. The thinking budget spans the entire 200K context window rather than being capped by `max_tokens`. Developers must echo back the most recent `thinking` blocks verbatim for multi-turn continuity.
+
+**Inverse scaling insight**: Anthropic discovered (Jul 2025) that more thinking can *hurt* — models get distracted by irrelevant information in longer reasoning chains. This directly motivated adaptive thinking: let the model decide how much to think rather than always thinking more.
+
+**CoT faithfulness caveat**: Anthropic's own research found Claude 3.7 only mentioned influencing hints 25% of the time in its visible CoT. Visible thinking is not a faithful or complete representation of internal reasoning — something to keep in mind when interpreting thinking blocks.
+
+### Google Gemini 3.1 Pro
+
+Gemini 3.1 Pro (Feb 2026) introduced a three-tier thinking system, replacing the binary low/high of Gemini 3 Pro.
+
+**Developer controls**:
+
+```python
+# Gemini 2.5 series: explicit token budget
+response = model.generate_content(
+    "Prove sqrt(2) is irrational",
+    generation_config={"thinking_config": {"thinking_budget": 8192}}
+)
+# thinking_budget: 0 (off), 128-32768, or -1 (dynamic)
+# Note: Gemini 2.5 Pro cannot disable thinking (min 128)
+
+# Gemini 3.1 Pro: thinking levels
+response = model.generate_content(
+    "Prove sqrt(2) is irrational",
+    generation_config={"thinking_config": {"thinking_level": "HIGH"}}
+)
+```
+
+| Level  | Behavior                                                  | Thinking tokens  |
+|--------|-----------------------------------------------------------|------------------|
+| LOW    | Skip extended CoT, jump to response                      | Minimal          |
+| MEDIUM | Balanced reasoning for most tasks                         | 1,000-3,000      |
+| HIGH   | Triggers "Deep Think Mini" — extended CoT with sub-problem decomposition | Many thousands |
+
+**Deep Think Mini**: Not a separate model — it's a reasoning mode within 3.1 Pro triggered at HIGH level. It breaks complex problems into sub-problems, evaluates multiple solution paths, and performs internal verification before producing the final answer. ARC-AGI-2: 77.1% (vs 31.1% without). GPQA Diamond: 94.3% (highest recorded as of Mar 2026).
+
+**Thought signatures**: Because Gemini's API is stateless, reasoning continuity across multi-turn conversations is handled through encrypted "thought signatures" — tamper-proof representations of intermediate reasoning state. When thinking is enabled with function calling, models return these signatures; SDKs preserve them automatically if you pass back the full prior response. This is analogous to Claude's `signature` field but solves the stateless-API problem.
+
+**Token telemetry**: Google exposes `thoughtsTokenCount` separately from visible output, distinguishing the summary from full internal thinking. Pricing is based on output + thinking tokens, not just the returned summary.
+
+### xAI Grok
+
+Grok has the most uneven reasoning exposure across its model family.
+
+| Model              | reasoning_effort | CoT visibility   | Notes                                  |
+|--------------------|------------------|-------------------|----------------------------------------|
+| grok-3-mini        | low / high       | Visible           | Only model with both effort + visible CoT |
+| grok-3             | Not supported    | Hidden            | No developer control over reasoning    |
+| grok-4             | Not supported    | Encrypted         | Request via `include: ["reasoning.encrypted_content"]` |
+| grok-4-fast        | Not supported    | Encrypted         | Faster, same reasoning approach        |
+| grok-code-fast-1   | Not supported    | Streamed trace    | Interleaves tool-calling during thinking |
+
+For `grok-4`, developers can pass encrypted reasoning content back to maintain reasoning continuity, and usage surfaces `reasoning_tokens` for billing. Since `grok-4` doesn't accept `reasoning_effort`, model selection itself becomes the compute-scaling decision.
+
+### Cross-Provider Comparison
+
+```
+┌─────────────┬────────────┬──────────────┬──────────────┬───────────────────────┬──────────┐
+│ Provider    │ CoT        │ Effort Ctrl  │ Token Budget │ Reasoning Continuity  │ GPQA     │
+├─────────────┼────────────┼──────────────┼──────────────┼───────────────────────┼──────────┤
+│ GPT-5.4     │ Hidden     │ 6 levels     │ No (implicit)│ previous_response_id  │ ~92%     │
+│ Claude 4.6  │ Summary    │ 4 levels     │ Yes (legacy) │ Echo thinking blocks  │ 91.3%    │
+│ Gemini 3.1  │ Visible    │ 3 levels     │ Per-level    │ Thought signatures    │ 94.3%    │
+│ Gemini 2.5  │ Summary    │ Budget int   │ 0-32768 / -1 │ Thought signatures    │ 86.4%    │
+│ Grok-3-mini │ Visible    │ 2 levels     │ No           │ Plain text            │ —        │
+│ Grok-4      │ Encrypted  │ None         │ No           │ Encrypted artifacts   │ —        │
+└─────────────┴────────────┴──────────────┴──────────────┴───────────────────────┴──────────┘
+```
+
+### Key Patterns
+
+1. **RL-trained hidden CoT is universal** — every frontier model uses reinforcement learning to train extended chain-of-thought. The technique from o1 (Sep 2024) is now table stakes.
+
+2. **Granular effort controls are converging** — all providers (except Grok-4) now offer tunable reasoning depth. The spectrum runs from "skip thinking" to "maximum compute."
+
+3. **CoT visibility is the main philosophical split**: OpenAI hides CoT (for internal safety monitoring), Anthropic shows a summary (transparency with caveats), Google shows it fully (Gemini 3.1) or as summary (2.5).
+
+4. **Adaptive allocation won** — Claude's adaptive thinking, Gemini's dynamic budget (`-1`), and GPT-5's real-time router all let the model decide how much to think. This was informed by Anthropic's inverse scaling finding: more thinking can hurt.
+
+5. **Reasoning state persistence varies widely** — OpenAI uses `previous_response_id`, Anthropic requires echoing `thinking` blocks, Google uses encrypted thought signatures, xAI uses encrypted artifacts. This matters for agentic multi-turn workflows.
+
+6. **Benchmark comparisons require effort matching** — OpenAI runs GPT-5.4 evals at `xhigh` effort, Anthropic uses `max`. Comparing vendor-reported numbers without matching the reasoning setting is not apples-to-apples.
 
 ## Practical Strategies
 
@@ -577,6 +757,10 @@ This adaptive approach implements a simple form of compute-optimal scaling: easy
 | [DeepSeek-R1](https://arxiv.org/abs/2501.12948) | DeepSeek | 2025 | Open-weight reasoning via GRPO; emergent CoT from pure RL |
 | [The Art of Scaling Test-Time Compute](https://arxiv.org/abs/2512.02008) | Agarwal et al. | 2024 | Large-scale empirical study; no single TTS strategy dominates |
 | [Can 1B LLM Surpass 405B?](https://arxiv.org/abs/2502.06703) | Various | 2025 | Rethinking compute-optimal test-time scaling |
+| [Reasoning Models Don't Always Say What They Think](https://www.anthropic.com/research/reasoning-models-dont-say-think) | Anthropic | 2025 | CoT faithfulness: visible reasoning ≠ actual reasoning (25-41% faithful) |
+| [Inverse Scaling in Test-Time Compute](https://alignment.anthropic.com/2025/inverse-scaling/) | Perez, Chen, Benton et al. (Anthropic) | 2025 | More thinking can hurt; motivated adaptive thinking designs |
+| [GPT-5 System Card](https://cdn.openai.com/gpt-5-system-card.pdf) | OpenAI | 2025 | Unified reasoning architecture; o3 folded into GPT-5 |
+| [GPT-5.4 Thinking System Card](https://openai.com/index/gpt-5-4-thinking-system-card/) | OpenAI | 2026 | Parallel test-time compute; CoT monitoring for safety |
 
 ## Where Test-Time Compute Fits in Your Training Pipeline
 

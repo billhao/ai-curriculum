@@ -567,18 +567,34 @@ MoE shines for **throughput** (tokens per second per dollar) but the latency sto
 ### MoE in Practice: Who Uses It
 
 ```
-Model              Total    Active   Experts  Top-k  Released
-─────────────────  ───────  ───────  ───────  ─────  ────────
-Mixtral 8x7B       47B      13B      8        2      2023
-Mixtral 8x22B      141B     39B      8        2      2024
-DeepSeek-V2        236B     21B      160+2s   6      2024
-DeepSeek-V3        671B     37B      256+1s   8      2024
-Grok-1 (xAI)       314B     ~86B     8        2      2024
-DBRX (Databricks)  132B     36B      16       4      2024
-Qwen2-MoE          57B      14B      64       8      2024
+Model                   Total    Active   Experts   Top-k  Released
+──────────────────────  ───────  ───────  ────────  ─────  ────────
+Qwen3-Next-80B-A3B      80B      3B       512+1s    10     2025-09
+Qwen3-235B-A22B         235B     22B      128       8      2025-04
+Qwen3-30B-A3B           30B      3B       128       8      2025-04
+Llama 4 Maverick (Meta) 400B     17B      128+1s    1      2025-04
+Llama 4 Scout (Meta)    109B     17B      16        1      2025-04
+DeepSeek-R1             671B     37B      256+1s    8      2025-01
+MiniMax-Text-01         456B     45.9B    32        2      2025-01
+DeepSeek-V3             671B     37B      256+1s    8      2024-12
+Hunyuan-Large (Tencent) 389B     52B      16+1s     1      2024-11
+OLMoE (Ai2)             6.9B     1.3B     64        8      2024-09
+Jamba 1.5 Large (AI21)  398B     94B      16        2      2024-08
+Jamba 1.5 Mini (AI21)   52B      12B      16        2      2024-08
+Phi-3.5-MoE (MS)        42B      6.6B     16        2      2024-08
+Qwen2-MoE               57B      14B      64        8      2024-06
+DeepSeek-V2             236B     21B      160+2s    6      2024-06
+Snowflake Arctic        480B     17B      128       2      2024-04
+Grok-1 (xAI)            314B     ~86B     8         2      2024-03
+DBRX (Databricks)       132B     36B      16        4      2024-03
+Jamba (AI21)            52B      12B      16        2      2024-03
+Mixtral 8x22B           141B     39B      8         2      2024-01
+Mixtral 8x7B            47B      13B      8         2      2023-12
 ```
 
 `+2s` / `+1s` = shared experts (always active, in addition to routed experts).
+Llama 4 models use top-1 routed expert selection + 1 shared expert (Maverick confirmed; Scout likely similar).
+DeepSeek-R1 shares the same MoE architecture as DeepSeek-V3 (fine-tuned via RL for reasoning).
 
 ## Key Papers
 

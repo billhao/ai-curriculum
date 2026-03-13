@@ -567,37 +567,37 @@ MoE shines for **throughput** (tokens per second per dollar) but the latency sto
 ### MoE in Practice: Who Uses It
 
 ```
-Model                    Total    Active   Experts   Top-k  Released
-───────────────────────  ───────  ───────  ────────  ─────  ────────
-Qwen3.5-397B-A17B        397B     17B      512+1s    10     2026-02
-Qwen3.5-122B-A10B        122B     10B      256       10     2026-02
-Qwen3.5-35B-A3B          35B      3B       256       10     2026-02
-Kimi K2.5 (Moonshot)     1T       32B      384       8      2026-01
-Qwen3-Next-80B-A3B       80B      3B       512+1s    10     2025-09
-DeepSeek-V3.1            671B     37B      256+1s    8      2025-08
-GPT-OSS-120B (OpenAI)    117B     5.1B     128       4      2025-08
-Kimi K2 (Moonshot)       1T       32B      384       8      2025-07
-DeepSeek-R1-0528         671B     37B      256+1s    8      2025-05
-Qwen3-235B-A22B          235B     22B      128       8      2025-04
-Qwen3-30B-A3B            30B      3B       128       8      2025-04
-Llama 4 Maverick (Meta)  400B     17B      128+1s    1      2025-04
-Llama 4 Scout (Meta)     109B     17B      16        1      2025-04
-DeepSeek-R1              671B     37B      256+1s    8      2025-01
-MiniMax-Text-01          456B     45.9B    32        2      2025-01
-DeepSeek-V3              671B     37B      256+1s    8      2024-12
-Hunyuan-Large (Tencent)  389B     52B      16+1s     1      2024-11
-OLMoE (Ai2)              6.9B     1.3B     64        8      2024-09
-Jamba 1.5 Large (AI21)   398B     94B      16        2      2024-08
-Jamba 1.5 Mini (AI21)    52B      12B      16        2      2024-08
-Phi-3.5-MoE (MS)         42B      6.6B     16        2      2024-08
-Qwen2-MoE                57B      14B      64        8      2024-06
-DeepSeek-V2              236B     21B      160+2s    6      2024-06
-Snowflake Arctic         480B     17B      128       2      2024-04
-Grok-1 (xAI)             314B     ~86B     8         2      2024-03
-DBRX (Databricks)        132B     36B      16        4      2024-03
-Jamba (AI21)             52B      12B      16        2      2024-03
-Mixtral 8x22B            141B     39B      8         2      2024-01
-Mixtral 8x7B             47B      13B      8         2      2023-12
+Model                    Total    Active   Sparsity  Experts   Top-k  Released
+───────────────────────  ───────  ───────  ────────  ────────  ─────  ────────
+Qwen3.5-397B-A17B        397B     17B      23x       512+1s    10     2026-02
+Qwen3.5-122B-A10B        122B     10B      12x       256       10     2026-02
+Qwen3.5-35B-A3B          35B      3B       12x       256       10     2026-02
+Kimi K2.5 (Moonshot)     1T       32B      31x       384       8      2026-01
+Qwen3-Next-80B-A3B       80B      3B       27x       512+1s    10     2025-09
+DeepSeek-V3.1            671B     37B      18x       256+1s    8      2025-08
+GPT-OSS-120B (OpenAI)    117B     5.1B     23x       128       4      2025-08
+Kimi K2 (Moonshot)       1T       32B      31x       384       8      2025-07
+DeepSeek-R1-0528         671B     37B      18x       256+1s    8      2025-05
+Qwen3-235B-A22B          235B     22B      11x       128       8      2025-04
+Qwen3-30B-A3B            30B      3B       10x       128       8      2025-04
+Llama 4 Maverick (Meta)  400B     17B      24x       128+1s    1      2025-04
+Llama 4 Scout (Meta)     109B     17B      6x        16        1      2025-04
+DeepSeek-R1              671B     37B      18x       256+1s    8      2025-01
+MiniMax-Text-01          456B     45.9B    10x       32        2      2025-01
+DeepSeek-V3              671B     37B      18x       256+1s    8      2024-12
+Hunyuan-Large (Tencent)  389B     52B      7x        16+1s     1      2024-11
+OLMoE (Ai2)              6.9B     1.3B     5x        64        8      2024-09
+Jamba 1.5 Large (AI21)   398B     94B      4x        16        2      2024-08
+Jamba 1.5 Mini (AI21)    52B      12B      4x        16        2      2024-08
+Phi-3.5-MoE (MS)         42B      6.6B     6x        16        2      2024-08
+Qwen2-MoE                57B      14B      4x        64        8      2024-06
+DeepSeek-V2              236B     21B      11x       160+2s    6      2024-06
+Snowflake Arctic         480B     17B      28x       128       2      2024-04
+Grok-1 (xAI)             314B     ~86B     4x        8         2      2024-03
+DBRX (Databricks)        132B     36B      4x        16        4      2024-03
+Jamba (AI21)             52B      12B      4x        16        2      2024-03
+Mixtral 8x22B            141B     39B      4x        8         2      2024-01
+Mixtral 8x7B             47B      13B      4x        8         2      2023-12
 ```
 
 `+2s` / `+1s` = shared experts (always active, in addition to routed experts).

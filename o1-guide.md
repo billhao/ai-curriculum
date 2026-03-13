@@ -252,7 +252,13 @@ Deliberative alignment (o1):
 
 From the system card: o1 advances the Pareto frontier of refusing malicious requests while not over-refusing benign ones. It achieved 0.92 on challenging refusal benchmarks (vs GPT-4o's 0.71) while maintaining 0.94 on not-over-refusing (vs GPT-4o's 0.92).
 
-However, the system card also found that ~0.17% of o1's responses contained deceptive reasoning in the chain-of-thought — cases where the model hallucinated policies or reasoned about deceiving the user. This is an active area of research: monitoring and aligning the hidden chain-of-thought.
+However, the system card raised concerns:
+- ~0.17% of o1's responses contained deceptive reasoning in the CoT — hallucinated policies or reasoning about deceiving the user
+- Reward hacking was observed in o1-preview on a cybersecurity task (not reproduced in final o1)
+- A GPT-4o-based deception monitor over o1's CoT reached only 92% accuracy — far from reliable
+- Whether the CoT faithfully reflects the model's true internal reasoning remains an open question
+
+The Safety Advisory Group classified pre-mitigation o1 as overall Medium risk: Medium for biological/chemical threats and persuasion, Low for cybersecurity and model autonomy.
 
 ## The o-Series Model Family
 
@@ -268,8 +274,8 @@ o1-pro          2025-03        —       "Pro mode" — more compute per query.
                                        Available via ChatGPT Pro ($200/mo).
 o3-mini         2025-01-31   200K      3 effort levels (low/med/high).
                                        Replaces o1-mini. Faster, cheaper.
-o3              2025-04-16   200K      Major upgrade. Tool use, image input.
-                                       Top performance on most benchmarks.
+o3              2025-04-16   200K      Major upgrade. Can use tools (web
+                                       search, Python, images) *inside* CoT.
 o3-pro          2025-06-10     —       Extended thinking for o3.
 o4-mini         2025-04-16   200K      Replaces o3-mini. Smaller, efficient.
                                        Surprisingly strong on math.
@@ -277,18 +283,22 @@ o4-mini         2025-04-16   200K      Replaces o3-mini. Smaller, efficient.
 
 ### Benchmark Evolution Across the o-Series
 
+Two sets of o1 numbers circulate — the September 2024 "preview" era (consensus@64: 83.3% AIME) and the December 2024 API snapshot (pass@1: 79.2% AIME). The table below uses the December 2024 (o1-1217) pass@1 numbers for apples-to-apples comparison:
+
 ```
-Benchmark            GPT-4o   o1-preview  o1      o3-mini(h)  o3      o4-mini
-────────────────────  ──────  ──────────  ──────  ──────────  ──────  ───────
-AIME 2024 (math)      12.0%    44.6%     83.3%    96.7%      96.7%   93.4%
-MATH-500              60.3%    85.5%     94.8%     —          —       —
-GPQA Diamond          49.9%    73.3%     78.0%    77.0%      87.7%   81.4%
-Codeforces (Elo)       808       —       1807      —          —       —
-Codeforces (%ile)      11%      —         89%      —          —       —
-SWE-bench Verified      —       —        48.9%     —         71.7%    —
-ARC-AGI (high)          —       —         —        —         87.5%    —
-EpochAI Frontier Math   <2%     —         —        —         ~25%     —
+Benchmark            GPT-4o   o1-preview  o1-1217  o3-mini(h)  o3      o4-mini
+────────────────────  ──────  ──────────  ───────  ──────────  ──────  ───────
+AIME 2024 (math)      12.0%    44.6%      79.2%    96.7%      96.7%   93.4%
+MATH-500              60.3%    85.5%      96.4%     —          —       —
+GPQA Diamond          49.9%    73.3%      75.7%    77.0%      87.7%   81.4%
+Codeforces (Elo)       808     1258       2061      —          —       —
+Codeforces (%ile)      11%      —         96.6%     —          —       —
+SWE-bench Verified      —       —         48.9%     —         71.7%    —
+ARC-AGI (high)          —       —          —        —         87.5%    —
+EpochAI Frontier Math   <2%     —          —        —         ~25%     —
 ```
+
+Note: o1-preview era reported 83.3% AIME with consensus@64 sampling and 93.3% with reranking@1000. The December snapshot (o1-1217) used pass@1 and also improved reasoning token efficiency by ~60%.
 
 The progression from GPT-4o (12% AIME) to o3 (96.7% AIME) in 18 months is remarkable. Most of this gain comes from test-time compute, not model size.
 
@@ -297,12 +307,12 @@ The progression from GPT-4o (12% AIME) to o3 (96.7% AIME) in 18 months is remark
 o1-mini was specifically optimized for STEM reasoning at lower cost. It's 80% cheaper than o1 but retains strong math and code performance:
 
 ```
-                    o1          o1-mini
+                    o1-1217     o1-mini
 ─────────────────   ──────      ──────
-AIME 2024           83.3%       70.0%
-MATH-500            94.8%       90.0%
-GPQA Diamond        78.0%       60.0%
-Codeforces          89th %ile   86th %ile
+AIME 2024           79.2%       70.0%
+MATH-500            96.4%       90.0%
+GPQA Diamond        75.7%       60.0%
+Codeforces (Elo)    2061        1650
 Cost (input)        $15/M       $3/M
 Cost (output)       $60/M       $12/M
 ```
@@ -330,15 +340,18 @@ API pricing             $15/$60 per M tokens         $0.55/$2.19 per M tokens
 
 ### Benchmark Comparison
 
+Using DeepSeek's official evaluation table (pass@1, temperature=0.6, top_p=0.95):
+
 ```
-Benchmark            o1 (Dec '24)    DeepSeek-R1    Winner
-────────────────────  ────────────   ───────────    ──────
-AIME 2024             83.3%          79.8%          o1
-MATH-500              94.8%          97.3%          R1
-GPQA Diamond          78.0%          71.5%          o1
-Codeforces            89th %ile      96.3rd %ile    R1
-SWE-bench Verified    48.9%          49.2%          ≈ tie
-LiveCodeBench         —              65.9%          —
+Benchmark            o1-1217       DeepSeek-R1    Winner
+────────────────────  ────────────  ───────────    ──────
+AIME 2024             79.2%         79.8%          ≈ tie
+MATH-500              96.4%         97.3%          R1
+GPQA Diamond          75.7%         71.5%          o1
+Codeforces (Elo)      2061          2029           ≈ tie
+Codeforces (%ile)     96.6%         96.3%          ≈ tie
+SWE-bench Verified    48.9%         49.2%          ≈ tie
+Aider-Polyglot        61.7%         53.3%          o1
 ```
 
 Performance is remarkably similar despite radically different approaches:

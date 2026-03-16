@@ -1,3 +1,4 @@
+
 The training function for nanoGPT-2, transformer and SFT are very similar.
 This doc describes the training function at conceptual level.
 

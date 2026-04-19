@@ -147,6 +147,8 @@ _Step 3: RLHF (Optional - more complex)_
 
 You can't improve what you can't measure. Evaluation tells you if your training actually worked and how your model compares to others.
 
+See [benchmarks-guide.md](benchmarks-guide.md) for the full 2026 benchmark reference — frontier reasoning, code, agents, long-context, multimodal, with SOTA scores, examples, and contamination caveats.
+
 **Projects:**
 
 *   Evaluate your GPT-2 124M (base, SFT, DPO versions) using [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)
@@ -350,11 +352,4 @@ Essential reading for understanding state-of-the-art models.
 
 ### Conferences
 
-*   AAAI 2026 — January 20–27, Singapore
-*   ICLR 2026 — April 23–27, Rio de Janeiro, Brazil
-*   CVPR 2026 — June 3–7, Denver, USA
-*   ACL 2026 — July 2–7, San Diego, USA
-*   ICML 2026 — July 6–11, Seoul, South Korea
-*   COLM 2026 — October 6–9, San Francisco, USA
-*   EMNLP 2026 — October 24–29, Budapest, Hungary
-*   NeurIPS 2026 — December 6–12, Sydney, Australia
+See [conferences.md](conferences.md) for submission deadlines and conference dates.

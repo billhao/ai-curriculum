@@ -58,6 +58,120 @@ The paragraph is the feature *and* the label. Reward signal (reconstruction MSE)
 
 **Steganography risk**: RL could push `z` toward token sequences that encode `h` via patterns only AR can decode, while reading as ordinary prose. KL penalty toward SFT-init mitigates.
 
+## Architecture Overview
+
+Three networks, two trained, one frozen. The frozen one defines the ground truth; the trained pair learn to compress and decompress its activation through a text bottleneck.
+
+```
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║              NATURAL LANGUAGE AUTOENCODER — overall architecture              ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+   ┌──────────────────────────────────────────────────────────────────────────┐
+   │                          ① TARGET MODEL  M   (FROZEN)                    │
+   │                                                                          │
+   │   Prompt P                                                               │
+   │      │                                                                   │
+   │      ▼                                                                   │
+   │   ┌─────────┐    ┌─────────┐         ┌─────────┐    ┌─────────┐          │
+   │   │ layer 1 │───▶│ layer 2 │── ··· ─▶│ layer L │── ─│ layer N │──▶ logits│
+   │   └─────────┘    └─────────┘         └────┬────┘    └─────────┘          │
+   │                                           │                              │
+   │                                           ▼                              │
+   │                                       h_l ∈ R^d     ◀── tap point        │
+   │                                       (residual stream at chosen layer)  │
+   └───────────────────────────────────────────┬──────────────────────────────┘
+                                               │
+                                               │  inject h_l as a special
+                                               │  token embedding into AV
+                                               ▼
+   ┌──────────────────────────────────────────────────────────────────────────┐
+   │              ② ACTIVATION VERBALIZER  AV   (FULL COPY OF M, TRAINED)     │
+   │                                                                          │
+   │   Template tokens + [INJECTED h_l] + instruction tokens                  │
+   │      │                                                                   │
+   │      ▼                                                                   │
+   │   ┌─────────┐    ┌─────────┐         ┌─────────┐    ┌─────────┐          │
+   │   │ layer 1 │───▶│ layer 2 │── ··· ─▶│ layer L │── ─│ layer N │──▶ logits│
+   │   └─────────┘    └─────────┘         └─────────┘    └─────────┘          │
+   │                                                                          │
+   │   ▼ autoregressive decode at T=1, ~few-hundred tokens                    │
+   │                                                                          │
+   │   z = "The model is processing a short narrative about a cat that has    │
+   │        chased a mouse and is now tired. It is preparing to predict a     │
+   │        resting action — sleeping, lying down, or grooming..."            │
+   └───────────────────────────────────────────┬──────────────────────────────┘
+                                               │
+                                               │  treat z as a normal prompt
+                                               ▼
+   ┌──────────────────────────────────────────────────────────────────────────┐
+   │     ③ ACTIVATION RECONSTRUCTOR  AR   (FIRST L LAYERS + AFFINE, TRAINED)  │
+   │                                                                          │
+   │   z (text tokens)                                                        │
+   │      │                                                                   │
+   │      ▼                                                                   │
+   │   ┌─────────┐    ┌─────────┐         ┌─────────┐    ┌───────────┐        │
+   │   │ layer 1 │───▶│ layer 2 │── ··· ─▶│ layer L │───▶│ AFFINE    │──▶ ĥ_l │
+   │   └─────────┘    └─────────┘         └─────────┘    │ W·x + b   │        │
+   │                                                     │ d → d     │        │
+   │                                                     └───────────┘        │
+   │   (final-token hidden state taken, then projected back to residual dim)  │
+   └───────────────────────────────────────────┬──────────────────────────────┘
+                                               │
+                                               ▼
+   ┌──────────────────────────────────────────────────────────────────────────┐
+   │                              ④ LOSS / REWARD                             │
+   │                                                                          │
+   │     h_l ──╮                                                              │
+   │           ├──▶  L2-normalize  ──▶   r = − log ‖ h_l  −  ĥ_l ‖²           │
+   │     ĥ_l ──╯                                                              │
+   │                                                                          │
+   │     • AV update: GRPO on r  (K samples per activation, push toward high) │
+   │     • AR update: supervised MSE on (z_best, h_l)                         │
+   │     • KL anchor: D_KL( AV ‖ AV_SFT_init )  — prevents steganography      │
+   │     • M never updates                                                    │
+   └──────────────────────────────────────────────────────────────────────────┘
+```
+
+**Legend**
+
+| Symbol | Role | Trained? | Architecture |
+|---|---|---|---|
+| M | Target — defines ground-truth `h_l` | frozen | full N layers of the model being interpreted |
+| AV | Verbalizer — encodes `h_l` → text `z` | trained (SFT → GRPO) | full copy of M; accepts activation-injection slot |
+| AR | Reconstructor — decodes text `z` → `ĥ_l` | trained (SFT → supervised in RL stage) | first L layers of M + small affine head (d → d) |
+
+`d` = residual-stream width (e.g. 5376 for Gemma-3-27B). `L` = tap layer (e.g. 41). `N` = total layers (e.g. 62). `z` = a few-hundred-token English paragraph — the bottleneck.
+
+### Inference-time view (after training)
+
+```
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │   Any prompt P ──▶ ❄ M ──▶ h_l ──▶ 🔥 AV ──▶  z  (English readout)  │
+   │                                                                     │
+   │   (optional sanity check:)                                          │
+   │                          z ──▶ 🔥 AR ──▶ ĥ_l                        │
+   │                                          ▲                          │
+   │                                          │                          │
+   │                                          └── compare cosine to h_l  │
+   │                                              if low, z is unreliable│
+   └─────────────────────────────────────────────────────────────────────┘
+```
+
+At inference you primarily need M + AV. AR stays around as a faithfulness check — if a paragraph fails to round-trip back to something close to the original activation, that paragraph is untrustworthy and should be discarded.
+
+### One-screen mental model
+
+```
+   P  ─►  M  ─►  h_l  ─►  AV  ─►  z  ─►  AR  ─►  ĥ_l
+   ❄     ❄              🔥             🔥
+                                              ║
+                                       loss = ‖ h_l − ĥ_l ‖²
+                                              ║
+                                       trains AV and AR;
+                                       M is never touched.
+```
+
 ## The Encode/Decode Loop
 
 ```

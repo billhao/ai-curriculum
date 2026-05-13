@@ -8,8 +8,12 @@ Mechanistic interpretability asks: **what algorithm is the model actually runnin
 
 ## Guides in this curriculum
 
-- **[interpretability-guide.md](interpretability-guide.md)** — full foundations: residual stream, circuits, induction heads, superposition, SAEs, Scaling Monosemanticity, TransformerLens hands-on, open problems. Start here if you haven't done interp before.
-- **[natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md)** — Anthropic's May 2026 NLA paper: text-bottleneck autoencoders that produce English explanations of activations. The text-level entry on the ladder.
+All interp guides live in `interp/`:
+
+- **[interp/interpretability-guide.md](interp/interpretability-guide.md)** — full foundations: residual stream, circuits, induction heads, superposition, SAEs, Scaling Monosemanticity, TransformerLens hands-on, open problems. Start here if you haven't done interp before.
+- **[interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md)** — Anthropic's May 2026 NLA paper: text-bottleneck autoencoders that produce English explanations of activations. The text-level entry on the ladder.
+- **[interp/knowledge-vs-intelligence.md](interp/knowledge-vs-intelligence.md)** — Can general intelligence be separated from world knowledge in LLMs? Chollet's framework, Mahowald formal/functional dissociation, MQuAKE, LLM-WikiRace, ARC-AGI-2.
+- **[interp/reasoning-model-interp.md](interp/reasoning-model-interp.md)** — Mechanistic interp of R1-Zero / o1 "aha moments". What mechanisms produce backtracking; how task-general they are; the 4-way partition of "wait" tokens.
 
 ## The Interpretability Ladder
 
@@ -51,9 +55,9 @@ Weight                 individual W matrices / their      Mathematical Framework
 
 ## Where each level shines
 
-- **Text level (NLA)** — *semantic summarization*. "What is the model thinking right now?" Best for audits, eval-awareness, hidden motivations. See [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md).
-- **Feature level (SAEs, transcoders, attribution graphs / circuit-tracer)** — *causal graph at human-readable concepts*. "Why did the model predict X?" Best for mechanism + steering. SAE foundations in [interpretability-guide.md](interpretability-guide.md) §Superposition and Dictionary Learning; transcoders + attribution graphs covered in this file's "Tools" section below.
-- **Component level (heads + MLPs)** — *coarse algorithm*. "Which 20 heads implement task Y?" The classic IOI / induction-head pattern. Pre-SAE era but still load-bearing. See [interpretability-guide.md](interpretability-guide.md) §Circuits and Features and §Induction Heads Deep Dive.
+- **Text level (NLA)** — *semantic summarization*. "What is the model thinking right now?" Best for audits, eval-awareness, hidden motivations. See [interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md).
+- **Feature level (SAEs, transcoders, attribution graphs / circuit-tracer)** — *causal graph at human-readable concepts*. "Why did the model predict X?" Best for mechanism + steering. SAE foundations in [interp/interpretability-guide.md](interp/interpretability-guide.md) §Superposition and Dictionary Learning; transcoders + attribution graphs covered in this file's "Tools" section below.
+- **Component level (heads + MLPs)** — *coarse algorithm*. "Which 20 heads implement task Y?" The classic IOI / induction-head pattern. Pre-SAE era but still load-bearing. See [interp/interpretability-guide.md](interp/interpretability-guide.md) §Circuits and Features and §Induction Heads Deep Dive.
 - **Edge / connection level** — *which data-flow edges matter*. ACDC and attribution patching produce a pruned subgraph of the model's computational graph for a behavior. Same level as components, but answers "which connections" rather than "which nodes."
 - **Neuron level** — *individual MLP dimensions*. Mostly considered a dead end since 2022 because of superposition: most neurons are polysemantic. Still useful for the **~1-5% of neurons that are clean** (Gurnee's "universal neurons" — neurons that fire for the same concept across many models, like "Python `__init__`" or "negative sentiment"). Voita's taxonomy: most are "dead" or "n-gram detectors."
 - **Weight level** — *parameter-space structure*. Elhage's Mathematical Framework decomposed attention heads into QK (where to attend) and OV (what to write) matrices, often with low-rank structure that's directly interpretable. Most useful for toy models and small heads; doesn't scale to MLP weight matrices because of polysemanticity.
@@ -74,19 +78,19 @@ A serious audit pipeline would use NLA to flag *which activations look suspiciou
 
 ## Tools and open-source stacks
 
-- **[TransformerLens](https://github.com/TransformerLensOrg/TransformerLens)** — the workhorse library. Load 50+ models with clean internals, cache any activation, hook any component, run causal interventions. Foundations + worked exercises in [interpretability-guide.md](interpretability-guide.md) §Practical Tools.
+- **[TransformerLens](https://github.com/TransformerLensOrg/TransformerLens)** — the workhorse library. Load 50+ models with clean internals, cache any activation, hook any component, run causal interventions. Foundations + worked exercises in [interp/interpretability-guide.md](interp/interpretability-guide.md) §Practical Tools.
 - **[nnsight](https://nnsight.net/)** — alternative backend that works on any HuggingFace model, including 70B+. Used by circuit-tracer.
 - **[circuit-tracer (decoderesearch)](https://github.com/decoderesearch/circuit-tracer)** — open implementation of Anthropic's attribution-graph method. Pre-trained cross-layer transcoders for Gemma-2/3, Llama-3.1/3.2, Qwen-3, GPT-OSS. Local web visualizer with feature interventions. Colab-friendly (15 GB).
 - **[Neuronpedia](https://www.neuronpedia.org)** — hosted UI for browsing SAE features and NLA descriptions on open models. Zero-setup way to see what a feature/NLA actually outputs.
-- **[NLA released checkpoints](https://huggingface.co/collections/kitft/nla-models)** — AV + AR weights for Qwen-7B, Gemma-12B/27B, Llama-3.3-70B. See [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md) for the architecture and how to use them.
+- **[NLA released checkpoints](https://huggingface.co/collections/kitft/nla-models)** — AV + AR weights for Qwen-7B, Gemma-12B/27B, Llama-3.3-70B. See [interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md) for the architecture and how to use them.
 
 ## Cross-references
 
-- **SAE foundations & Scaling Monosemanticity**: [interpretability-guide.md](interpretability-guide.md) §Superposition and Dictionary Learning, §Scaling Monosemanticity
-- **Residual stream & circuits**: [interpretability-guide.md](interpretability-guide.md) §The Residual Stream View, §Circuits and Features
-- **Induction heads**: [interpretability-guide.md](interpretability-guide.md) §Induction Heads Deep Dive
-- **NLA architecture & training**: [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md) §Architecture Overview, §Training Procedure
-- **NLA vs SAE comparison**: [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md) §NLA vs SAE vs Activation Oracles
+- **SAE foundations & Scaling Monosemanticity**: [interp/interpretability-guide.md](interp/interpretability-guide.md) §Superposition and Dictionary Learning, §Scaling Monosemanticity
+- **Residual stream & circuits**: [interp/interpretability-guide.md](interp/interpretability-guide.md) §The Residual Stream View, §Circuits and Features
+- **Induction heads**: [interp/interpretability-guide.md](interp/interpretability-guide.md) §Induction Heads Deep Dive
+- **NLA architecture & training**: [interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md) §Architecture Overview, §Training Procedure
+- **NLA vs SAE comparison**: [interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md) §NLA vs SAE vs Activation Oracles
 
 ## Decision tree — which level to use
 
@@ -114,15 +118,15 @@ What is your question?
 
 ## Recommended reading order if you're new
 
-1. [interpretability-guide.md](interpretability-guide.md) end-to-end — gets you fluent in residual stream, superposition, circuits, SAEs, and TransformerLens.
+1. [interp/interpretability-guide.md](interp/interpretability-guide.md) end-to-end — gets you fluent in residual stream, superposition, circuits, SAEs, and TransformerLens.
 2. Hands-on exercises on your GPT-2 124M (§Hands-on with Your GPT-2 124M).
-3. [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md) — modern text-level method.
+3. [interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md) — modern text-level method.
 4. Play with circuit-tracer on Gemma-2-2B for attribution graphs.
 5. Pick a specific behavior and try to reverse-engineer the circuit yourself.
 
 ## Recommended reading order if you already know SAEs
 
-1. [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md) §Architecture Overview, §Worked Example.
+1. [interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md) §Architecture Overview, §Worked Example.
 2. Ameisen 2025 "Circuit Tracing" methodology paper (linked below) for cross-layer transcoders.
 3. Lindsey 2025 "On the Biology of a Large Language Model" for what attribution graphs can find.
 4. Marks 2024 "Sparse Feature Circuits" — the bridge between SAE features and component-level circuits.

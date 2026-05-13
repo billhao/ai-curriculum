@@ -216,8 +216,9 @@ The five most directly relevant papers:
 
 ## Cross-references in this curriculum
 
-- Mech-interp foundations: [interp.md](interp.md), [interpretability-guide.md](interpretability-guide.md)
+- Mech-interp foundations: [../interp.md](../interp.md), [interpretability-guide.md](interpretability-guide.md)
 - Text-level interpretability (NLA): [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md)
-- ARC + reasoning benchmarks: [benchmarks-guide.md](benchmarks-guide.md)
-- Reasoning model lineage: [model-o1-guide.md](model-o1-guide.md), [model-deepseek-r1-guide.md](model-deepseek-r1-guide.md)
-- Test-time compute (where reasoning lives at inference): [test-time-compute-guide.md](test-time-compute-guide.md)
+- Reasoning-model interp (R1-Zero aha-moment mechanism): [reasoning-model-interp.md](reasoning-model-interp.md)
+- ARC + reasoning benchmarks: [../benchmarks-guide.md](../benchmarks-guide.md)
+- Reasoning model lineage: [../model-o1-guide.md](../model-o1-guide.md), [../model-deepseek-r1-guide.md](../model-deepseek-r1-guide.md)
+- Test-time compute (where reasoning lives at inference): [../test-time-compute-guide.md](../test-time-compute-guide.md)

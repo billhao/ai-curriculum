@@ -14,6 +14,7 @@ All interp guides live in `interp/`:
 - **[interp/natural-language-autoencoders-guide.md](interp/natural-language-autoencoders-guide.md)** — Anthropic's May 2026 NLA paper: text-bottleneck autoencoders that produce English explanations of activations. The text-level entry on the ladder.
 - **[interp/knowledge-vs-intelligence.md](interp/knowledge-vs-intelligence.md)** — Can general intelligence be separated from world knowledge in LLMs? Chollet's framework, Mahowald formal/functional dissociation, MQuAKE, LLM-WikiRace, ARC-AGI-2.
 - **[interp/reasoning-model-interp.md](interp/reasoning-model-interp.md)** — Mechanistic interp of R1-Zero / o1 "aha moments". What mechanisms produce backtracking; how task-general they are; the 4-way partition of "wait" tokens.
+- **[interp/open-research-questions.md](interp/open-research-questions.md)** — Significant open problems on knowledge-vs-intelligence separability and reasoning mechanism. Ranked by significance, with concrete experiment shapes.
 
 ## The Interpretability Ladder
 

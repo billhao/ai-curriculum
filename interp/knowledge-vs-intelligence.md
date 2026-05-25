@@ -2,6 +2,8 @@
 
 Can general intelligence be cleanly separated from world knowledge in LLMs? This guide surveys the philosophical framing, the empirical evidence, and the active research tracks as of May 2026.
 
+> **Expanded deep-dive (May 2026):** the engineering program built on this question — measuring the knowledge/reasoning split, the mechanism of reasoning, building a small "reasoning core" + retrieval, and the data to train it — now lives in [`../knowledge-vs-intelligence/`](../knowledge-vs-intelligence/00-overview-and-field-map.md) (overview + field map, plus deep files on [capacity & mechanism](../knowledge-vs-intelligence/01-knowledge-capacity-and-reasoning-mechanism.md), [the small reasoning core](../knowledge-vs-intelligence/02-small-reasoning-core-compression-retrieval.md), and [training data](../knowledge-vs-intelligence/03-data-for-small-reasoning-models.md)). This file is the conceptual origin.
+
 ## The Core Question
 
 Humans can't be intelligent with zero knowledge — physics, causality, language, social structure form the substrate on which reasoning operates. The same is true for LLMs: no system has demonstrated robust general reasoning from a model with negligible pretraining knowledge. Yet frontier models like Claude Opus 4.6 carry vastly more parametric knowledge than their reasoning capability *seems* to require. So the question is:

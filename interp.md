@@ -16,6 +16,10 @@ All interp guides live in `interp/`:
 - **[interp/reasoning-model-interp.md](interp/reasoning-model-interp.md)** — Mechanistic interp of R1-Zero / o1 "aha moments". What mechanisms produce backtracking; how task-general they are; the 4-way partition of "wait" tokens.
 - **[interp/open-research-questions.md](interp/open-research-questions.md)** — Significant open problems on knowledge-vs-intelligence separability and reasoning mechanism. Ranked by significance, with concrete experiment shapes.
 
+Related program at the curriculum root (broader than interp — spans compression, data, retrieval):
+
+- **[knowledge-vs-intelligence/](knowledge-vs-intelligence/00-overview-and-field-map.md)** — the capability-factorization deep-dive: how much of a model is knowledge (Q1), the mechanism of reasoning (Q5), building/distilling a small "reasoning core" + retrieval (Q2/Q3), and the data to train it (Q4). Overview + field map + 3 deep files. Builds on `interp/knowledge-vs-intelligence.md`.
+
 ## The Interpretability Ladder
 
 Most abstract (top) to most concrete (bottom). Each level explains the one below in different terms.

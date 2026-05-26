@@ -221,4 +221,4 @@ These findings sharpen the answer to whether reasoning machinery is separable fr
 - Text-level interp (NLA): [natural-language-autoencoders-guide.md](natural-language-autoencoders-guide.md)
 - The knowledge-vs-intelligence framing this connects to: [knowledge-vs-intelligence.md](knowledge-vs-intelligence.md)
 - Interp ladder + entry point: [../interp.md](../interp.md)
-- Reasoning model lineage (R1, o1): [../model-deepseek-r1-guide.md](../model-deepseek-r1-guide.md), [../model-o1-guide.md](../model-o1-guide.md)
+- Reasoning model lineage (R1, o1): [../model-deepseek-r1-guide.md](../models/model-deepseek-r1-guide.md), [../model-o1-guide.md](../models/model-o1-guide.md)

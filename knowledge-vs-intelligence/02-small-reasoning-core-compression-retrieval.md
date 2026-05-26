@@ -87,7 +87,7 @@ The "few-million-param reasoner" headlines are real but **domain-specific**, not
 - **TRM** (Tiny Recursive Model, 7M params, Samsung SAIL Montreal, arXiv:2510.04871): 45% ARC-AGI-1, ~8% ARC-AGI-2; beats HRM with a simpler recurrence.
 - **But:** the ARC Prize team's independent re-test dropped HRM **41%→32%** and found it **transductive + puzzle-specific** (per-task training, puzzle-ID embeddings; the *recurrence/iteration* matters, the *hierarchy* doesn't). These are narrow trained solvers — they confirm "tiny systems can reason in structured domains," **not** "tiny tool-using LMs can replace knowledge-rich models." **[VERY_NEW]**
 
-> These tie back to your [ARC-AGI 2 guide](../arc-agi-2-guide.md): they reason over Spelke-style core-knowledge priors with *no* world knowledge — the purest existing "reasoning without knowledge," but only because ARC deliberately needs none.
+> These tie back to your [ARC-AGI 2 guide](../benchmarks/arc-agi-2-guide.md): they reason over Spelke-style core-knowledge priors with *no* world knowledge — the purest existing "reasoning without knowledge," but only because ARC deliberately needs none.
 
 ### Retrieval / tool-augmented reasoning: the externalization path
 

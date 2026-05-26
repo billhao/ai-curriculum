@@ -80,7 +80,7 @@ NOT NEEDED in weights          NEEDED in weights (the substrate)
                                • enough core schemas to reason OVER retrieved facts
 ```
 
-This maps onto your existing Thread B "substrate" definition (world knowledge + symbolic fluency + computational machinery) and onto ARC's **Spelke core-knowledge priors** (objectness, number, geometry, agentness — see the [ARC-AGI 2 guide](../arc-agi-2-guide.md)). The open quantitative question — **how big must this substrate be as the world it reasons over grows** — is the deepest unknown (it's #2 in [interp/open-research-questions.md](../interp/open-research-questions.md)).
+This maps onto your existing Thread B "substrate" definition (world knowledge + symbolic fluency + computational machinery) and onto ARC's **Spelke core-knowledge priors** (objectness, number, geometry, agentness — see the [ARC-AGI 2 guide](../benchmarks/arc-agi-2-guide.md)). The open quantitative question — **how big must this substrate be as the world it reasons over grows** — is the deepest unknown (it's #2 in [interp/open-research-questions.md](../interp/open-research-questions.md)).
 
 ---
 

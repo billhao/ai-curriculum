@@ -43,7 +43,7 @@ This is "Thread B" of my AI curriculum. The five guiding questions, in my own wo
 
 - **Me:** strong ML background — trained GPT-2 124M (nanoGPT) from scratch; SFT (Dolly 15k, SlimOrca 520k); DPO (hh-rlhf); GRPO; know mechanistic interpretability, MoE, knowledge distillation, test-time compute, reasoning models. Write educational guides for myself in `ai-curriculum`.
 - **Hardware:** 1× H800 80GB. Experiments should have a pilot that fits this.
-- **Lineage:** this grew out of the interp Thread B note [`../interp/knowledge-vs-intelligence.md`](../interp/knowledge-vs-intelligence.md) (Chollet skill-acquisition efficiency, Mahowald language≠thought, MQuAKE, substrate concept, TinyStories/Phi/R1-Zero, "is language necessary for reasoning" = no). Connects to [`../arc-agi-2-guide.md`](../arc-agi-2-guide.md) (Spelke core-knowledge priors) and [`../interp/open-research-questions.md`](../interp/open-research-questions.md).
+- **Lineage:** this grew out of the interp Thread B note [`../interp/knowledge-vs-intelligence.md`](../interp/knowledge-vs-intelligence.md) (Chollet skill-acquisition efficiency, Mahowald language≠thought, MQuAKE, substrate concept, TinyStories/Phi/R1-Zero, "is language necessary for reasoning" = no). Connects to [`../arc-agi-2-guide.md`](../benchmarks/arc-agi-2-guide.md) (Spelke core-knowledge priors) and [`../interp/open-research-questions.md`](../interp/open-research-questions.md).
 - **How I like to run this research:** launch parallel GPT-5.4 (codex, web) + Claude agents, **hard-wait** for all, cross-check + **web-verify every load-bearing citation** (arXiv IDs confabulate easily), be critical / novelty-check, calibrate experiments to 1×H800. Save outputs as markdown in this directory.
 
 ---

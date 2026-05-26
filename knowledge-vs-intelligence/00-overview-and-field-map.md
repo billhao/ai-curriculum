@@ -72,7 +72,7 @@ There is **no single field** — it's a research *program* at the intersection o
 | **Data-centric reasoning** | what data elicits reasoning | **GAIR-NLP** (LIMO/LIMR), Stanford (s1), Allen-Zhu (controlled) | COLM, ICML, EMNLP |
 | **Retrieval-augmented & agentic reasoning** | externalize knowledge, RL for tools | UIUC (Search-R1), RUC (R1-Searcher) | NeurIPS, EMNLP, SIGIR |
 
-**Conceptual backbone — cognitive science of LLMs:** "language ≠ thought" (Mahowald/Fedorenko), Chollet's *skill-acquisition efficiency*, Spelke core knowledge. (Already covered in your [Thread B notes](../interp/knowledge-vs-intelligence.md) and the [ARC-AGI 2 guide](../arc-agi-2-guide.md).)
+**Conceptual backbone — cognitive science of LLMs:** "language ≠ thought" (Mahowald/Fedorenko), Chollet's *skill-acquisition efficiency*, Spelke core knowledge. (Already covered in your [Thread B notes](../interp/knowledge-vs-intelligence.md) and the [ARC-AGI 2 guide](../benchmarks/arc-agi-2-guide.md).)
 
 **Emerging umbrella labels you'll see:** "the science of LLMs" / "Physics of Language Models" (the controlled-experiment program); "capability / knowledge-reasoning *decoupling*"; on the build side, "small reasoning models (SRMs)" and "efficient reasoning." Karpathy's **"cognitive core"** is the popular name for the target artifact.
 
@@ -116,4 +116,4 @@ Confidence tags in the files: **HIGH** (verified, multi-source) · **MEDIUM** (v
 - Deep dives: [01 science](01-knowledge-capacity-and-reasoning-mechanism.md) · [02 build](02-small-reasoning-core-compression-retrieval.md) · [03 data](03-data-for-small-reasoning-models.md)
 - Origin of this thread: [interp/knowledge-vs-intelligence.md](../interp/knowledge-vs-intelligence.md) (substrate concept, TinyStories/Phi/R1-Zero, language-not-needed-for-reasoning)
 - Open experiments worth running on your H800: see the falsification test in [02](02-small-reasoning-core-compression-retrieval.md) and the ranked questions in [interp/open-research-questions.md](../interp/open-research-questions.md)
-- Benchmark context: [arc-agi-2-guide.md](../arc-agi-2-guide.md) (fluid reasoning, Spelke priors), [benchmarks-guide.md](../benchmarks-guide.md) (HLE = the knowledge tail)
+- Benchmark context: [arc-agi-2-guide.md](../benchmarks/arc-agi-2-guide.md) (fluid reasoning, Spelke priors), [benchmarks-guide.md](../benchmarks/benchmarks-guide.md) (HLE = the knowledge tail)

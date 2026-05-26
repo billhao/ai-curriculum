@@ -334,7 +334,7 @@ Just ask the model. Even with chain-of-thought.
 
 ### 2. Reasoning models (o-series, GPT-5 thinking, Gemini Deep Think)
 
-Extended chain-of-thought with self-verification and backtracking, trained via RL on reasoning traces. Closest analogue in your curriculum: see [test-time-compute-guide.md](test-time-compute-guide.md) and [model-o1-guide.md](model-o1-guide.md).
+Extended chain-of-thought with self-verification and backtracking, trained via RL on reasoning traces. Closest analogue in your curriculum: see [test-time-compute-guide.md](../reasoning/test-time-compute-guide.md) and [model-o1-guide.md](../models/model-o1-guide.md).
 
 - Score on v2: 3–55% depending on model and effort budget.
 - Why it scales: longer reasoning chains let the model try multiple rule hypotheses and reject the ones inconsistent with later demos.

@@ -147,7 +147,7 @@ _Step 3: RLHF (Optional - more complex)_
 
 You can't improve what you can't measure. Evaluation tells you if your training actually worked and how your model compares to others.
 
-See [benchmarks-guide.md](benchmarks-guide.md) for the full 2026 benchmark reference — frontier reasoning, code, agents, long-context, multimodal, with SOTA scores, examples, and contamination caveats.
+See [benchmarks-guide.md](benchmarks/benchmarks-guide.md) for the full 2026 benchmark reference — frontier reasoning, code, agents, long-context, multimodal, with SOTA scores, examples, and contamination caveats.
 
 **Projects:**
 

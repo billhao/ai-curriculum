@@ -2,6 +2,8 @@
 
 *A research deep-dive on separating an LLM's reasoning ability from its stored world-knowledge, and building a small "reasoning core." Continuation of the [Thread B notes](../interp/knowledge-vs-intelligence.md). Compiled May 2026 from 6 parallel research agents (3× GPT-5.4 codex + 3× Claude, one pair per cluster, cross-checked).*
 
+> **Resuming this research in a new session?** Start with [`RESEARCH-CHARTER.md`](RESEARCH-CHARTER.md) — it holds the original questions, motivations, context, and where to pick up.
+
 ---
 
 ## The five questions, as one thesis

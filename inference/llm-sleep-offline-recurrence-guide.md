@@ -2,11 +2,11 @@
 
 How a hybrid attention-SSM model spends extra compute *between* prediction steps — looping `N` times over a chunk of context to consolidate it into a fixed-size fast-weight state — and then throws the KV cache away, so answer-token latency stays single-pass while deep-reasoning accuracy goes up.
 
-> Confidence: **VERY_NEW**. The paper (arXiv 2605.26099) was submitted **25 May 2026** (v2 27 May), ~3 days before this guide. Equations, architectures, and benchmark numbers below are triangulated across the arXiv HTML/PDF render, a GPT-5.5 web pass, and an independent web-search agent — all three agree on the mechanism and the headline numbers. But this is a fresh technical report with no public code, no independent replication, and a largest model of 2B. Points that come from a single auto-extracted source, or that conflict across sources, are flagged inline.
+> Confidence: **VERY_NEW**. The paper (arXiv 2605.26099) was submitted **25 May 2026** (v2 27 May), ~3 days before this guide. Every equation, architecture, and benchmark number below was **read and transcribed verbatim from the full 15-page PDF** (not from search-engine summaries). It remains a fresh preprint: no public code, no independent replication, largest model 2B, and one setup quirk worth holding in mind (the query is placed *before* the long context in GSM-Infinite, enabling query-aware consolidation). Note also a naming collision: a *different* concurrent paper (Behrouz, Hashemi, Mirrokni) is also titled "Language Models Need Sleep" — the authors flag this in a footnote; it is RL/parameter-expansion based, not this work.
 
 ## Background
 
-**Originating paper**: [Do Language Models Need Sleep? Offline Recurrence for Improved Online Inference](https://arxiv.org/abs/2605.26099) (Sangyun Lee, Sean McLeish, Tom Goldstein, Giulia Fanti — CMU + University of Maryland, May 2026). *Affiliations inferred from the authors' known labs; the abstract page does not render org metadata.*
+**Originating paper**: [Do Language Models Need Sleep? Offline Recurrence for Improved Online Inference](https://arxiv.org/abs/2605.26099) (Sangyun Lee & Giulia Fanti — Carnegie Mellon; Sean McLeish & Tom Goldstein — University of Maryland; May 2026). GPU resources from Modal.
 
 **Research lineage** — "Sleep" sits at the intersection of two long threads: (a) *fast weights* as a separate, faster-changing memory tier, and (b) *fixed-state sequence models* (SSMs / linear attention) that compress history instead of caching it. Its novelty is not a new memory cell — it reuses Gated DeltaNet — but a new *schedule*: spend offline compute looping over context before you evict it.
 
@@ -28,11 +28,13 @@ How a hybrid attention-SSM model spends extra compute *between* prediction steps
 
 9. **Gated DeltaNet (GDN)** (Yang, Kautz, Hatamizadeh — NVIDIA, 2024) — [arXiv:2412.06464](https://arxiv.org/abs/2412.06464). Adaptive decay gate + delta rule. **This is the actual SSM block Sleep uses in its experiments** (see the sibling [gated-deltanet-2-guide](../model-architecture/gated-deltanet-2-guide.md) for the full delta-rule lineage).
 
-10. **Test-Time Training (TTT) layers** (Sun et al. — Stanford, 2024) — [arXiv:2407.04620](https://arxiv.org/abs/2407.04620). The hidden state *is* a small model, updated by gradient steps on a self-supervised loss at test time. The closest cousin — and the key contrast (below).
+10. **Test-Time Training (TTT) layers** (Sun et al. — Stanford, 2024) — [arXiv:2407.04620](https://arxiv.org/abs/2407.04620). The hidden state *is* a small model, updated by gradient steps on a self-supervised loss at test time — origin of "the state is a learner." The paper's actual head-to-head is with the long-context TTT system **Tandon et al.** (2025) — [arXiv:2512.23675](https://arxiv.org/abs/2512.23675) — which replaces full attention with sliding-window attention and does *one* test-time gradient step on a subset of MLP layers per chunk. Sleep's contrast: it uses a *learned recurrent forward pass* as the update rule (not one-step gradient descent on a fixed scalar loss), and runs it `N` times.
 
-11. **Sleep-Time Compute** (Lin et al. — Letta, 2025) — [arXiv:2504.13171](https://arxiv.org/abs/2504.13171). Same *motto* ("think offline so inference is cheap"), totally different *level*: it precomputes query-relevant facts as **tokens/prompts** at the agent level. Sleep (this paper) consolidates into **model fast weights** at the architecture level. ~5× less test-time compute at equal accuracy; +13–18% on stateful GSM/AIME.
+11. **Depth-recurrent / looped models** — the "more recurrence = more reasoning depth" thread the paper draws on: Universal Transformers (Dehghani et al., 2018, [arXiv:1807.03819](https://arxiv.org/abs/1807.03819)); ACT (Graves, 2016); "A little depth goes a long way" (Merrill & Sabharwal, 2025); latent-reasoning recurrent depth (Geiping, McLeish et al., NeurIPS 2025). Most directly, **Teaching pretrained LMs to think deeper with retrofitted recurrence** (McLeish et al., 2025) — [arXiv:2511.07384](https://arxiv.org/abs/2511.07384) — by the same second author, the retrofit-recurrence-into-pretrained-models recipe Sleep reuses for Jet/Ouro. The paper's twist on all of these: recurrence is spent on **memory consolidation before eviction**, not at prediction time — so unlike looped models, it adds *zero* wake-time latency.
 
-12. **Do Language Models Need Sleep?** (Lee, McLeish, Goldstein, Fanti, 2026) — [arXiv:2605.26099](https://arxiv.org/abs/2605.26099). **This guide.** Wraps a GDN fast-weight update in `N` offline recurrent passes over each context chunk, then evicts the KV cache.
+12. **Sleep-Time Compute** (Lin et al. — Letta, 2025) — [arXiv:2504.13171](https://arxiv.org/abs/2504.13171). Same *motto* ("think offline so inference is cheap"), totally different *level*: it precomputes query-relevant facts as **tokens/prompts** at the agent level. Sleep (this paper) consolidates into **model fast weights** at the architecture level. ~5× less test-time compute at equal accuracy; +13–18% on stateful GSM/AIME.
+
+13. **Do Language Models Need Sleep?** (Lee, McLeish, Goldstein, Fanti — CMU/UMD, 2026) — [arXiv:2605.26099](https://arxiv.org/abs/2605.26099). **This guide.** Wraps a GDN fast-weight update in `N` offline recurrent passes over each context chunk (optimized with Muon), then evicts the KV cache.
 
 **The one-line thesis**: A fixed-state model writes a chunk of context into its state in *one* forward pass — that's a hard cap on how much sequential computation can shape the state before the raw tokens disappear. Sleep removes the cap: loop the blocks `N` times over the same chunk ("sleep") to refine the state, *then* evict KV. The win shows up exactly where one pass isn't enough — deep, multi-step reasoning over evicted context — while answer-token latency stays single-pass.
 
@@ -122,7 +124,7 @@ SSM / fast-weight read+write (fixed size), the Mamba-2 / GDN gated form:
   α_t = data-dependent forget gate
   β_t = data-dependent input gate
 ```
-In the experiments the SSM block is **Gated DeltaNet**, which replaces the plain additive write with the error-correcting delta rule (see the [GDN-2 guide](../model-architecture/gated-deltanet-2-guide.md) for `S_t = (I − β_t k_t k_tᵀ)α_t S_{t-1} + β_t v_t k_tᵀ`). The paper states the precise cell is not load-bearing for its claim. *(The `S_t = α S_{t-1} + β v kᵀ` form is auto-extracted from the HTML render; the gated-Hebbian framing is reliable, but confirm exact gating/normalization against the PDF.)*
+This is the paper's Eq (3), with `α_t ∈ (0,1)` a data-dependent forget gate and `β_t ∈ (0,1)` a data-dependent input gate, both computed from `x_t` (a "gated Hebbian-like outer-product rule"). In the experiments the SSM block is **Gated DeltaNet**, which adds an error-correcting delta-rule correction to this update (see the [GDN-2 guide](../model-architecture/gated-deltanet-2-guide.md) for `S_t = (I − β_t k_t k_tᵀ)α_t S_{t-1} + β_t v_t k_tᵀ`). The paper explicitly states "the specific update rule does not matter for our discussion" — the contribution is the offline-recurrence *schedule*, not the cell.
 
 ### Sleep: offline recurrence
 
@@ -323,6 +325,8 @@ The two sharpest contrasts:
 | [Transformers are SSMs (Mamba-2/SSD)](https://arxiv.org/abs/2405.21060) | Dao, Gu | 2024 | State-space duality; the `α S + β vkᵀ` update form |
 | [DeltaNet parallelization](https://arxiv.org/abs/2406.06484) | Yang et al. | 2024 | Chunkwise-parallel delta-rule writes |
 | [Gated DeltaNet](https://arxiv.org/abs/2412.06464) | Yang, Kautz, Hatamizadeh (NVIDIA) | 2024 | Decay gate + delta rule — the SSM cell Sleep loops over |
-| [Test-Time Training layers](https://arxiv.org/abs/2407.04620) | Sun et al. (Stanford) | 2024 | Hidden state = model updated by test-time gradient steps |
+| [Test-Time Training layers](https://arxiv.org/abs/2407.04620) | Sun et al. (Stanford) | 2024 | Hidden state = model updated by test-time gradient steps (TTT origin) |
+| [End-to-end TTT for long context](https://arxiv.org/abs/2512.23675) | Tandon et al. | 2025 | SWA + one test-time gradient step on MLP layers; paper's TTT contrast |
+| [Retrofitted recurrence](https://arxiv.org/abs/2511.07384) | McLeish et al. | 2025 | Add depth-recurrence to pretrained LMs — the Jet/Ouro retrofit recipe |
 | [Sleep-Time Compute](https://arxiv.org/abs/2504.13171) | Lin et al. (Letta) | 2025 | Offline precompute of query-relevant prompts (agent level) |
 | [Do Language Models Need Sleep?](https://arxiv.org/abs/2605.26099) | Lee, McLeish, Goldstein, Fanti (CMU/UMD) | 2026 | **This guide** — N offline recurrent passes consolidate context into fast weights before KV eviction |

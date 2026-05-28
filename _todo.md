@@ -21,6 +21,8 @@
 ## Inference
 - inference-optimization-guide
   - Fast, memory-efficient inference: KV caches, quantization, speculative decoding, production serving frameworks (vLLM/SGLang).
+- llm-sleep-offline-recurrence-guide
+  - "Sleep": N offline recurrent passes consolidate context into SSM fast weights before KV eviction; buys reasoning depth at fixed answer-token latency.
 - turboquant-guide
   - Online vector quantization with near-optimal distortion; KV-cache compression and nearest-neighbor search.
 

@@ -48,6 +48,7 @@ Transformers are the architecture behind all modern LLMs. Understanding attentio
 *   ✅ [Transformer论文逐段精读](https://www.youtube.com/watch?v=nzqlFIcCSWQ)
 *   [Introduction to Transformers w/ Andrej Karpathy](https://www.youtube.com/watch?v=XfpMkf4rD6E)
 *   [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+*   [Inside the Transformer: The Life of a Token](https://www.aleksagordic.com/blog/transformer) — deep-dive tracing a single token through every component (tokenization, embeddings, RMSNorm, multi-head attention w/ YaRN), plus memory/compute math
 
 ---
 

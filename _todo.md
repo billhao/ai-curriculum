@@ -11,6 +11,8 @@
   - Kimi K2.5 technical deep-dive: architecture and capabilities, for a nanoGPT background.
 - model-deepseek-v4-guide
   - DeepSeek V4: 1.6T-param agentic MoE, 1M context via CSA+HCA hybrid attention, Muon optimizer, FP4 experts, R1 thinking modes.
+- model-glm-5.2-guide
+  - GLM-5.2: 744B/40B coding MoE; DSA + IndexShare (share lightning-indexer top-k every 4 layers, 2.9× FLOP cut at 1M), deeper MTP.
 
 ## Model Architecture
 - gated-deltanet-2-guide

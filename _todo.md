@@ -13,6 +13,8 @@
   - DeepSeek V4: 1.6T-param agentic MoE, 1M context via CSA+HCA hybrid attention, Muon optimizer, FP4 experts, R1 thinking modes.
 - model-glm-5.2-guide
   - GLM-5.2: 744B/40B coding MoE; DSA + IndexShare (share lightning-indexer top-k every 4 layers, 2.9× FLOP cut at 1M), deeper MTP.
+- model-vibethinker-3b-guide
+  - VibeThinker-3B: 3B dense matches 671B–1T on verifiable math via SSP/MGPO/Long2Short/self-distill + CLR; Compression-Coverage Hypothesis.
 
 ## Model Architecture
 - gated-deltanet-2-guide

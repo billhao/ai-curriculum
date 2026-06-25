@@ -41,6 +41,18 @@
 ## Autonomous-Research
 - robin-guide
   - Robin (FutureHouse): closed-loop multi-agent biology; 2-phase hypothesis gen, BTL-ranked LLM judge, Finch consensus analysis; ripasudil/ABCA1 for dry AMD.
+- robin-architecture
+  - Code-level walkthrough of the Robin repo: module map, orchestration flow, choix-based BTL ranking, code-vs-paper differences.
+- ai-scientist-guide
+  - Sakana's The AI Scientist: fully autonomous ML research loop (idea→code via Aider→paper→automated reviewer); ~$15/paper; reviewer near-human.
+- popper-falsification-guide
+  - Popper (Stanford): domain-general agentic hypothesis validation; sequential e-values/e-processes give any-time Type-I error control.
+- ai-co-scientist-guide
+  - Google AI Co-Scientist: 6 specialist agents + Supervisor; generate-debate-evolve with online Elo tournament; 3 wet-lab validations.
+- data-to-paper-guide
+  - data-to-paper (Technion): stepwise multi-agent data→hypothesis→code→full paper with verifiable claim-to-data provenance chains.
+- landscape-2025-2026
+  - Ranked map of 2025-2026 autonomous-research work: end-to-end systems, hypothesis gen/validation, self-driving labs, benchmarks, critiques.
 
 ## Benchmarks
 - benchmarks-guide

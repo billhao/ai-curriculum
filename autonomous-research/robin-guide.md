@@ -74,6 +74,8 @@ Robin's claim: it is the first to automate *all* the intellectual steps — gene
 
 Implementation note: in their original agentic implementation, Robin "almost always called tools in the same order," so they **collapsed it into a deterministic Jupyter notebook** for stability — a nice example of the recurring lesson that once an agentic workflow's control flow is fixed, you should hard-code it rather than re-pay the LLM-decision tax each run.
 
+> **Paper vs released code.** The open-source repo diverges from the paper in several ways: the LLM judge is **o4-mini, not Claude 3.7 Sonnet**; the default config is **3/3/5** (not the paper's `num_queries=5 / num_assays=10 / num_candidates=30`); Finch runs **5** parallel trajectories (not 10); BTL strengths are fit with `choix.ilsr_pairwise` (a spectral ILSR estimator, not a hand-rolled MLE); and `data_analysis` is hard-wired to flow cytometry. The numbers in this guide follow the *paper*; see the companion [`robin-architecture.md`](./robin-architecture.md) for the code-level walkthrough.
+
 ## Innovation 1 — Two-Phase Hypothesis Generation
 
 Robin does not free-associate. Generation is a structured *generate → literature-ground → judge-rank* pipeline, run twice: first to pick the **assay** (the experimental strategy), then to pick the **drug candidates** to run through it.

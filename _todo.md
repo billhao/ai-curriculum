@@ -38,6 +38,10 @@
 - agents-guide
   - LLM agents: lineage, architectures, memory, planning, multi-agent systems, code agents, evaluation, training, failure modes, patterns.
 
+## Autonomous-Research
+- robin-guide
+  - Robin (FutureHouse): closed-loop multi-agent biology; 2-phase hypothesis gen, BTL-ranked LLM judge, Finch consensus analysis; ripasudil/ABCA1 for dry AMD.
+
 ## Benchmarks
 - benchmarks-guide
   - Major 2026 LLM benchmarks: reasoning, code, agents, long-context, multimodal; SOTA scores and contamination caveats.

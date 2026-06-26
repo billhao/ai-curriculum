@@ -4,6 +4,10 @@
 - interp
   - Mechanistic interpretability entry point: circuits, induction heads, SAEs/dictionary learning; index to per-topic guides.
 
+## Knowledge-Vs-Intelligence
+- physics-of-language-models-guide
+  - Allen-Zhu/Li controlled science-of-LLMs: knowledge storage vs reasoning skills, 2-bits/param capacity, iGSM hidden planning, Canon layers; ICML 2024 tutorial.
+
 ## Models
 - model-gemma-4-guide
   - Gemma 4: Google's open models (2B–31B); dual-config attention, K=V sharing, shared KV cache, Per-Layer Embeddings.

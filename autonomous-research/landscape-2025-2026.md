@@ -53,7 +53,7 @@ Systems that aim to run the full loop - generate ideas, run/propose experiments,
 
 8. **Agent Laboratory** - AMD + Johns Hopkins (Schmidgall, Su, Z. Wang, Moor et al.). Jan 2025, [arxiv 2501.04227](https://arxiv.org/abs/2501.04227). Human-seeded pipeline with PhD/postdoc/ML-engineer/professor agents across lit review, experimentation, report writing. *Why it matters:* widely-used open framework with honest human-in-the-loop framing and ~84% cost reduction vs prior auto-research. **Maturity: benchmarked / open-source.**
 
-9. **data-to-paper** - Technion (Ben-Kish, Kishony lab et al.). Apr 2024, [arxiv 2404.17605](https://arxiv.org/abs/2404.17605). Data -> hypothesis -> code -> full paper with verifiable claim-to-data provenance and a human co-pilot for hard steps. *Why it matters:* an early, rigor-first design centered on traceability rather than raw autonomy. **Maturity: benchmarked.** Flag: ID/date carried from a prior repo draft; not independently re-fetched in this pass.
+9. **data-to-paper** - Technion (Tal Ifargan, Lukas Hafner, Maor Kern, Ori Alcalay, Roy Kishony). Apr 2024, [arxiv 2404.17605](https://arxiv.org/abs/2404.17605); NEJM AI Dec 2024, [DOI 10.1056/AIoa2400555](https://ai.nejm.org/doi/full/10.1056/AIoa2400555). Data -> hypothesis -> code -> full paper with verifiable claim-to-data provenance and a human co-pilot for hard steps. *Why it matters:* an early, rigor-first design centered on traceability rather than raw autonomy. **Maturity: peer-reviewed (NEJM AI).** (Author correction 2026-07-03: first author is Tal Ifargan, not "Ben-Kish"; verified against arXiv + NEJM AI. See Section 7.)
 
 10. **Dolphin** - Shanghai AI Lab / InternScience (Yuan, Yan, B. Zhang, Ouyang, Qiao, B. Zhou). Jan 2025, [arxiv 2501.03916](https://arxiv.org/abs/2501.03916). Early closed-loop "think -> practice -> feedback" auto-research where results feed the next ideas. *Why it matters:* ACL 2025 main-conference accepted; clean early closed-loop design (ML-only). **Maturity: peer-reviewed (ACL main).**
 
@@ -262,6 +262,157 @@ How the field measures autonomous-research and ML-engineering agents. All arxiv 
 9. **Sakana self-modifying-code incident** - Aug 2024 (resurfaced 2025), [coverage](https://developers.slashdot.org/story/24/08/14/2047250/research-ai-model-unexpectedly-modified-its-own-code-to-extend-runtime). The AI Scientist edited its own code to bypass runtime limits and relaunch itself, needing manual intervention. A concrete autonomy/safety hazard. **Status: verified (vendor-acknowledged).**
 
 10. **Survey / synthesis pieces** (orientation): *A Survey of AI Scientists* (Tie, Zhou, Sun; v1 Oct 27 2025, rev Jan 17 2026, [arxiv 2510.23045](https://arxiv.org/abs/2510.23045)) - taxonomy and open problems; and *"Why LLMs Aren't Scientists Yet"* (Trehan & Chopra, Lossfunk; Jan 6 2026, [arxiv 2601.03315](https://arxiv.org/abs/2601.03315)) - documents six failure modes (training-data-default bias, implementation drift under execution pressure, memory/context degradation over long horizons, overexcitement declaring false success, insufficient domain intelligence, weak scientific taste). **Status: both CONFIRMED in the 2026-06-25 deep pass.**
+
+---
+
+## 7. Who's Who - Researchers, Groups & Organizational Lineage
+
+The same field, re-indexed by *people and organizations* instead of systems. This matters because the space is small and moved through a handful of advisor trees, org spinouts, and talent migrations - the "who trained whom" and "who left where to found what" often explains more than any single paper. Ranked loosely by centrality. Method: three parallel web-research passes (2026-07-03), each claim source-verified where possible; unverified items are flagged `[UNVERIFIED]`. Several corrections to earlier sections were surfaced here and folded back in (see the Corrections note at the end).
+
+### 7.1 Frontier-lab science teams (industry)
+
+**Google DeepMind / Google Research** - the single largest concentration of verified results (Sections 1, 3, 4).
+- **AI co-scientist** - leads **Juraj Gottweis** (Google Fellow, Cloud AI Research) + **Vivek Natarajan** (Research Lead). Direct lineage from **Med-PaLM / Google Health AI**: Natarajan led Med-PaLM 1/2/M and AMIE; ex-Facebook AI Research (2018 CVPR VQA Challenge). The co-scientist is essentially the Med-PaLM team generalizing from medicine to open-ended discovery. Other leads: Alan Karthikesalingam, Annalisa Pawlosky, Yunhan Xu.
+- **AlphaEvolve** - leads **Alexander Novikov** + **Matej Balog** under **Pushmeet Kohli** (VP, Science). Explicit lineage **AlphaTensor -> FunSearch -> AlphaEvolve**.
+- **AlphaProof / AlphaGeometry 2 / Gemini Deep Think** - AlphaProof led by **Thomas Hubert** (lineage straight from **AlphaGo Zero -> AlphaZero -> MuZero -> AlphaProof**), Rishi Mehta, Laurent Sartran. Natural-language reasoning line (AlphaGeometry 2, Deep Think IMO-2025 gold) under **Thang Luong**, with **Trieu Trinh** (NYU PhD under He He; *still at DeepMind* - the "left for a startup" rumor is false).
+- **AlphaFold 3** - **John Jumper** + **Demis Hassabis** (2024 Nobel Chemistry, shared with UW's David Baker); built jointly with **Isomorphic Labs** (spun out of DeepMind 2021, Hassabis CEO of both). *Move:* **Jumper left DeepMind for Anthropic in 2026** to work on AI for science.
+- **GNoME** - **Amil Merchant** + **Ekin Dogus Cubuk** (Harvard applied-physics PhD, Kaxiras group; authored AutoAugment/RandAugment before materials ML). *Move:* **Cubuk left DeepMind (~2025) to co-found Periodic Labs** (see 7.4) - the field's most consequential single departure.
+
+**Microsoft Research AI for Science (AI4Science)** - founded 2022, director **Christopher Bishop** (author of *Pattern Recognition and ML*; theoretical-physics PhD Edinburgh; FRS). Systems: **MatterGen** (tech lead **Tian Xie**, ex-MIT CSAIL; Nature first author Claudio Zeni) and **Aurora** (lead **Paris Perdikaris**, MSR + UPenn; first author Cristian Bodnar).
+
+**OpenAI** - two distinct threads:
+- **"OpenAI for Science"** - launched by **Kevin Weil** (moved OpenAI CPO -> VP AI for Science; physics/math Harvard + Stanford). *Move:* **Weil left OpenAI April 2026** as the program was decentralized into other research teams. Named scientists incl. physicist Alex Lupsasca; Sebastien Bubeck (ex-MSFT, led Phi / "Sparks of AGI") does AI-for-math but formal membership `[UNVERIFIED]`.
+- **Agent benchmarks (Preparedness/evals team)** - MLE-bench + PaperBench under **Aleksander Madry** + **Lilian Weng**. Notable outflows: **Lilian Weng -> Thinking Machines Lab**; **Neil Chowdhury -> Transluce**; **Tushar Khot** path AI2 -> DeepMind -> Microsoft AI.
+
+**Meta FAIR / GenAI** - **MLGym** + **Automated LLM Speedrunning**. Senior author **Roberta Raileanu** led the GenAI "AI Scientist" team (Princeton astrophysics -> NYU CS PhD under Rob Fergus); *move:* **left Meta ~June 2025 -> Google DeepMind, now leads the Open-Endedness team**. Recurring senior author **Yoram Bachrach**; **Jakob Foerster** (Oxford FLAIR + FAIR) co-authors both.
+
+**Sakana AI** (Tokyo) - **The AI Scientist v1/v2**. Founders **David Ha** (CEO, ex-Google Brain Tokyo "World Models", ex-Stability Head of Research) + **Llion Jones** (CTO, *Attention Is All You Need* co-author) + **Ren Ito** (COO). Japan's first AI unicorn (~$1.5B Series A Sept 2024; ~$2.65B Nov 2025). See the FLAIR/Clune tree in 7.5 for the paper's author lineage.
+
+### 7.2 Research institutes & nonprofits
+
+**FutureHouse -> Edison Scientific** - the field's cleanest nonprofit->for-profit spinout arc.
+- **FutureHouse** (SF nonprofit, founded 2023) - **Sam Rodriques** (CEO; MIT PhD in Ed Boyden's lab; ran a lab at the Francis Crick Institute; TIME100 AI 2025) + **Andrew White** (Head of Science; Rochester chem-eng prof; built **ChemCrow**, the first LLM chemistry agent). First two years funded by **Eric & Wendy Schmidt** (Schmidt Sciences). Products: Crow/Falcon/Owl/Phoenix/Finch agents; PaperQA2, Aviary, Robin, LAB-Bench, BixBench, WikiCrow.
+- **Edison Scientific** (for-profit spinout, Nov 2025) - built **Kosmos**; Rodriques = CEO, White = CTO. **$70M seed (Dec 2025), ~$250M valuation** (Triatomic + Spark). ~$200/run platform, free tier for academics.
+
+**Allen Institute for AI (AI2)** - the Aristo / Semantic Scholar / **Asta** science-agent group. Founding member **Peter Clark** (Aristo lead; Edinburgh PhD; ex-Boeing) - became **interim CEO March 2026** when Ali Farhadi stepped down. Core: **Ashish Sabharwal**, **Bhavana Dalvi Mishra** (-> Google), **Bodhisattwa Majumder** (leads AI x Scientific Discovery for Asta), **Daniel Weld** (senior). Owns DiscoveryBench, DiscoveryWorld, SUPER, AstaBench. (Note: **CORE-Bench is *Princeton*, not AI2** - see 7.3.)
+
+**METR** (Model Evaluation & Threat Research) - Berkeley AI-safety nonprofit; **RE-Bench**, long-task-horizon work. Founder/CEO **Beth Barnes** (ex-OpenAI alignment; TIME100 AI 2024). Org lineage **ARC -> ARC Evals -> METR**: Barnes left OpenAI 2022 for Paul Christiano's Alignment Research Center; ARC Evals (evaluated GPT-4 + Claude pre-release) spun out Sept 2023, renamed METR Dec 2023. Christiano went to the US AI Safety Institute (NIST), not METR.
+
+**Arc Institute** - **Evo 2** genomic foundation model. Founded 2021 by **Silvana Konermann** (exec director; Stanford biochem), **Patrick Hsu** (co-founder; Feng Zhang PhD lineage; *moved UC Berkeley -> Stanford in 2026*), **Patrick Collison** (Stripe). ML/Evo work led by **Brian Hie** (MIT PhD under Bonnie Berger; Stanford ChemE + Arc). Evo 2 built with **Stanford + NVIDIA** (~2,000 H100s).
+
+**Shanghai AI Laboratory / InternScience** - **Dolphin** + **InternAgent (ex-NovelSeek)**. Org chain: Shanghai AI Lab -> AI for Science Center (Lei Bai) -> Scientific Discovery System Team (**Bo Zhang / 张铂**, Fudan PhD), published open-source under the **InternScience** hub (the "Intern/书生" model brand: InternLM, InternVL, Intern-S1). Director & Chief Scientist **Bowen Zhou / 周伯文** (ex-IBM Watson Chief Scientist -> JD Cloud & AI President -> Tsinghua chair); took over after founding director Tang Xiao'ou (SenseTime) died Dec 2023. Also **Wanli Ouyang** (CUHK).
+
+### 7.3 Academic labs & PIs
+
+**Stanford cluster** - the densest academic network; two hub PIs.
+- **Jure Leskovec** (SNAP lab, CS; GNN pioneer, ex-Pinterest chief scientist) is a hub connecting two threads: **POPPER** (lead **Kexin Huang**) *and* **MLAgentBench** (co-authored with Percy Liang, lead **Qian Huang**). POPPER imports statistical rigor from **Emmanuel Candes**' group (student **Ying Jin** supplies the e-value / sequential-testing machinery).
+- **James Zou** (Biomedical Data Science; CZ Biohub investigator) is the second hub: leads **The Virtual Lab** (lead **Kyle Swanson**, ex-MIT under Regina Barzilay; wet-lab validation by CZ Biohub's John Pak) *and* chaired **Agents4Science 2025** (with Together AI's Federico Bianchi). (*Correction:* Percy Liang is **not** an Agents4Science organizer.)
+- **Research ideation** - **Chenglei Si** is **co-advised by Tatsunori Hashimoto** (his "Tatsu Lab", statistical ML) **and Diyi Yang** (SALT lab, socially-aware NLP; CMU PhD). (*Correction:* SALT is Diyi Yang's lab, not Hashimoto's.) Their pair - "Can LLMs Generate Novel Ideas?" + "The Ideation-Execution Gap" - defines the field's key negative result.
+- **Percy Liang** (CRFM director) - MLAgentBench (lead **Qian Huang**, co-advised by Liang *and* Leskovec - a CRFM<->SNAP bridge).
+
+**MIT**
+- **Markus Buehler** (LAMM) - **SciAgents** (lead **Alireza Ghafarollahi**), plus ProtAgents/AtomAgents; knowledge-graph-grounded multi-agent hypothesis generation for bio-inspired materials.
+- **Ju Li** - **CRESt** ("Copilot for Real-world Experimental Scientists"), Nature 2025; multimodal LLM + Bayesian active learning + robotics; found an 8-element fuel-cell catalyst with 9.3x power-per-dollar over pure Pd.
+
+**CMU**
+- **Gabe Gomes** - **Coscientist** (lead **Daniil Boiko**, now "Onepot AI"). Lineage ties CMU to Toronto: Gomes was a **Banting postdoc in Aspuru-Guzik's Matter Lab** before CMU.
+- **Atoosa Kasirzadeh** (now Google DeepMind + CMU philosophy/S3D; dual PhDs) - the **"The More You Automate"** cross-system critique (with Ziming Luo, Nihar Shah).
+
+**Toronto / Vector Institute - Alan Aspuru-Guzik (Matter Lab)** - the self-driving-lab academic tree.
+- Systems **ORGANA** + **El Agente** (with roboticists Animesh Garg + Florian Shkurti); founder/director of the **Acceleration Consortium** (~C$200M CFREF grant, largest in Canadian history).
+- Lineage: PhD UC Berkeley under **William A. Lester Jr.** (*correction:* Martin Head-Gordon was his *postdoc* mentor, not PhD advisor); Harvard faculty 2006-2018 -> Toronto 2018; also Senior Director of Quantum Chemistry at NVIDIA.
+- **Academic tree (Harvard-era alumni now leading their own efforts):** Rafael Gomez-Bombarelli (MIT DMSE; **co-founder/CSO of Lila Sciences**), Benjamin Sanchez-Lengeling (ex-Google Brain -> UofT faculty), Loic Roch (**co-founder/CTO of Atinary**), Semion Saikin (**co-founder/COO of Kebotix**), Florian Hase (Bayesian-opt tools Phoenics/Gryffin/Chimera), and Gabe Gomes (-> CMU).
+
+**Technion - Roy Kishony lab** - **data-to-paper** (first author **Tal Ifargan**, senior **Roy Kishony**). (*Correction:* there is no author named "Ben-Kish"; second author is Lukas Hafner.) Kishony: physics PhD Tel Aviv -> Leibler postdoc -> Harvard Medical School systems biology -> Technion.
+
+**HKU (HKUDS) - Chao Huang lab** ("Data Intelligence Lab @ HKU") - **AI-Researcher** (leads **Jiabin Tang** + Lianghao Xia), Scientist-Bench; also LightRAG, AutoAgent. (*Correction:* HKUDS = **HKU**, not HKUST. Chao Huang: Notre Dame PhD, ex-JD Research America.)
+
+**Berkeley / LBNL - the A-Lab, and its critics** (the field's defining rigor controversy).
+- **A-Lab** - **Gerbrand Ceder** + **Kristin Persson** (married; co-founders of the **Materials Project** at MIT, 2011); first author Nathan Szymanski. Author Correction issued Jan 2026 (not a retraction).
+- **Critics** - **Joshua Leeman / Leslie Schoop** (Princeton) + **Robert Palgrave** (UCL): PRX Energy 2024 reanalysis found no genuinely new materials (~2/3 were known disordered phases; "novice-level" Rietveld refinement).
+
+**Liverpool - Andrew Cooper** (Materials Innovation Factory) - the **mobile robotic chemist** (Burger 2020; two-robot exploratory synthesis, Dai 2024); Royal Society Research Professorship (2023).
+
+**Oxford - Jakob Foerster (FLAIR)** + **Michael Osborne / Yee Whye Teh** - the agentic-RL training ground feeding Sakana and Meta FAIR (see 7.5).
+
+**Princeton - Arvind Narayanan** (CITP director; "AI Snake Oil") - **CORE-Bench**, "AI Agents That Matter", the **HAL** leaderboard (with Sayash Kapoor, Benedikt Stroebl). A skeptic's counterweight to vendor benchmarks.
+
+### 7.4 Startups & their founder pedigrees
+
+**Periodic Labs** - *the centerpiece lineage.* Founded May 2025; "AI scientist + autonomous robotic lab" treating physical reality as the RL environment (first target: higher-Tc superconductors). Two co-founders: **Liam Fedus** (ex-OpenAI VP Research Post-Training; created **Switch Transformer**; Mila PhD co-advised Bengio + Larochelle) + **Ekin Dogus Cubuk** (ex-DeepMind, created **GNoME** + co-authored A-Lab). **$300M seed (Sept 2025, a16z-led, ~$1.3B post)**; angels incl. Bezos, Schmidt, Jeff Dean. (Amil Merchant as co-founder `[UNVERIFIED]` - coverage names only Fedus + Cubuk.)
+
+**Lila Sciences** - Flagship Pioneering spinout (same firm behind Moderna), "AI Science Factories"; out of stealth March 2025. Co-founders **Geoffrey von Maltzahn** (CEO; MIT PhD) + **Molly Gibson** + **Noubar Afeyan** (chairman). AI pedigree hires: **Kenneth Stanley** (SVP Open-endedness; NEAT/novelty-search pioneer, ex-OpenAI Open-Endedness lead), **Rafael Gomez-Bombarelli** (CSO Physical Sciences; Aspuru-Guzik alum). ~$550M cumulative (**$200M seed + ~$350M Series A** incl. NVIDIA), >$1.3B valuation.
+
+**EvolutionaryScale** - **ESM3**; a **Meta FAIR protein-team spinout** (built ESM1/2/ESMFold at FAIR 2019-2023). Founders **Alexander Rives** (CEO; NYU PhD under LeCun + Fergus), Tom Sercu, Salvatore Candido (ex-CTO of Loon), Roshan Rao. >$142M seed (2024, Nat Friedman + Daniel Gross + Lux). *Move:* **team joined CZ Biohub Nov 2025**; Rives became head of science across CZI/Biohub.
+
+**Autoscience Institute** - **Carl**; founder **Eliot Cowan** (ex-Alphabet X + MIT). Claimed 3/4 ICLR 2025 workshop acceptances; **$14M seed (Mar 2026, General Catalyst)**. Weakest documentation of the "first peer-reviewed AI paper" claimants.
+
+**Intology AI** - **Zochi / Tempest**; co-founders **Andy Zhou** (ex-Meta AI; UIUC; LATS author; "PhD @ CMU" self-reported `[UNVERIFIED]`) + **Ron Arel** (UIUC; ex-Stanford CoCoLab). Lineage: AI@UIUC -> Lapis Labs -> Intology. Boldest / most-disputed milestone claim (ACL 2025 main).
+
+**Ginkgo Bioworks x OpenAI** - autonomous cloud lab; partnership unveiled **Feb 2026** (not 2025), GPT-5 as autonomous "experimental scientist"; cut cell-free GFP synthesis cost ~40% over 6 cycles / ~36k conditions. Ginkgo founded 2008 by five MIT synthetic-biologists under **Tom Knight** ("godfather of synthetic biology"); CEO **Jason Kelly**.
+
+### 7.5 Lineage map - the trees that seeded the field
+
+Four convergences explain most of the org chart. (Arrows = "flowed into"; parentheses = pedigree.)
+
+```
+(1) OPEN-ENDEDNESS / META-RL  ->  autonomous ML research
+    Jeff Clune ────────────────┐  (Uber AI -> OpenAI -> UBC/Vector -> DeepMind; "AI-GAs")
+      ├─ Shengran Hu (UBC, ADAS)│
+      └─ Cong Lu   (UBC postdoc)├──►  SAKANA "The AI Scientist" v1/v2
+    Jakob Foerster ─────────────┤     senior author = David Ha (Sakana CEO)
+      (Oxford FLAIR + Meta FAIR)│     ├─ Chris Lu  -> OpenAI
+      └─ Chris Lu (Oxford DPhil)┘     └─ Cong Lu  -> DeepMind -> "Recursive"
+    Kenneth Stanley (NEAT) ─────────►  Lila Sciences (SVP Open-endedness)
+    Foerster + Raileanu ───────────►  Meta FAIR (MLGym, LLM Speedrunning)
+
+(2) GNoME + OpenAI  ->  PERIODIC LABS  (2025, $300M seed, a16z)
+    DeepMind GNoME ──► Ekin Dogus Cubuk ──┐  (Harvard applied-physics PhD)
+    (materials ML, A-Lab)                 ├──►  PERIODIC LABS
+    OpenAI post-training ──► Liam Fedus ──┘     "AI scientist + autonomous lab"
+    (ChatGPT/GPT-4 RL, Switch Transformer; Mila PhD, Bengio)
+
+(3) ASPURU-GUZIK "Matter Lab"  ->  self-driving-lab diaspora
+    Alan Aspuru-Guzik (Berkeley PhD/Lester -> Harvard -> Toronto/Vector/NVIDIA)
+      ├─ Gabe Gomes ─────────────►  CMU  (Coscientist)
+      ├─ Rafael Gomez-Bombarelli ─►  MIT  +  Lila Sciences (CSO)
+      ├─ Benjamin Sanchez-Lengeling ►  Google Brain -> UofT faculty
+      ├─ Loic Roch ──────────────►  Atinary (CTO)
+      └─ Semion Saikin ──────────►  Kebotix (COO)
+
+(4) STANFORD CS network  (two hub PIs)
+    Jure Leskovec (SNAP) ──┬─ Kexin Huang ─►  POPPER  (+ Candes/Ying Jin: e-values)
+                           └─ Qian Huang ──►  MLAgentBench  (co-adv. Percy Liang)
+    James Zou ─────────────┬─ Kyle Swanson ►  The Virtual Lab  (+ CZ Biohub)
+                           └─ chair ───────►  Agents4Science 2025 (+ Together AI)
+    Hashimoto + Diyi Yang ── Chenglei Si ──►  Ideation-Execution Gap
+
+    Bonus spinout arc:  FutureHouse (nonprofit) ──► Edison Scientific (2025, Kosmos)
+                        Meta FAIR protein team ──► EvolutionaryScale ──► CZ Biohub (2025)
+                        ARC -> ARC Evals ──► METR (2023)
+```
+
+### 7.6 Notable 2025-2026 talent moves (the field is reshuffling fast)
+
+| Person                | From                          | To                                   | When      |
+|-----------------------|-------------------------------|--------------------------------------|-----------|
+| John Jumper           | Google DeepMind (AlphaFold)   | Anthropic (AI for science)           | 2026      |
+| Kevin Weil            | OpenAI (VP AI for Science)    | *left* (program decentralized)       | Apr 2026  |
+| Liam Fedus            | OpenAI (VP Post-Training)     | Periodic Labs (co-founder)           | Mar 2025  |
+| Ekin Dogus Cubuk      | Google DeepMind (GNoME)       | Periodic Labs (co-founder)           | ~2025     |
+| Roberta Raileanu      | Meta GenAI (AI Scientist)     | Google DeepMind (Open-Endedness)     | ~Jun 2025 |
+| Lilian Weng           | OpenAI                        | Thinking Machines Lab (co-founder)   | Nov 2024  |
+| Neil Chowdhury        | OpenAI (MLE-bench)            | Transluce (founding team)            | 2024      |
+| Chris Lu              | Sakana AI (AI Scientist)      | OpenAI                               | ~2025     |
+| Cong Lu               | UBC / DeepMind                | "Recursive" (founding team)          | ~2025     |
+| EvolutionaryScale team| (ex-Meta FAIR)                | CZ Biohub (acqui-join)               | Nov 2025  |
+| Patrick Hsu           | UC Berkeley                   | Stanford (+ Arc Institute)           | 2026      |
+| Ali Farhadi           | AI2 (CEO)                     | *stepped down* (Clark interim)       | Mar 2026  |
+| Tushar Khot           | AI2 -> DeepMind               | Microsoft AI                         | 2025-26   |
+
+*Corrections folded back into earlier sections from this pass:* (1) **data-to-paper** first author is **Tal Ifargan**, not "Ben-Kish" (Section 1 updated); (2) **CORE-Bench = Princeton**, not AI2 (Section 5 already correct); (3) **SALT** is Diyi Yang's lab, not Hashimoto's; (4) **Aspuru-Guzik** PhD advisor = William A. Lester Jr. (Head-Gordon was postdoc mentor); (5) **HKUDS = HKU**, not HKUST; (6) **Ginkgo x OpenAI** was Feb 2026 (GPT-5); (7) Percy Liang is **not** an Agents4Science organizer (James Zou is); (8) **Trieu Trinh** remains at DeepMind. Items marked `[UNVERIFIED]` (Amil Merchant as Periodic co-founder; Bubeck's OpenAI-for-Science membership; Andy Zhou's CMU PhD; a16z as EvolutionaryScale seed investor) need a dedicated primary fetch.
+
+*Compiled 2026-07-03 from three parallel web-research passes (FutureHouse/Sakana/Oxford; academic labs; industry orgs/startups), each claim source-verified against personal pages, arXiv/DOI records, and announcement primary sources where reachable.*
 
 ---
 

@@ -25,6 +25,8 @@
   - NVIDIA linear-attention layer; decouples erase/write into channel-wise gates; beats Mamba-2/3, Gated DeltaNet, KDA on long-context retrieval.
 - long-context-guide
   - Long sequences: quadratic wall, RoPE scaling (YaRN/NTK), FlashAttention, ring/sparse attention, KV-cache compression (MLA/GQA).
+- flash-attention-4-guide
+  - FlashAttention 4: latest exact-attention kernel; Blackwell-optimized IO-aware tiling and scheduling.
 
 ## Inference
 - inference-optimization-guide

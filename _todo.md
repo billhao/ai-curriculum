@@ -61,6 +61,12 @@
   - data-to-paper (Technion): stepwise multi-agent data→hypothesis→code→full paper with verifiable claim-to-data provenance chains.
 - landscape-2025-2026
   - Ranked map of 2025-2026 autonomous-research work: end-to-end systems, hypothesis gen/validation, self-driving labs, benchmarks, critiques.
+- llm-speedrunning-benchmark-guide
+  - Meta FAIR benchmark: 19 nanoGPT-speedrun reproduction tasks; frontier agents recover <20% of human speedup without hints.
+- execution-grounded-auto-research-guide
+  - Stanford's constructive answer to the Ideation-Execution Gap: automated executor as reward; evolutionary search beats baselines, RL mode-collapses.
+- iclr-2026-rsi-workshop
+  - ICLR 2026 RSI workshop: Darwin Gödel Machine, ASI-Arch, AlphaEvolve, execution-grounded auto-research; 110 papers, Schmidhuber/Clune lineage.
 
 ## Benchmarks
 - benchmarks-guide

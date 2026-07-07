@@ -53,6 +53,8 @@
   - Sakana's The AI Scientist: fully autonomous ML research loop (idea→code via Aider→paper→automated reviewer); ~$15/paper; reviewer near-human.
 - popper-falsification-guide
   - Popper (Stanford): domain-general agentic hypothesis validation; sequential e-values/e-processes give any-time Type-I error control.
+- ideation-execution-gap-guide
+  - Stanford negative result: LLM ideas' novelty edge vanishes/reverses after 43 experts execute them; ideation scores are an invalid proxy.
 - ai-co-scientist-guide
   - Google AI Co-Scientist: 6 specialist agents + Supervisor; generate-debate-evolve with online Elo tournament; 3 wet-lab validations.
 - data-to-paper-guide

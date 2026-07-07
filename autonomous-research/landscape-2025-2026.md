@@ -418,13 +418,13 @@ Four convergences explain most of the org chart. (Arrows = "flowed into"; parent
 
 ## Open Problems & Critiques (synthesis)
 
-1. **Ideation novelty does not survive execution.** The single most important empirical finding (Ideation-Execution Gap, [2506.20803](https://arxiv.org/abs/2506.20803)): the apparent LLM advantage at the idea stage disappears once ideas are implemented and tested. Treat any "more novel than humans" headline ([2409.04109](https://arxiv.org/abs/2409.04109)) as ideation-stage only.
+1. !!! **Ideation novelty does not survive execution.** The single most important empirical finding (Ideation-Execution Gap, [2506.20803](https://arxiv.org/abs/2506.20803)): the apparent LLM advantage at the idea stage disappears once ideas are implemented and tested. Treat any "more novel than humans" headline ([2409.04109](https://arxiv.org/abs/2409.04109)) as ideation-stage only.
 
-2. **Validation rigor lags generation.** Generators (AI Scientist, Robin, co-scientist) vastly out-produce any calibrated verification; POPPER ([2502.09858](https://arxiv.org/abs/2502.09858)) is the exception, not the norm. The materials field's verdict (MIT Tech Review, Dec 2025) is blunt: there is "no ChatGPT moment" because real-world synthesis/testing, not ideation, is the rate limiter.
+2. !!! **Validation rigor lags generation.** Generators (AI Scientist, Robin, co-scientist) vastly out-produce any calibrated verification; POPPER ([2502.09858](https://arxiv.org/abs/2502.09858)) is the exception, not the norm. The materials field's verdict (MIT Tech Review, Dec 2025) is blunt: there is "no ChatGPT moment" because real-world synthesis/testing, not ideation, is the rate limiter.
 
 3. **Autonomous data analysis is unreliable and over-optimistic.** Robin's 7.5x-vs-1.75x discrepancy and the CMU pitfalls audit ([2509.08713](https://arxiv.org/abs/2509.08713)) show automated pipelines systematically inflate effect sizes via metric misuse, weak baselines, leakage, and post-hoc selection. BixBench agentic SOTA is ~22%. Papers can "look sound" while hiding flaws.
 
-4. **"Discovery" is mostly literature recombination.** Robin, co-scientist, and others connect existing insights faster than humans; genuine de novo mechanism remains rare. The superbug result is the canonical case where recall-of-fed-evidence was mistaken for discovery.
+4. !!! **"Discovery" is mostly literature recombination.** Robin, co-scientist, and others connect existing insights faster than humans; genuine de novo mechanism remains rare. The superbug result is the canonical case where recall-of-fed-evidence was mistaken for discovery.
 
 5. **"First peer-reviewed AI paper" claims conflict and are mostly vendor-asserted.** Sakana (workshop, withdrawn), Carl (workshop, withdrawn, undocumented), Zochi (main conf, disputed independence) each claim a different "first" under a different definition; none is the undisputed sole first. Agents4Science is the most honest framing because it controls conditions instead of surprising reviewers.
 

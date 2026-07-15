@@ -23,6 +23,8 @@
 ## Model Architecture
 - gated-deltanet-2-guide
   - NVIDIA linear-attention layer; decouples erase/write into channel-wise gates; beats Mamba-2/3, Gated DeltaNet, KDA on long-context retrieval.
+- sleep-paradigm-hope-guide
+  - Wake/Sleep lifecycle for continual learning: upward Knowledge Seeding distillation + RL Dreaming on Nested Learning's Hope/CMS architecture.
 - long-context-guide
   - Long sequences: quadratic wall, RoPE scaling (YaRN/NTK), FlashAttention, ring/sparse attention, KV-cache compression (MLA/GQA).
 - flash-attention-4-guide

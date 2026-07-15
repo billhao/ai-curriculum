@@ -10,7 +10,7 @@ Reader assumptions: you already know transformers, pretraining, SFT/DPO/GRPO, di
 
 ## 1. What the workshop is, and why it matters
 
-**Verified facts** (from [recursive-workshop.github.io](https://recursive-workshop.github.io/) and its [papers page](https://recursive-workshop.github.io/papers.html); OpenReview venue `ICLR.cc/2026/Workshop/RSI`; [ICLR virtual page](https://iclr.cc/virtual/2026/workshop/10000796)):
+Sources: [recursive-workshop.github.io](https://recursive-workshop.github.io/) and its [papers page](https://recursive-workshop.github.io/papers.html); OpenReview venue `ICLR.cc/2026/Workshop/RSI`; [ICLR virtual page](https://iclr.cc/virtual/2026/workshop/10000796):
 
 ```
 Title      : "AI with Recursive Self-Improvement" (RSI 2026)
@@ -91,13 +91,13 @@ Two cross-cutting observations. First, the modal accepted paper is *not* a grand
 
 ## 3. Key papers table
 
-The RSI-defining works — mixing **workshop-accepted** papers (marked ⭐ workshop) with the **foundational/adjacent** systems the workshop cites as lineage. Every arXiv ID, date, and authorship below was fetched from the primary source (see verification note at the end).
+The RSI-defining works — mixing **workshop-accepted** papers (marked ⭐ workshop) with the **foundational/adjacent** systems the workshop cites as lineage.
 
 ```
 Paper                              Org              arXiv / date        Headline result                              Video
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Darwin Gödel Machine               Sakana+UBC/      2505.22954          Self-rewriting coding agent lifts itself     Clune SRI talk
-  (Open-Ended Evolution of           Vector           May 29 2025         SWE-bench 20.0→50.0%, Polyglot 14.2→30.7%    (verified)
+  (Open-Ended Evolution of           Vector           May 29 2025         SWE-bench 20.0→50.0%, Polyglot 14.2→30.7%
   Self-Improving Agents)                              (ICLR 2026)         via a Darwinian archive of agent variants
 Gödel Agent                        PKU + UCSB       2410.04444          LLM agent rewrites its own logic at runtime  —
                                                       Oct 6 2024          from high-level goals (no fixed pipeline)
@@ -165,7 +165,7 @@ accumulate   → feeds results + prior experience back so later proposals are in
 
 ### 4.3 AlphaEvolve — evolutionary search over code, with real deployment
 
-*Alexander Novikov, …, Matej Balog — Google DeepMind. Canonical ref: [DeepMind blog + whitepaper, May 14 2025](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/); arXiv [2506.13131](https://arxiv.org/abs/2506.13131), Jun 16 2025.* (Both refs are real; the blog/whitepaper is the primary and predates the arXiv post by ~a month. Balog — an AlphaEvolve lead — sat on the workshop's Super-Stars panel.)
+*Alexander Novikov, …, Matej Balog — Google DeepMind. Canonical ref: [DeepMind blog + whitepaper, May 14 2025](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/); arXiv [2506.13131](https://arxiv.org/abs/2506.13131), Jun 16 2025.* (The blog/whitepaper is the primary and predates the arXiv post by ~a month. Balog — an AlphaEvolve lead — sat on the workshop's Super-Stars panel.)
 
 AlphaEvolve is the industrial-strength version of "LLM-as-mutation-operator inside an evolutionary loop." A Gemini ensemble proposes edits to an *entire codebase*; automated **evaluators** score each candidate; the best survive and get mutated again. Because the fitness signal is an actual program measurement, the loop is **execution-grounded** end-to-end. Unlike DGM (which improves the *agent*), AlphaEvolve evolves *solutions to external problems*:
 
@@ -182,7 +182,7 @@ FlashAttention kernel: up to 32.5% faster          the loop optimizing the very
 TPU Verilog simplification                          hardware/software it runs on
 ```
 
-That last cluster is the recursive punchline: AlphaEvolve made **Gemini's own training faster** and simplified the **TPU** it runs on — an AI system measurably improving the substrate of the next AI system. This is the closest thing the field has to *verified* (deployed, quantified) recursive self-improvement, and it's why the AlphaEvolve lead is on the workshop panel.
+That last cluster is the recursive punchline: AlphaEvolve made **Gemini's own training faster** and simplified the **TPU** it runs on — an AI system measurably improving the substrate of the next AI system. This is the closest thing the field has to *demonstrated* (deployed, quantified) recursive self-improvement, and it's why the AlphaEvolve lead is on the workshop panel.
 
 ### 4.4 The reality check — reproduction ≠ discovery (Speedrunning Benchmark + AIRA)
 
@@ -275,7 +275,7 @@ RSI's failure modes are sharper than the broader field's because the system is e
 
 ## 7. Video / talk links
 
-Verified to resolve (checked via YouTube oEmbed + thumbnail status). No **official** ICLR-2026-RSI session recording was found as of 2026-07; the only YouTube hits for the workshop are AI-generated audio summaries on a personal channel — **not authoritative, not linked here**.
+No **official** ICLR-2026-RSI session recording was found as of 2026-07; the only YouTube hits for the workshop are AI-generated audio summaries on a personal channel — **not authoritative, not linked here**.
 
 ```
 Jeff Clune — "Open-ended and AI-generating algorithms in the era of foundation models"
@@ -324,12 +324,9 @@ And to **your own work**: the [modded-nanoGPT](https://github.com/KellerJordan/m
 
 ---
 
-## Verification note
+## Caveats & open flags
 
-**Primary-source-confirmed** (fetched, 2026-07-07): the workshop site, tagline, date/room, organizer/speaker/panel lists, six-lens CFP, award structure, and the full **110-paper accepted list** with track categories and OpenReview forum IDs ([recursive-workshop.github.io](https://recursive-workshop.github.io/) + papers page; OpenReview venue `ICLR.cc/2026/Workshop/RSI`). Every arXiv ID, date (v1), and authorship in the key-papers table and §4 was fetched from the arXiv abstract page: DGM 2505.22954, Gödel Agent 2410.04444, ASI-Arch 2507.18074, AlphaEvolve 2506.13131 (+ May 14 2025 DeepMind blog as canonical primary), Speedrunning 2506.22419, AIRA 2507.02554, Execution-Grounded 2601.14525, Agent0 2511.16043; AI Scientist v1/v2 2408.06292 / 2504.08066. modded-nanoGPT (Muon, ~1.3-min record, May 2026) and karpathy/autoresearch (Mar 2026) confirmed from their GitHub repos. Video links verified to resolve via YouTube oEmbed/thumbnail checks.
-
-**Flagged / [UNVERIFIED]:**
-- **Authors & arXiv IDs for accepted papers beyond the 4 orals + the spotlights named here were NOT individually fetched** — OpenReview's API sat behind a bot-challenge wall. Titles + track categories are verbatim from the official papers page and reliable; per-paper authors resolve via each forum ID in a browser. arXiv IDs shown for accepted papers (e.g. Agent0 2511.16043, Contextual Drag 2602.04288, ALMA 2602.07755, PostTrainBench 2603.08640) came from search metadata for the orals and should be treated as high-confidence-but-not-PDF-verified except where I fetched the abstract (Agent0, Execution-Grounded).
-- **No official workshop video recording** was found; AI-generated summary videos exist but are not authoritative and are excluded.
-- **Recursive Superintelligence** funding ($650M / ~$4.65B) and HQ (SF vs London) are from secondary tech press (TechCrunch, TheNextWeb) and are reported inconsistently across outlets — treat the exact figure as approximate. All eight named founders were corroborated across two+ sources.
+- **Per-paper authors & arXiv IDs beyond the 4 orals + named spotlights are [UNVERIFIED]** — OpenReview's API sat behind a bot-challenge wall. Titles + track categories are verbatim from the official papers page; per-paper authors resolve via each forum ID in a browser. arXiv IDs shown for accepted papers (e.g. Agent0 2511.16043, Contextual Drag 2602.04288, ALMA 2602.07755, PostTrainBench 2603.08640) are high-confidence-but-not-PDF-verified except Agent0 and Execution-Grounded.
+- **No official workshop video recording** exists; AI-generated summary videos are not authoritative and are excluded.
+- **Recursive Superintelligence** funding ($650M / ~$4.65B) and HQ (SF vs London) come from secondary tech press (TechCrunch, TheNextWeb) and are reported inconsistently across outlets — treat the exact figure as approximate.
 - **ASI-Arch's** "scaling law for scientific discovery" and "ASI4AI" framing are the authors' claims, stated without limitations in the abstract; presented here as claims, not established results.

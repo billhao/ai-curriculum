@@ -69,6 +69,8 @@
   - Ranked map of 2025-2026 autonomous-research work: end-to-end systems, hypothesis gen/validation, self-driving labs, benchmarks, critiques.
 - llm-speedrunning-benchmark-guide
   - Meta FAIR benchmark: 19 nanoGPT-speedrun reproduction tasks; frontier agents recover <20% of human speedup without hints.
+- nanogpt-speedrun-agent-followups-2026
+  - Intology NanoGPT-Bench + Prime Intellect auto-nanogpt (2026): frontier coding agents on the speedrun as open-ended discovery; <10% human progress.
 - execution-grounded-auto-research-guide
   - Stanford's constructive answer to the Ideation-Execution Gap: automated executor as reward; evolutionary search beats baselines, RL mode-collapses.
 - iclr-2026-rsi-workshop

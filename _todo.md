@@ -30,6 +30,10 @@
 - flash-attention-4-guide
   - FlashAttention 4: latest exact-attention kernel; Blackwell-optimized IO-aware tiling and scheduling.
 
+## Pretraining
+- optimizers-adam-muon-guide
+  - From AdamW to Muon: momentum, adaptive LR, and Muon's orthogonalized momentum (Newton-Schulz) for matrix params; used in Kimi K2/DeepSeek V4.
+
 ## Inference
 - inference-optimization-guide
   - Fast, memory-efficient inference: KV caches, quantization, speculative decoding, production serving frameworks (vLLM/SGLang).

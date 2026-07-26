@@ -45,6 +45,8 @@
 ## Multimodal
 - multimodal-vlm-guide
   - Vision-language models: image tokenization, vision encoders, projection layers, contrastive pretraining, visual instruction tuning (GPT-4o, Gemini, LLaVA).
+- qwen-audio-3-tts-vs-qwen3-tts-guide
+  - Head-to-head TTS comparison: open Qwen3-TTS (Apache, 12Hz codec, self-host) vs hosted Qwen-Audio-3.0-TTS (Speech Arena #1); benchmarks, pricing, TCO.
 
 ## Agents
 - agents-guide

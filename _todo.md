@@ -61,22 +61,16 @@
   - Sakana's The AI Scientist: fully autonomous ML research loop (idea→code via Aider→paper→automated reviewer); ~$15/paper; reviewer near-human.
 - popper-falsification-guide
   - Popper (Stanford): domain-general agentic hypothesis validation; sequential e-values/e-processes give any-time Type-I error control.
-- ideation-execution-gap-guide
-  - Stanford negative result: LLM ideas' novelty edge vanishes/reverses after 43 experts execute them; ideation scores are an invalid proxy.
 - ai-co-scientist-guide
   - Google AI Co-Scientist: 6 specialist agents + Supervisor; generate-debate-evolve with online Elo tournament; 3 wet-lab validations.
 - data-to-paper-guide
   - data-to-paper (Technion): stepwise multi-agent data→hypothesis→code→full paper with verifiable claim-to-data provenance chains.
 - landscape-2025-2026
   - Ranked map of 2025-2026 autonomous-research work: end-to-end systems, hypothesis gen/validation, self-driving labs, benchmarks, critiques.
-- llm-speedrunning-benchmark-guide
-  - Meta FAIR benchmark: 19 nanoGPT-speedrun reproduction tasks; frontier agents recover <20% of human speedup without hints.
 - nanogpt-speedrun-agent-followups-2026
   - Intology NanoGPT-Bench + Prime Intellect auto-nanogpt (2026): frontier coding agents on the speedrun as open-ended discovery; <10% human progress.
 - execution-grounded-auto-research-guide
   - Stanford's constructive answer to the Ideation-Execution Gap: automated executor as reward; evolutionary search beats baselines, RL mode-collapses.
-- iclr-2026-rsi-workshop
-  - ICLR 2026 RSI workshop: Darwin Gödel Machine, ASI-Arch, AlphaEvolve, execution-grounded auto-research; 110 papers, Schmidhuber/Clune lineage.
 
 ## Benchmarks
 - benchmarks-guide

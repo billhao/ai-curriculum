@@ -71,6 +71,8 @@
   - Intology NanoGPT-Bench + Prime Intellect auto-nanogpt (2026): frontier coding agents on the speedrun as open-ended discovery; <10% human progress.
 - execution-grounded-auto-research-guide
   - Stanford's constructive answer to the Ideation-Execution Gap: automated executor as reward; evolutionary search beats baselines, RL mode-collapses.
+- rsi-proposer-landscape-2026
+  - RSI through the proposer lens: what makes LLM hypothesis-generation work, 2026 systems, diversity collapse, co-evolved evaluators, idea-level benchmarks.
 
 ## Benchmarks
 - benchmarks-guide

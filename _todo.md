@@ -13,6 +13,8 @@
   - Gemma 4: Google's open models (2B–31B); dual-config attention, K=V sharing, shared KV cache, Per-Layer Embeddings.
 - model-kimi-k2.5
   - Kimi K2.5 technical deep-dive: architecture and capabilities, for a nanoGPT background.
+- model-kimi-k3-guide
+  - Kimi K3: 2.78T/104B MoE, 1M context; hybrid KDA linear attention, Attention Residuals over depth, 896-expert LatentMoE.
 - model-deepseek-v4-guide
   - DeepSeek V4: 1.6T-param agentic MoE, 1M context via CSA+HCA hybrid attention, Muon optimizer, FP4 experts, R1 thinking modes.
 - model-glm-5.2-guide

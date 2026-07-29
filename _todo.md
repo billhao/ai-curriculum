@@ -69,6 +69,8 @@
   - data-to-paper (Technion): stepwise multi-agent data→hypothesis→code→full paper with verifiable claim-to-data provenance chains.
 - landscape-2025-2026
   - Ranked map of 2025-2026 autonomous-research work: end-to-end systems, hypothesis gen/validation, self-driving labs, benchmarks, critiques.
+- proposal-mechanisms-ranked
+  - How 17 shortlist works generate hypotheses/experiments/code-mutations, ranked by novelty × impact; 8 mechanism families, the verifier cliff.
 - nanogpt-speedrun-agent-followups-2026
   - Intology NanoGPT-Bench + Prime Intellect auto-nanogpt (2026): frontier coding agents on the speedrun as open-ended discovery; <10% human progress.
 - execution-grounded-auto-research-guide

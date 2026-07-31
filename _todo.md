@@ -77,6 +77,8 @@
   - Stanford's constructive answer to the Ideation-Execution Gap: automated executor as reward; evolutionary search beats baselines, RL mode-collapses.
 - rsi-proposer-landscape-2026
   - RSI through the proposer lens: what makes LLM hypothesis-generation work, 2026 systems, diversity collapse, co-evolved evaluators, idea-level benchmarks.
+- rsi-research-groups-2026
+  - Institutional map of RSI: 41 works resolved to printed affiliations, 43 groups ranked by influence, builder-vs-critic and country splits.
 - novelty-evaluation-research
   - Quantitative novelty/impact metrics: combinatorial, semantic, disruption, Bayesian surprise; DiscoveryBench/HypoBench/NovBench; Goodhart-resistant closed-loop RSI evaluation.
 

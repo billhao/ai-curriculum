@@ -155,9 +155,14 @@ Benchmark, so a university co-affiliation on the poster is possible.
 Two further discounts, both from the audit pass: the work is **#58 on the workshop's
 110-paper accepted list** (poster tier — below 4 orals and 21 spotlights, several of which
 belong to groups ranked lower here); and Meta's AIRA measured the same proxy-vs-held-out
-generalization gap in July 2025, at 9–13 pp absolute cost, in a dedicated section, with
-released code — and Bingchen Zhao was on that Meta team. The 2026 number is a sharper
-restatement of a 2025 measurement, not a first observation.
+generalization gap in July 2025, in a dedicated section (§5.3, "The Generalization Gap:
+Searching with a Proxy Evaluation"), with released code — oracle final-node selection buys
+**9–13 absolute points** over validation-guided selection, and 9.4%/12.4% for AIRA-mcts and
+AIRA-evo end to end (15%/16.6% for the greedy variants, including AIDE-greedy, i.e. Weco's
+own scaffold). Bingchen Zhao is not an AIRA author, but he is co-first author of the
+Speedrunning Benchmark from the same Meta program (both papers last-authored by Yoram
+Bachrach). The 2026 number is a sharper restatement of a 2025 measurement, not a first
+observation.
 
 ### 3. Anthropic — one appearance, maximum verifiability
 
@@ -435,7 +440,7 @@ Things the affiliation pass turned up that bear on
 | SLDAgent as a single-group work | PKU + Stanford + **Wizard Quant** (4 of 11 authors, a quant fund) + Tsinghua |
 | SpecBench authors "B. Zhao, Srikanth, Y. Wu, Z. Jiang" | Same four people as the #1 Reward Hacking work — one team, two papers, not two datapoints |
 | Reward Hacking flagged as "search-snippet only" | Still unread as of 2026-07-31; OpenReview forum, PDF and both API endpoints all return 403 |
-| Reward Hacking as the field's central result | It is **poster #58 of 110** at the workshop; Meta's AIRA §5.3 measured the same proxy/held-out gap in Jul 2025 at 9–13 pp, with code |
+| Reward Hacking as the field's central result | It is **poster #58 of 110** at the workshop (tiers: 4 orals, 21 spotlights, 85 posters); Meta's AIRA §5.3 measured the same proxy/held-out gap in Jul 2025 at 9–13 absolute points, with code |
 | CausalEvolve "ICLR 2026 RSI workshop spotlight" | Confirmed — #17 in the workshop's 21-paper spotlight tier |
 | AC/DC listed as an ordinary 2026 preprint | Published at **ICLR 2026 main track** — the highest venue of any work in the doc |
 | Speedrunning Benchmark as a Meta work | Prints bare `Meta` (not FAIR) + `University of Edinburgh`; Bingchen Zhao is co-first author on both this and Weco's two critiques |

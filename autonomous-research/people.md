@@ -1,5 +1,12 @@
 This doc captures major research groups and people in RSI, AI for science etc.
 
+The format is frozen. What exists below — the group sections with their four-column Key
+people table and Major papers/systems list, the Other research groups table, the lineage
+section, the appendix — is the whole structure. Updates add content into it: new rows, new
+people, new papers, new lineage edges. Do not add sections, headings, subsections or table
+columns, and do not reorganize. Anything that won't fit an existing slot belongs in a topic
+guide, not here.
+
 Affiliations are as printed on the paper (arXiv HTML author block or PDF page 1). Bare
 acronyms are kept bare. Blank cells mean not yet researched, not "none". Source maps:
 [`rsi-proposer-landscape-2026.md`](rsi-proposer-landscape-2026.md) and
@@ -314,79 +321,11 @@ Co-affiliations printed on a paper but holding no lead or senior slot: NVIDIA an
 NTU Singapore / Fudan (Safety), USTC (AutoSOTA), Central South University (Denominator
 Gaming), University of Arizona (Gödel Agent), Stanford Medicine / Houston Methodist /
 Sequome / Imperial (AI co-scientist), AlphaAvatar (RSI survey), and Thoughtful Lab
-(PostTrainBench). Institutions that appear only through the workshop program — Apple,
-ByteDance, Tencent, BAAI, Scale, Anuttacon, NYU, CUHK, Meta Reality Labs, Berkeley,
-Physical Intelligence, Mila, Ohio State, You.com, UC Merced — are listed in the program
-section below rather than given rows here, since a program listing is weaker evidence than
-a title page.
-
-# ICLR 2026 RSI workshop program (Apr 26 2026, Rio de Janeiro)
-
-The single densest who's-who in the field: 110 accepted papers (4 oral · 21 spotlight ·
-75 poster · 10 short), sponsored by Tencent and Meta. Affiliations below are as listed on
-the workshop program, *not* read off a title page — one source removed, and current rather
-than at-publication. Names already covered in a group section above are cross-referenced,
-not duplicated.
-
-### Organizers (11)
-
-| Name | Program-listed affiliation | Known for |
-|---|---|---|
-| Mingchen Zhuge (lead) | KAUST | GPTSwarm, Agent-as-a-Judge; metauto.ai — see KAUST / IDSIA above |
-| Jürgen Schmidhuber | KAUST / IDSIA | Gödel machine (2003); moderates the Super-Stars panel |
-| Sherry Yang | NYU / DeepMind | |
-| Vikas Chandra | Meta Reality Labs | Agent-as-a-Judge — see Meta above |
-| Ailing Zeng | Anuttacon | |
-| Deyao Zhu | ByteDance | |
-| Rong Zou | Apple | |
-| Yan Hu | CUHK | |
-| Mengjia Li | BAAI | |
-| Yunzhong He | Scale | |
-| Levi Li | Tencent | |
-
-### Keynotes (8 × 30 min)
-
-| Name | Program-listed affiliation | Known for |
-|---|---|---|
-| Jeff Clune | UBC / DeepMind | AI-GAs, Darwin Gödel Machine, ALMA — see UBC + Vector above |
-| Chelsea Finn | Stanford | MAML |
-| Sergey Levine | Berkeley / Physical Intelligence | |
-| Yuandong Tian | stealth | Agent-as-a-Judge; Recursive Superintelligence founder |
-| Louis Kirsch | stealth | meta-RL; GPTSwarm (IDSIA) — see KAUST / IDSIA above |
-| Bing Liu | Scale | |
-| Bang Liu | Mila | |
-| Yu Su | Ohio State / NeoCognition | |
-
-### Super-Stars panel (moderated by Schmidhuber)
-
-| Name | Program-listed affiliation | Known for |
-|---|---|---|
-| Julian Schrittwieser | Anthropic | AlphaZero / MuZero |
-| Richard Socher | You.com | Recursive Superintelligence founder |
-| Yuandong Tian | stealth | also a keynote |
-| Matej Balog | DeepMind | AlphaEvolve lead |
-| Ming-Hsuan Yang | UC Merced / DeepMind | |
-| Vladlen Koltun | Apple | |
-
-### Accepted works named in the guide with authors not yet resolved
-
-OpenReview sat behind a bot-challenge wall, so these have titles and forum IDs but no
-author list. Resolving them is the highest-yield next pass on this file.
-
-| Work | Track | OpenReview ID |
-|---|---|---|
-| Reward Hacking in Self-Improving Code Agents | poster | ikrQWGgxYg — attributed to Weco AI above, inferred |
-| Verifying the Verifiers | | iRhaK8PsuB |
-| SAHOO (safeguarded alignment for RSI) | | OAFPpQO0H9 |
-| TamperBench | | smLtz7WID0 |
-
-Titled but with neither ID nor authors in the guide: POLARIS, SkillRL, Self-Adapting Agents
-for Research Coding, OMEGA, LLM-FE, CircuitBuilder, "Simple Baselines vs Code Evolution",
-Reasoning as Gradient, "Can Language Models Discover Scaling Laws?", Language Self-Play,
-SAGE, GASP, Anchored Self-Play, Compute as Teacher, "Self-Play is secretly Adversarial
-Imitation", SimpleMem, Agentic Context Engineering, Test-Time Self-Distillation, Adaptive
-Meta-Curriculum, TextBO, Self-Improvement via Fast Tree-search, Self-Improving World Models,
-VLAW, RFTF, "Interestingness as an Inductive Heuristic".
+(PostTrainBench). Institutions appearing only through the ICLR 2026 RSI workshop program —
+Apple, ByteDance, Tencent, BAAI, Scale, Anuttacon, NYU, CUHK, Meta Reality Labs, Berkeley,
+Physical Intelligence, Mila, Ohio State, You.com, UC Merced — get no row here; their people
+sit in the workshop's appendix entry, since a program listing is weaker evidence than a
+title page.
 
 # Major academic lineage (who is advisor of who)
 
@@ -442,7 +381,11 @@ Not yet researched. Edges to establish first, in rough order of how much they ex
 | 32 | DARWIN (2602.05848) | Henry Jiang — Georgia Tech, College of Computing (sole author) |
 | — | METR Time Horizon 1.1 | METR — corporate authorship, no individual bylines |
 | — | Pangram ICLR 2026 review census | Bradley Emi — Pangram Labs (sole byline) |
-| — | ICLR 2026 RSI workshop | 110 accepted (4 oral · 21 spotlight · 75 poster · 10 short). Full organizer / keynote / panel roster with affiliations in the program section above |
+| — | ICLR 2026 RSI workshop (Apr 26 2026, Rio, Room 101-D) | 110 accepted — 4 oral · 21 spotlight · 75 poster · 10 short; sponsors Tencent and Meta. *Program-listed affiliations, not title pages.* Organizers: Mingchen Zhuge (lead) — KAUST; Jürgen Schmidhuber — KAUST/IDSIA; Sherry Yang — NYU/DeepMind; Vikas Chandra — Meta Reality Labs; Ailing Zeng — Anuttacon; Deyao Zhu — ByteDance; Rong Zou — Apple; Yan Hu — CUHK; Mengjia Li — BAAI; Yunzhong He — Scale; Levi Li — Tencent. Keynotes: Jeff Clune — UBC/DeepMind; Chelsea Finn — Stanford; Sergey Levine — Berkeley/Physical Intelligence; Yuandong Tian — stealth; Louis Kirsch — stealth; Bing Liu — Scale; Bang Liu — Mila; Yu Su — Ohio State/NeoCognition. Super-Stars panel (moderated by Schmidhuber): Julian Schrittwieser — Anthropic; Richard Socher — You.com; Yuandong Tian — stealth; Matej Balog — DeepMind; Ming-Hsuan Yang — UC Merced/DeepMind; Vladlen Koltun — Apple |
+| — | Verifying the Verifiers (OpenReview iRhaK8PsuB) | Authors unresolved — OpenReview bot wall |
+| — | SAHOO, safeguarded alignment for RSI (OpenReview OAFPpQO0H9) | Authors unresolved — OpenReview bot wall |
+| — | TamperBench (OpenReview smLtz7WID0) | Authors unresolved — OpenReview bot wall |
+| — | 25 further accepted works named in the workshop guide | Titles only, no forum ID and no authors: POLARIS, SkillRL, Self-Adapting Agents for Research Coding, OMEGA, LLM-FE, CircuitBuilder, Simple Baselines vs Code Evolution, Reasoning as Gradient, Can Language Models Discover Scaling Laws?, Language Self-Play, SAGE, GASP, Anchored Self-Play, Compute as Teacher, Self-Play is secretly Adversarial Imitation, SimpleMem, Agentic Context Engineering, Test-Time Self-Distillation, Adaptive Meta-Curriculum, TextBO, Self-Improvement via Fast Tree-search, Self-Improving World Models, VLAW, RFTF, Interestingness as an Inductive Heuristic |
 
 Background anchors (covered in companion files):
 

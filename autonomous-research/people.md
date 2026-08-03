@@ -12,10 +12,10 @@ acronyms are kept bare. Blank cells mean not yet researched, not "none". Source 
 [`rsi-proposer-landscape-2026.md`](rsi-proposer-landscape-2026.md) and
 [`iclr-2026-rsi-workshop.md`](iclr-2026-rsi-workshop.md).
 
-One exception to the printed-on-the-paper rule, marked wherever it applies: the workshop
-program roster (organizers, keynotes, panel) has no title page. Those affiliations come
-from the workshop program page as relayed by the guide — one source removed from a paper,
-and a *current* affiliation rather than an at-publication one. Treated as weaker evidence.
+A conference program is not a source. Organizer, keynote and panel rosters are not recorded
+here — those are not research output, and a program page gives a current affiliation rather
+than the at-publication one every entry below is built from. A program slot never earns
+anyone a row, a (PI) mark, or an appendix line. Workshop rosters live in the workshop guide.
 
 **(PI)** marks the group lead, listed first in each table. Assigned only from printed
 evidence — the last author or the marked corresponding author of that group's work here. No
@@ -24,8 +24,7 @@ lead. Unmarked on purpose: UC Riverside (first author is also corresponding), Ed
 UCL (senior only within a Meta-led paper), SJTU Zhang/Yu/Lin, Southeast Univ., and the
 sole-author works (UCSC, Georgia Tech, Sungmin Lee) where student vs faculty isn't printed.
 Also unmarked: Recursive Superintelligence and the substrate maintainers, which have no
-paper to read a senior slot off. A keynote or panel slot is not evidence of a PI role and
-never produces a mark on its own.
+paper to read a senior slot off.
 
 # Research Groups
 
@@ -80,7 +79,6 @@ never produces a mark on its own.
 | Joe Benton | AAR | | |
 | Jiaxin Wen | AAR co-first | | |
 | Liang Qiu | AAR co-first | Anthropic Fellows Program (printed, this paper) | |
-| Julian Schrittwieser | AlphaZero / MuZero; on the RSI workshop's Super-Stars panel *(program-listed affiliation, not a title page)* | | |
 
 ### Major papers/systems
 - Automated Weak-to-Strong Researcher — 9 parallel Claude agents; PGR 0.97 vs human 0.23, plus three self-reported unpredicted reward-hacking exploits and a transfer failure at production scale
@@ -103,8 +101,8 @@ never produces a mark on its own.
 | Roberta Raileanu | AIRA | | |
 | Nicola Cancedda | AIRA | | |
 | Carole-Jean Wu | AIRA | | |
-| Vikas Chandra | Agent-as-a-Judge (printed Meta AI, 2024); RSI workshop organizer, where the program lists him at Meta Reality Labs | | |
-| Yuandong Tian | Agent-as-a-Judge (printed Meta AI, 2024); RSI workshop keynote *and* Super-Stars panelist, where the program lists him as stealth — and a named Recursive Superintelligence founder | | |
+| Vikas Chandra | Agent-as-a-Judge (printed Meta AI, 2024) | | |
+| Yuandong Tian | Agent-as-a-Judge (printed Meta AI, 2024); later a named Recursive Superintelligence founder | | |
 
 ### Major papers/systems
 - The Automated LLM Speedrunning Benchmark (2506.22419) — 19 nanoGPT records; agents fail to reimplement known improvements even with hints
@@ -146,7 +144,6 @@ Nurbek Tastan (MBZUAI); Ambroise Odonnat (Inria).
 | Haotian Ye | SLDAgent co-first | | |
 | Zitong Yang · Yejin Choi · Emmanuel Candès · Diyi Yang | Execution-Grounded Auto-Research | | |
 | Fang Wu | Agent0 | | |
-| Chelsea Finn | MAML; RSI workshop keynote *(program-listed affiliation, not a title page)* | | |
 
 ### Major papers/systems
 - Towards Execution-Grounded Automated AI Research (2601.14525) — evolutionary search beats baselines where RL mode-collapses
@@ -230,7 +227,7 @@ with no individual bylines. Individual attribution deliberately left empty.
 | Dmitrii Khizbullin | GPTSwarm co-corresponding (KAUST); Agent-as-a-Judge | | |
 | Wenyi Wang | GPTSwarm co-first (KAUST); Agent-as-a-Judge (KAUST) | | |
 | Francesco Faccio | GPTSwarm | KAUST + IDSIA (concurrent, printed) | |
-| Louis Kirsch | GPTSwarm (IDSIA); RSI workshop keynote on meta-RL, where the program lists him as stealth | IDSIA (printed on 2402.16823) | |
+| Louis Kirsch | GPTSwarm (IDSIA); meta-RL | IDSIA (printed on 2402.16823) | |
 | Dylan R. Ashley | Agent-as-a-Judge (KAUST) | | |
 
 ### Major papers/systems
@@ -285,7 +282,7 @@ and are deliberately not recorded here.
 | Tsinghua University — three separate labs | **Yong Li (PI)**, **Fengli Xu (PI)** (FIB Lab, EE/BNRist, both corresponding on AutoSOTA); Jianzhu Ma; Qi Li, Ke Xu (network security) | AutoSOTA lead; SLDAgent co; Safety in Self-Evolving Agents co |
 | UC Santa Barbara — two labs | **Xin Eric Wang (PI)**; **William Yang Wang (PI)** | GEA (2602.04837); Gödel Agent (2410.04444) |
 | Columbia Business School | **Olivier Toubia (PI)**; Melanie Brucks, Yuting Deng | Barriers to Diversity in LLM Ideas (2602.20408) |
-| UBC + Vector Institute | **Jeff Clune (PI)** (also Canada CIFAR AI Chair; the workshop program lists him as UBC/DeepMind and he keynotes); Jenny Zhang, Shengran Hu, Cong Lu, Yiming Xiong | Darwin Gödel Machine (2505.22954); ALMA (2602.07755, workshop oral); AI-GAs (1905.10985) |
+| UBC + Vector Institute | **Jeff Clune (PI)** (also Canada CIFAR AI Chair); Jenny Zhang, Shengran Hu, Cong Lu, Yiming Xiong | Darwin Gödel Machine (2505.22954); ALMA (2602.07755, workshop oral); AI-GAs (1905.10985) |
 | UC Riverside (+AlphaAvatar, Illinois Tech) | Mingguang Chen (first author *and* corresponding — senior slot unclear); Licheng Wang; Bo Qu | RSI survey, 1,250 papers (2607.07663) |
 | Google DeepMind | **Matej Balog (PI)** (AlphaEvolve last author, listed as its lead on the RSI-workshop panel page); **Vivek Natarajan (PI)** (AI co-scientist last author); Alexander Novikov, Juraj Gottweis | AlphaEvolve (2506.13131); AI co-scientist (2502.18864) |
 | Zhongguancun Academy | **Tie-Yan Liu (PI)** (AutoSOTA last author); **Zequn Liu (PI)** (ForeSci corresponding); Yingce Xia | AutoSOTA senior; ForeSci senior/corresponding |
@@ -321,11 +318,11 @@ Co-affiliations printed on a paper but holding no lead or senior slot: NVIDIA an
 NTU Singapore / Fudan (Safety), USTC (AutoSOTA), Central South University (Denominator
 Gaming), University of Arizona (Gödel Agent), Stanford Medicine / Houston Methodist /
 Sequome / Imperial (AI co-scientist), AlphaAvatar (RSI survey), and Thoughtful Lab
-(PostTrainBench). Institutions appearing only through the ICLR 2026 RSI workshop program —
-Apple, ByteDance, Tencent, BAAI, Scale, Anuttacon, NYU, CUHK, Meta Reality Labs, Berkeley,
-Physical Intelligence, Mila, Ohio State, You.com, UC Merced — get no row here; their people
-sit in the workshop's appendix entry, since a program listing is weaker evidence than a
-title page.
+(PostTrainBench). Institutions that reach this field only through the ICLR 2026 RSI
+workshop program — Apple, ByteDance, Tencent, BAAI, Scale, Anuttacon, NYU, CUHK, Meta
+Reality Labs, Berkeley, Physical Intelligence, Mila, Ohio State, You.com, UC Merced — are
+deliberately absent. Organizing, keynoting or sitting on a panel is not research output,
+and a program page is not a title page; the roster lives in the workshop guide instead.
 
 # Major academic lineage (who is advisor of who)
 
@@ -335,7 +332,6 @@ Not yet researched. Edges to establish first, in rough order of how much they ex
 - Jeff Clune (UBC) → Jenny Zhang, Shengran Hu, Cong Lu, Yiming Xiong — and the Sakana overlap (Hu, Lu, Lange all on DGM). Hu is on both DGM and ALMA, so he is the through-line of the Clune archive lineage
 - Sanjeev Arora (Princeton PLI) → Yun Cheng, Xingyu Zhu, Haoyu Zhao — the Contextual Drag group
 - Matthias Bethge (Tübingen) and Maksym Andriushchenko (ELLIS/MPI-IS) → Ben Rank, Hardik Bhatnagar, Ameya Prabhu — the PostTrainBench group; also, where Andriushchenko himself trained
-- Sergey Levine (Berkeley) ↔ Chelsea Finn (Stanford) — both keynote; the MAML/meta-RL branch feeding RSI's "learn to learn" framing
 - William Yang Wang (UCSB) → Xin Eric Wang? — would explain two independent UCSB RSI labs
 - Kun Zhang (CMU/MBZUAI) → Yongqiang Chen, Bo Han, Tongliang Liu — the causal branch
 - Tatsunori Hashimoto (Stanford) → Chenglei Si — the execution-grounded branch
@@ -381,7 +377,6 @@ Not yet researched. Edges to establish first, in rough order of how much they ex
 | 32 | DARWIN (2602.05848) | Henry Jiang — Georgia Tech, College of Computing (sole author) |
 | — | METR Time Horizon 1.1 | METR — corporate authorship, no individual bylines |
 | — | Pangram ICLR 2026 review census | Bradley Emi — Pangram Labs (sole byline) |
-| — | ICLR 2026 RSI workshop (Apr 26 2026, Rio, Room 101-D) | 110 accepted — 4 oral · 21 spotlight · 75 poster · 10 short; sponsors Tencent and Meta. *Program-listed affiliations, not title pages.* Organizers: Mingchen Zhuge (lead) — KAUST; Jürgen Schmidhuber — KAUST/IDSIA; Sherry Yang — NYU/DeepMind; Vikas Chandra — Meta Reality Labs; Ailing Zeng — Anuttacon; Deyao Zhu — ByteDance; Rong Zou — Apple; Yan Hu — CUHK; Mengjia Li — BAAI; Yunzhong He — Scale; Levi Li — Tencent. Keynotes: Jeff Clune — UBC/DeepMind; Chelsea Finn — Stanford; Sergey Levine — Berkeley/Physical Intelligence; Yuandong Tian — stealth; Louis Kirsch — stealth; Bing Liu — Scale; Bang Liu — Mila; Yu Su — Ohio State/NeoCognition. Super-Stars panel (moderated by Schmidhuber): Julian Schrittwieser — Anthropic; Richard Socher — You.com; Yuandong Tian — stealth; Matej Balog — DeepMind; Ming-Hsuan Yang — UC Merced/DeepMind; Vladlen Koltun — Apple |
 | — | Verifying the Verifiers (OpenReview iRhaK8PsuB) | Authors unresolved — OpenReview bot wall |
 | — | SAHOO, safeguarded alignment for RSI (OpenReview OAFPpQO0H9) | Authors unresolved — OpenReview bot wall |
 | — | TamperBench (OpenReview smLtz7WID0) | Authors unresolved — OpenReview bot wall |

@@ -87,3 +87,7 @@
   - Major 2026 LLM benchmarks: reasoning, code, agents, long-context, multimodal; SOTA scores and contamination caveats.
 - arc-agi-2-guide
   - ARC-AGI 2 benchmark: efficient few-shot abstraction on novel tasks; why it resists saturation through 2026.
+
+## Neuroscience
+- sentence-production-neural-coding
+  - Human ECoG: higher-order linguistic information is magnitude-independent; structure, meaning, word form sit at separate sites.

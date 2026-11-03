@@ -25,13 +25,11 @@ Almost all we know about language in the brain comes from *comprehension*
 studies in scanners: speaking creates motion and muscle artifacts that wreck
 fMRI and EEG. Production is poorly mapped, and the field is split between
 "syntax lives in specific hubs" and "syntax is spread across the language
-network." Lineage:
-(1) [Sahin 2009](https://doi.org/10.1126/science.1174481) — word identity,
-grammar, and sound processed in that order within millimeters of Broca's area;
-(2) [Pallier 2011](https://doi.org/10.1073/pnas.1018711108) — response magnitude
-scaling with amount of structure, the logic this paper breaks;
-(3) [Morgan 2025](https://doi.org/10.1038/s44271-025-00270-1) — same lab and
-paradigm, decoded the planned word and its subject/object role.
+network." Lineage: (1) Sahin 2009 — word identity, grammar, and sound processed
+in that order within millimeters of Broca's area; (2) Pallier 2011 — response
+magnitude scaling with amount of structure, the logic this paper breaks;
+(3) Morgan 2025 — same lab and paradigm, decoded the planned word and its
+subject/object role.
 
 ## What They Did
 
@@ -96,36 +94,35 @@ behaves the old way, making this a dissociation, not a null result.
 ## Why It Matters
 
 Much of language neuroscience finds regions by thresholding on activity, then
-studies only those voxels or channels. If higher-order information is
+studies only those channels. If higher-order information is
 magnitude-independent, that pipeline discards the relevant sites before
-analysis begins. For speech brain-computer interfaces this is a
-hypothesis, not a result — the paper neither cites nor tests BCI work. Current
-neuroprostheses decode from loud sensorimotor sites, exactly where word-form
-information lives here, so that choice looks well-founded; but structure and
-meaning at quiet distributed sites would be invisible to activity-driven
-channel selection.
+analysis begins. For speech brain-computer interfaces this is a hypothesis, not
+a result — the paper neither cites nor tests BCI work. Neuroprostheses decode
+from loud sensorimotor sites, exactly where word-form information lives here,
+so that choice looks well-founded; but structure and meaning at quiet
+distributed sites would be invisible to activity-driven channel selection.
 
 On the AI parallel, stay honest. GPT-2 embeddings appear only as an
-off-the-shelf meaning space, built from active-syntax sentences so the
+off-the-shelf meaning space, built from active-syntax sentences so that
 regressor stayed orthogonal to the structure term. Nothing here says the brain
-is a transformer. The real overlap is methodological — both fields moved from
-"which unit lights up" to "what can be linearly read out." The divergence is as
-real: a transformer carries syntax and semantics in one residual stream at the
-same layers; this study finds them at non-overlapping cortical sites.
+is a transformer. The overlap is methodological — both fields moved from "which
+unit lights up" to "what can be linearly read out." The divergence is as real:
+a transformer carries syntax and semantics in one residual stream at the same
+layers; this study finds them at non-overlapping cortical sites.
 
 ## Key Papers
 
-1. Morgan 2026, *Sci. Adv.* — this paper.
-   [doi](https://doi.org/10.1126/sciadv.aec0518) ·
-   [preprint](https://doi.org/10.1101/2024.06.20.599931) ·
-   [data](https://doi.org/10.5281/zenodo.20543385)
-2. Sahin 2009, *Science* — staged lexical/grammatical/phonological processing in
-   Broca's area. [doi](https://doi.org/10.1126/science.1174481) ·
-   Morgan 2025, *Comms Psych* — decoding words during sentence production.
-   [doi](https://doi.org/10.1038/s44271-025-00270-1)
-3. Pallier 2011, *PNAS* — activity scaling with constituent structure.
-   [doi](https://doi.org/10.1073/pnas.1018711108) · Matchin & Hickok 2020 —
-   syntax-hub position. [doi](https://doi.org/10.1093/cercor/bhz180) ·
-   Kriegeskorte 2008 — RSA method.
-   [doi](https://doi.org/10.3389/neuro.06.004.2008) · Grill-Spector 2006 —
-   repetition suppression. [doi](https://doi.org/10.1016/j.tics.2005.11.006)
+Morgan 2026, *Sci. Adv.* 12, eaec0518 — this paper
+([doi](https://doi.org/10.1126/sciadv.aec0518) ·
+[preprint](https://doi.org/10.1101/2024.06.20.599931) ·
+[data](https://doi.org/10.5281/zenodo.20543385)) ·
+[Sahin 2009](https://doi.org/10.1126/science.1174481), *Science*, staged
+lexical/grammatical/phonological processing in Broca's area ·
+[Morgan 2025](https://doi.org/10.1038/s44271-025-00270-1), *Comms Psych*,
+decoding words during sentence production ·
+[Pallier 2011](https://doi.org/10.1073/pnas.1018711108), *PNAS*, activity
+scaling with constituent structure ·
+[Matchin & Hickok 2020](https://doi.org/10.1093/cercor/bhz180), syntax-hub
+position · [Kriegeskorte 2008](https://doi.org/10.3389/neuro.06.004.2008), RSA
+method · [Grill-Spector 2006](https://doi.org/10.1016/j.tics.2005.11.006),
+repetition suppression.

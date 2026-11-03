@@ -55,6 +55,8 @@
   - LLM agents: lineage, architectures, memory, planning, multi-agent systems, code agents, evaluation, training, failure modes, patterns.
 
 ## Autonomous-Research
+- rsi-catchup-2026-08-to-11-guide
+  - Ranked August–November RSI reading: research agents, weight updates, adaptive curricula, new models, and evidence for genuine recursive gains.
 - robin-guide
   - Robin (FutureHouse): closed-loop multi-agent biology; 2-phase hypothesis gen, BTL-ranked LLM judge, Finch consensus analysis; ripasudil/ABCA1 for dry AMD.
 - robin-architecture

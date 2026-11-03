@@ -199,6 +199,7 @@ Efficient inference is essential for practical applications. Quantization and op
 
 **Reading:**
 
+*   [DeepInfer](https://inf.latent.space/)
 *   [FlashAttention: Fast and Memory-Efficient Attention](https://arxiv.org/abs/2205.14135)
 *   [LLM.int8(): 8-bit Matrix Multiplication](https://arxiv.org/abs/2208.07339)
 *   [FlashAttention-2](https://arxiv.org/abs/2307.08691)

@@ -9,9 +9,10 @@ guide, not here.
 
 Affiliations are as printed on the paper (arXiv HTML author block or PDF page 1). Bare
 acronyms are kept bare. Blank cells mean not yet researched, not "none". Source maps:
-[`rsi-proposer-landscape-2026.md`](rsi-proposer-landscape-2026.md) and
+[`rsi-proposer-landscape-2026.md`](rsi-proposer-landscape-2026.md),
 [`iclr-2026-rsi-workshop.md`](iclr-2026-rsi-workshop.md), and
-[`rsi-catchup-2026-08-to-11-guide.md`](rsi-catchup-2026-08-to-11-guide.md).
+[`rsi-catchup-2026-08-to-11-guide.md`](rsi-catchup-2026-08-to-11-guide.md), including its
+4 November comparison addendum.
 
 A conference program is not a source. Organizer, keynote and panel rosters are not recorded
 here — those are not research output, and a program page gives a current affiliation rather
@@ -21,9 +22,10 @@ anyone a row, a (PI) mark, or an appendix line. Workshop rosters live in the wor
 **(PI)** marks the group lead, listed first in each table. Assigned only from printed
 evidence — the last author or the marked corresponding author of that group's work here. No
 mark means the senior slot isn't established from the papers, not that the group has no
-lead. Unmarked on purpose: UC Riverside (first author is also corresponding), Edinburgh and
-UCL (senior only within a Meta-led paper), SJTU Zhang/Yu/Lin, Southeast Univ., and the
+lead. Unmarked on purpose: UC Riverside (first author is also corresponding), Edinburgh,
+SJTU Zhang/Yu/Lin, Southeast Univ., and the
 sole-author works (UCSC, Georgia Tech, Sungmin Lee) where student vs faculty isn't printed.
+UCL's Jun Wang is marked from EpiAgent, independently of the earlier Meta-led AIRA paper.
 Also unmarked: Recursive Superintelligence and the substrate maintainers, which have no
 paper to read a senior slot off.
 
@@ -80,13 +82,15 @@ paper to read a senior slot off.
 | Name | Known for | Previous affiliations | Graduate education (school, advisor) |
 |---|---|---|---|
 | Jan Leike (PI) | Last author, Automated Weak-to-Strong Researcher | | |
-| Jan Hendrik Kirchner | AAR | | |
+| Jan Hendrik Kirchner (PI) | AAR; last author, Automated Researchers Can Mitigate Well-characterized Alignment Failures | | |
 | Joe Benton | AAR | | |
 | Jiaxin Wen | AAR co-first | | |
 | Liang Qiu | AAR co-first | Anthropic Fellows Program (printed, this paper) | |
+| Chen Yueh-Han | Automated Researchers Can Mitigate Well-characterized Alignment Failures first author | Anthropic Fellows Program (concurrent, printed on 2608.28945) | |
 
 ### Major papers/systems
 - Automated Weak-to-Strong Researcher — 9 parallel Claude agents; PGR 0.97 vs human 0.23, plus three self-reported unpredicted reward-hacking exploits and a transfer failure at production scale
+- Automated Researchers Can Mitigate Well-characterized Alignment Failures (2608.28945) — August follow-up; automated search for training-based alignment mitigations across ten failure families, with larger-model and production tests
 
 ---
 
@@ -151,6 +155,7 @@ Nurbek Tastan (MBZUAI); Ambroise Odonnat (Inria).
 | Zitong Yang · Yejin Choi · Emmanuel Candès · Diyi Yang | Execution-Grounded Auto-Research | | |
 | Fang Wu | Agent0 | | |
 | Bo Liu | SPADE co-first | University of Washington (concurrent, printed on 2608.19197) | |
+| Xinliang Zhou | CogRSI | | |
 
 ### Major papers/systems
 - Towards Execution-Grounded Automated AI Research (2601.14525) — evolutionary search beats baselines where RL mode-collapses
@@ -159,6 +164,7 @@ Nurbek Tastan (MBZUAI); Ambroise Odonnat (Inria).
 - Agent0 (2511.16043) — co-author
 - SPADE (2608.19197) — Bo Liu co-first and Yejin Choi joint last author; shared-weight environment designer and reasoning agent
 - RSI-Anything (2610.13912) — Yingcheng Wu corresponding; predictive world models and retained policy–model updates
+- CogRSI (2611.01113) — evolving theory-of-mind rules and post hoc semantic auditing
 
 ---
 
@@ -175,6 +181,7 @@ Nurbek Tastan (MBZUAI); Ambroise Odonnat (Inria).
 | Xunjian Yin | Gödel Agent first author | Work completed during internship at UC Santa Barbara (printed) | |
 | Hubert Lim · Zhengrui Li · Xiangyu Wang | SLDAgent | | |
 | Anjie Xu | AutoSOTA | Zhongguancun Academy (concurrent, printed) | |
+| Rui Hu | ScienceCUA | | |
 
 Wizard Quant supplies 4 of SLDAgent's 11 authors: Haowei Lin, Wenzheng Feng, Quzhe Huang,
 Yujun Li — a quantitative fund entering academic RSI.
@@ -184,6 +191,7 @@ Yujun Li — a quantitative fund entering academic RSI.
 - Gödel Agent (2410.04444) — self-referential agent framework (first author, joint with UCSB)
 - AutoSOTA (2604.05550) — co-author
 - RSI-Anything (2610.13912) — policy/world-model update and retention framework
+- ScienceCUA (2611.03238) — source-grounded scientific-software Skills and References, refined through execution feedback
 
 ---
 
@@ -299,7 +307,7 @@ and are deliberately not recorded here.
 | UBC + Vector Institute | **Jeff Clune (PI)** (also Canada CIFAR AI Chair); Jenny Zhang, Shengran Hu, Cong Lu, Yiming Xiong | Darwin Gödel Machine (2505.22954); ALMA (2602.07755, workshop oral); AI-GAs (1905.10985) |
 | UC Riverside (+AlphaAvatar, Illinois Tech) | Mingguang Chen (first author *and* corresponding — senior slot unclear); Licheng Wang; Bo Qu | RSI survey, 1,250 papers (2607.07663) |
 | Google DeepMind | **Matej Balog (PI)** (AlphaEvolve last author, listed as its lead on the RSI-workshop panel page); **Vivek Natarajan (PI)** (AI co-scientist last author); Alexander Novikov, Juraj Gottweis; Zhankui He, Benjamin Coleman, Di Bai, Wang-Cheng Kang (Dream-RSI) | AlphaEvolve (2506.13131); AI co-scientist (2502.18864); Dream-RSI (2609.14858) |
-| Zhongguancun Academy | **Tie-Yan Liu (PI)** (AutoSOTA last author); **Zequn Liu (PI)** (ForeSci corresponding); Yingce Xia | AutoSOTA senior; ForeSci senior/corresponding |
+| Zhongguancun Academy | **Tie-Yan Liu (PI)** (AutoSOTA last author); **Zequn Liu (PI)** (ForeSci corresponding); Yingce Xia; Jian Zhao (EpiAgent) | AutoSOTA senior; ForeSci senior/corresponding; EpiAgent (2610.40227) |
 | OpenAI | **Aleksander Madry (PI)** (MLE-bench last author); Chan Jun Shern, Neil Chowdhury | MLE-bench (2410.07095) — substrate only; no RSI paper in this map |
 | Pangram Labs | **Bradley Emi (PI)** (CTO/co-founder, sole byline) | ICLR 2026 AI-generated-review census, 21% of 75,800 |
 | ISCAS + UCAS + Alibaba | **Xianpei Han (PI)**, **Yongbin Li (PI)**, **Hu Wei (PI)** (three marked corresponding authors); Le Sun, Hongyu Lin, Yaojie Lu (ISCAS); Tianyun Zhong (UCAS) | HypoArena / Before the Action (2607.15766) |
@@ -313,7 +321,7 @@ and are deliberately not recorded here.
 | University of Edinburgh | Oisin Mac Aodha, Bingchen Zhao (co-first) | Speedrunning Benchmark (2506.22419) |
 | Carnegie Mellon University | **Kun Zhang (PI)** (joint MBZUAI); Zeyu Zheng; Yiding Jiang, Seungone Kim (SPADE) | CausalEvolve senior; Denominator Gaming; SPADE (2608.19197) |
 | SJTU — Zhang/Yu/Lin group | Jianghao Lin (last author), Weinan Zhang, Yong Yu, Rong Shan | Denominator Gaming (2605.09915); Learning to Evolve co |
-| University College London | Pontus Stenetorp; Edan Toledo, Karen Hambardzumyan (both co-first, joint Meta) | AIRA (2507.02554) |
+| University College London | **Jun Wang (PI)** (EpiAgent last and corresponding; printed AI Centre, Department of Computer Science, UCL); Pontus Stenetorp; Edan Toledo, Karen Hambardzumyan (both co-first, joint Meta) | AIRA (2507.02554); EpiAgent (2610.40227) |
 | UNC-Chapel Hill (+Salesforce, Stanford) | **Huaxiu Yao (PI)**; Peng Xia; Caiming Xiong, Can Qin (Salesforce) | Agent0 (2511.16043) |
 | FutureHouse (+Oxford) | **Samuel G. Rodriques (PI)**; Andrew D. White, Ali E. Ghareeb | Robin (2505.13400) |
 | Wizard Quant | Haowei Lin (joint PKU), Wenzheng Feng, Quzhe Huang, Yujun Li | SLDAgent (4 of 11 authors) |
@@ -324,7 +332,7 @@ and are deliberately not recorded here.
 | University of Würzburg — Computer Vision Lab, CAIDAS & IFI | **Dmitry Ignatov (PI)** (last author); Radu Timofte, Santosh Premi Adhikari | Delta-Based NAS (2605.04903) |
 | Nanjing University of Science and Technology | **Chengzhi Zhang (PI)** (corresponding); Shuai Chen | Combinatorial Innovation idea generation (2604.20548) |
 | Georgia Institute of Technology | Henry Jiang (sole author); Jiang Zhou (RSI-Env) | DARWIN (2602.05848); RSI-Env (2611.01736) |
-| UC Berkeley | Hyunin Lee, Donghyun Lee, Somayeh Sojoudi, Matei Zaharia | MASS (2610.12176), with Sakana AI |
+| UC Berkeley | Hyunin Lee, Donghyun Lee, Somayeh Sojoudi, Matei Zaharia (MASS); Alexander Krentsel (Exo first and corresponding), Sylvia Ratnasamy, Ion Stoica (Exo); Jiaxin Wen (2608.28945, rather than the earlier Anthropic-affiliated weak-to-strong paper) | MASS (2610.12176); Exo (2611.00463); Automated Researchers Can Mitigate Well-characterized Alignment Failures (2608.28945) |
 | Google | **Xidong Wu (PI)**, **Zheng Zhang (PI)** (Dream-RSI corresponding), **Yunsong Guo (PI)** (last author); Tong Zheng (joint Maryland), Chaoyi Zhang, Ruoqiao Wei, Xue Wang, Yue Zhuan, Renkai Xiang, Xinwu Cheng | Dream-RSI (2609.14858) |
 | University of Maryland, College Park | Heng Huang, Tong Zheng, Rui Liu | Dream-RSI (2609.14858) |
 | University of Virginia | Haolin Liu | Dream-RSI (2609.14858) |
@@ -341,15 +349,31 @@ and are deliberately not recorded here.
 | University of Michigan | Weizhi Du | False Frontiers (2609.39102) |
 | McGill University | **Tianyu Shi (PI)** (False Frontiers corresponding) | False Frontiers (2609.39102) |
 | King Fahd University of Petroleum and Minerals | **Alaa Khamis (PI)** (False Frontiers corresponding and last author) | False Frontiers (2609.39102) |
-| Independent researchers (as printed) | Hao Li, Zheng Lu (co-first), Hongshan Lin, Junbai Tian, Zijun Tian, Yufan Zou, Shuhan Sun, Zeyu Zhang, Yueting Li | False Frontiers (2609.39102) |
+| Independent researchers (as printed) | Hao Li, Zheng Lu (co-first), Hongshan Lin, Junbai Tian, Zijun Tian, Yufan Zou, Shuhan Sun, Zeyu Zhang, Yueting Li (False Frontiers); Cong Zhang (HEMO; paper prints prior affiliations at Nanyang Technological University, Huawei Noah's Ark Lab, and TikTok Singapore) | False Frontiers (2609.39102); HEMO (2610.40023) |
 | ByteDance Seed / M-A-P / TokenWave.AI | S3Gym lists these three affiliations without individual mapping; core contributors include Jiajun Shi, Siyuan Tao, Yuhao Wu, Zexuan Wang, Jingyuan Zhang | S3Gym (2608.31100); individual institutional assignments unresolved |
-| Fudan University | Yanwei Fu (joint Shanghai Innovation Institute), Wanying Qu, Jiyao Liu (RSI-Env); Hao Xiao, Qiang Gao (RSI-Anything) | RSI-Env (2611.01736); RSI-Anything (2610.13912) |
+| Fudan University | Yanwei Fu (joint Shanghai Innovation Institute), Wanying Qu, Jiyao Liu (RSI-Env); Hao Xiao, Qiang Gao (RSI-Anything); Xingjun Ma, Haohang Liu (joint Keeta, Meituan; CARE) | RSI-Env (2611.01736); RSI-Anything (2610.13912); CARE (2611.02839) |
 | HKUST | Zhiyuan Fan | RSI-Env (2611.01736) |
 | Nanjing University / Shanghai Artificial Intelligence Laboratory | **Dongrui Liu (PI)** (Shanghai AI Laboratory, RSI-Env last author); Jianghan Shen (joint Nanjing and Shanghai AI Laboratory) | RSI-Env (2611.01736) |
 | PhAI Labs | **Ling Yang (PI)** (joint PKU), **Yingcheng Wu (PI)** (joint Stanford), **Zhenfei Yin (PI)** (joint Oxford), all RSI-Anything corresponding; Taoyong Cui (joint CUHK), Shuhan Xue | RSI-Anything (2610.13912); affiliations in Appendix A referenced by title page |
 | Chinese University of Hong Kong | **Pheng Ann Heng (PI)** (RSI-Anything corresponding); Wanli Ouyang, Taoyong Cui (joint PhAI Labs) | RSI-Anything (2610.13912) |
 | University of Macau | Pinxian Zeng | RSI-Anything (2610.13912) |
 | SJTU — RSI-Anything collaboration | Wanghan Xu | RSI-Anything (2610.13912) |
+| Shanghai Jiao Tong University / Theseus Labs | **Xuanhe Zhou (PI)** (corresponding); Fan Wu; Bangrui Xu and Sidi Chen (co-first, joint Humanlaya); Jie Yang (co-first, joint Shanghai AI Lab) | SelfImprove-Bench (2611.02797) |
+| Humanlaya | **Zhoufutu Wen (PI)** (SelfImprove-Bench last and corresponding); Qianyu Yang, Zijie Wang; Bangrui Xu, Sidi Chen (joint Shanghai Jiao Tong University and Theseus Labs) | SelfImprove-Bench (2611.02797) |
+| Shanghai AI Lab / Shanghai AI Laboratory (as printed) | Jie Yang, Jiantao Qiu (SelfImprove-Bench); Safin Team (Safin-1.5 collective byline, no individual affiliation mapping) | SelfImprove-Bench (2611.02797); Safin-1.5 (2610.40751) |
+| DeepAutonomy Technology Co., Ltd. | **Mingrui Luo (PI)** (ScienceCUA last and corresponding); Daiqiang Li, Jingyi Peng, Guanren Qiao, Yujia Xiang, Zhiping Xu | ScienceCUA (2611.03238) |
+| College of AI, Tsinghua University | Jia Li | ScienceCUA (2611.03238) |
+| The Hong Kong Polytechnic University | Xuyang Liu | ScienceCUA (2611.03238) |
+| Singapore Management University | **Zhiguang Cao (PI)** (HEMO last author), Jianghan Zhu, Ni Zhang — School of Computing and Information Systems; Qiuzhuang Sun (ScienceCUA) | HEMO (2610.40023); ScienceCUA (2611.03238) |
+| Nanyang Technological University, Singapore | **Haoran Luo (PI)** (CogRSI corresponding), **Anh Tuan Luu (PI)** (CogRSI last author, joint VinUniversity), Yandan Zheng; Yifan Yang, Yew Soon Ong — College of Computing and Data Science (HEMO) | CogRSI (2611.01113); HEMO (2610.40023) |
+| VinUniversity, Vietnam | **Anh Tuan Luu (PI)** (CogRSI last author, joint Nanyang Technological University) | CogRSI (2611.01113) |
+| AI and Data Team, Keeta, Meituan | **Yongjun Yin (PI)** (CARE last author); Yanbei Jiang (joint Melbourne), Haohang Liu (joint Fudan), Xiaochen Zhao, Yuchen Ge, Runze Nie, Qitian Chen, Qi An, Haolin Song, Yufei Sun, Weijia Chen, Ruiyuan Wu, Zhen Luo, Ke Xing | CARE (2611.02839) |
+| University of Melbourne | Yanbei Jiang (joint Keeta, Meituan), Chao Lei, Rena Gao, Yihao Ding, Jey Han Lau, Krista A. Ehinger | CARE (2611.02839) |
+| Andreessen Horowitz | Martin Casado | Exo (2611.00463) |
+| Braintrust | **Ankur Goyal (PI)** (Exo last author) | Exo (2611.00463) |
+| South China University of Technology | Hangming Zhang (SPAR co-first; work during Alibaba Group internship), C. L. Philip Chen, Tong Zhang | SPAR (2611.01695) |
+| Alibaba Group — SPAR collaboration | **Tengyue Ma (PI)** (last and corresponding); Yao Zhao (co-first), Haotian Kuang | SPAR (2611.01695) |
+| Institute of Automation, Chinese Academy of Sciences / School of Artificial Intelligence, UCAS | Xuanfa Jin, Xinyu Cui, Zhijian Ma, Xue Yan, Haifeng Zhang | EpiAgent (2610.40227) |
 | Substrate maintainers (no affiliation printed on the artifact) | Keller Jordan (modded-nanoGPT, Muon); Andrej Karpathy (nanoGPT, autoresearch) | Repos, not papers — the cheap execution-grounded task nearly every RSI result is measured on |
 | Unaffiliated | Sungmin Lee (no institution printed) | LLMs Have Made Failure Worth Publishing (2604.06236) |
 
@@ -385,47 +409,57 @@ Not yet researched. Edges to establish first, in rough order of how much they ex
 |---|---|---|
 | 1 | AIDE² (2609.26457) | Dhruv Srikanth, Bingchen Zhao, Dixing Xu, Yuxiang Wu, Zhengyao Jiang — all Weco AI |
 | 2 | MASS (2610.12176) | Hyunin Lee, Donghyun Lee, Somayeh Sojoudi, Matei Zaharia — UC Berkeley; Jinglue Xu, Jeffrey Seely, Yujin Tang — Sakana AI |
-| 3 | Auditing the Product, Not the Recursion (2610.27610) | Zihan Chen, Di Zhu — Stevens Institute of Technology; Lei Nico Zheng — University of Massachusetts Boston |
-| 4 | False Frontiers (2609.39102) | Meijia Chen — Rutgers; Hao Li, Zheng Lu, Hongshan Lin, Junbai Tian, Zijun Tian, Yufan Zou, Shuhan Sun, Zeyu Zhang, Yueting Li — Independent Researcher; Yichen Liu, Hanxin Chen — UC San Diego; Weizhi Du — University of Michigan; Tianyu Shi — McGill; Alaa Khamis — King Fahd University of Petroleum and Minerals |
-| 5 | S3Gym (2608.31100) | ByteDance Seed, M-A-P, TokenWave.AI printed collectively; core contributors Jiajun Shi, Siyuan Tao, Yuhao Wu, Zexuan Wang, Jingyuan Zhang have no individual affiliation mapping in the paper |
-| 6 | Recursive Flint (October 2026 model release) | Recursive Superintelligence, Inc. — corporate model-card attribution; no individual paper byline |
-| 7 | SPADE (2608.19197) | Bo Liu — Washington + Stanford; Simon Yu, Weiyan Shi — Northeastern; Yiding Jiang, Seungone Kim — CMU; Ao Qu, Paul Pu Liang — MIT; Zichen Liu, Zijian Zhou — NUS; Junsu Kim — SNU; Mickel Liu, Luke Zettlemoyer, Natasha Jaques — Washington; Hanfei Yu — Stevens; Zhaorun Chen — Chicago; Yejin Choi — Stanford; Andrew Zhao, Tongzheng Ren — no affiliation printed |
-| 8 | Dream-RSI (2609.14858) | Tong Zheng — Google + Maryland; Xidong Wu, Zheng Zhang, Chaoyi Zhang, Ruoqiao Wei, Xue Wang, Yue Zhuan, Renkai Xiang, Xinwu Cheng, Yunsong Guo — Google; Zhankui He, Benjamin Coleman, Di Bai, Wang-Cheng Kang — Google Deepmind; Rui Liu, Heng Huang — Maryland; Haolin Liu — Virginia |
-| 9 | RSI-Env (2611.01736) | Wanying Qu, Jiyao Liu — Fudan; Zhiyuan Fan — HKUST; Jiang Zhou — Georgia Tech; Jianghan Shen — Nanjing University + Shanghai Artificial Intelligence Laboratory; Yanwei Fu — Fudan + Shanghai Innovation Institute; Dongrui Liu — Shanghai Artificial Intelligence Laboratory |
-| 10 | Meta^n (2608.24735) | Zae Myung Kim, Young-Jun Lee, Dongyeop Kang — University of Minnesota; Seungyeon Jwa — Seoul National University |
-| 11 | RSI-Anything (2610.13912) | Taoyong Cui — PhAI Labs + CUHK; Pinxian Zeng — Macau; Wanghan Xu — SJTU; Hao Xiao, Qiang Gao — Fudan; Shuhan Xue — PhAI Labs; Wanli Ouyang, Pheng Ann Heng — CUHK; Zhenfei Yin — PhAI Labs + Oxford; Yingcheng Wu — PhAI Labs + Stanford; Ling Yang — PhAI Labs + PKU. Mapping printed in Appendix A, referenced on the title page |
-| 12 | Reward Hacking in Self-Improving Code Agents (OpenReview ikrQWGgxYg) | Bingchen Zhao · Dhruv Srikanth · Yuxiang Wu · Zhengyao Jiang — **all Weco AI (inferred, title page unreadable)** |
-| 13 | RSI survey, 1,250 papers (2607.07663) | Mingguang Chen — UC Riverside (corresponding); Licheng Wang — AlphaAvatar; Bo Qu — Illinois Institute of Technology |
-| 14 | Automated Weak-to-Strong Researcher (Anthropic) | Jiaxin Wen, Joe Benton, Jan Hendrik Kirchner, Jan Leike — Anthropic; Liang Qiu — Anthropic + Anthropic Fellows Program |
-| 15 | ShinkaEvolve (2509.19349) | Robert Tjarko Lange · Yuki Imajuku · Edoardo Cetin — all Sakana AI |
-| 16 | PostTrainBench (2603.08640) — workshop oral | Ben Rank, Maksym Andriushchenko (corresponding) — ELLIS Institute Tübingen + MPI for Intelligent Systems + Tübingen AI Center; Hardik Bhatnagar, Ameya Prabhu, Matthias Bethge — Univ. Tübingen + Tübingen AI Center; Shira Eisenberg (internship), Nguyen Karina — Thoughtful Lab |
-| 17 | Red Queen Gödel Machine (2606.26294) | Iacob, Shen, Kurmanji, Cao, Marino, Qiu — Cambridge; Jovanović, Sani, Lane — Cambridge + Flower Labs; Burkhardt, Venanzi — NVIDIA; Tastan — MBZUAI; Odonnat — Inria |
-| 18 | SLDAgent (2507.21184) | Haowei Lin — PKU + Wizard Quant; Haotian Ye, James Zou — Stanford; Feng, Huang, Y. Li — Wizard Quant; Jianzhu Ma — Tsinghua; Liang, Lim, Z. Li, X. Wang — PKU |
-| 19 | SpecBench (2605.21384) | Bingchen Zhao · Dhruv Srikanth · Yuxiang Wu · Zhengyao Jiang — all Weco AI |
-| 20 | Diversity Collapse in MAS (2604.18005) | N. Chen, Tong, Y. He, Zou, Q. Wang, B. He — NUS; Y. Yang, X. Zhang — CUHK-Shenzhen |
-| 21 | AutoSOTA (2604.05550) | Yu Li, X. Liu, R. Zhao, P. Liu, Z. Chen, Q. Yang, Zeng, T. Li, J. Xu — Tsinghua EE/BNRist; Shao, Su, Fengli Xu, Yong Li — Tsinghua + Zhongguancun; A. Xu — Zhongguancun + PKU; Fang — Zhongguancun + USTC; Tie-Yan Liu — Zhongguancun |
-| 22 | ALMA / Meta-learning Agentic Memory Designs (2602.07755) — workshop oral | Yiming Xiong — UBC; Shengran Hu — UBC + Vector Institute; Jeff Clune — UBC + Vector Institute + Canada CIFAR AI Chair |
-| 23 | Group-Evolving Agents (2602.04837) | Weng, Antoniades, Nathani, Z. Zhang, Pu, Xin Eric Wang — all UC Santa Barbara |
-| 24 | Safety in Self-Evolving Agents (2606.23075) | R. Lin, Q. Li, Z. Li, Shouling Ji — Zhejiang; Deng, Qing, Q. Li, Ke Xu — Tsinghua; Feng, Cui, Meng — Ant Group; Ma — Hangzhou Dianzi; Y. Zhang, T. Zhang — NTU; X. Ma — Fudan |
-| 25 | Barriers to Diversity in LLM Ideas (2602.20408) | Yuting Deng · Melanie Brucks · Olivier Toubia — all Columbia Business School |
-| 26 | Contextual Drag (2602.04288) | Yun Cheng, Xingyu Zhu (both corresponding), Haoyu Zhao, Sanjeev Arora — all Princeton Language and Intelligence, Princeton University |
-| 27 | Dead Science Walking (2606.04220) | Kargi Chauhan — UC Santa Cruz (sole author) |
-| 28 | HypoArena / Before the Action (2607.15766) | Zhong, W. Jiang — UCAS + ISCAS; X. Chen, Lu, H. Lin, Sun, Xianpei Han — ISCAS; W. Wang, Shi, B. Yang, J. Wang, H. Li, Zhai, B. Zhao, Hu Wei, H. Yu, Yongbin Li — Alibaba Group |
-| 29 | ForeSci (2606.00644) | Qiuyu Tian — Southeast Univ. + Zhongguancun; Haojie Yin — Duke Kunshan; Yingce Xia, Zequn Liu (corresponding) — Zhongguancun; Youyong Kong — Southeast Univ. |
-| 30 | CausalEvolve (2603.14575) | Yongqiang Chen — MBZUAI + CMU; Chenxi Liu, Bo Han — HKBU TMLR; Zhenhao Chen — MBZUAI; Tongliang Liu — Univ. Sydney SAIC + MBZUAI; Kun Zhang — MBZUAI + CMU |
-| 31 | On the Limits of Self-Improving (2601.05280) | Hector Zenil — King's College London + Oxford Immune Algorithmics (sole author) |
-| 32 | ArchEval (2607.03601) | C. Wang, Wan, Ma, Prakash, Qi, Do, Cheng, Tschand, Du, Reddi — Harvard; Shi — MIT |
-| 33 | ASI-Arch (2507.18074) | Yixiu Liu, Weixian Xu, Lyumanshan Ye — SJTU + SII + GAIR; Yang Nan, Xiangkun Hu — SII + GAIR; Zhen Qin — Taptap; Pengfei Liu (corresponding) — SJTU + SII + GAIR |
-| 34 | AC/DC (2604.14969) | Andrew Dai · Boris Meinardus · Ciaran Regan · Yingtao Tian · Yujin Tang — all Sakana AI (ICLR 2026) |
-| 35 | Delta-Based NAS (2605.04903) | Santosh Premi Adhikari · Radu Timofte · Dmitry Ignatov — all Computer Vision Lab, CAIDAS & IFI, Univ. Würzburg |
-| 36 | Learning to Evolve (OpenReview WnZHbe1Gu0) | Xuan Li, Zhanke Zhou, Zongze Li, Bo Han — HKBU; Jiangchao Yao — SJTU *(mapping from HKBU repository, not the PDF)* |
-| 37 | Evolutionary Discovery of RL Algorithms (2603.28416) | Alkis Sygkounas · Amy Loutfi · Andreas Persson — all Machine Perception and Interaction Lab, Örebro |
-| 38 | SIA (2605.27276) | Hebbar, Manawat, Bhatia, Baskaran — Hexo Labs Palo Alto; Verboomen — Hexo Labs Brussels; Palanimalai — Hexo Labs Toronto; Ivanova — Univ. Oxford |
-| 39 | Denominator Gaming (2605.09915) | Shan, Zheng, Xi, Zhu, Yu, W. Zhang, J. Lin — SJTU; Gao — Central South Univ.; Zeyu Zheng — CMU |
-| 40 | Test-time Recursive Thinking (2602.03094) | Zhuang — MSR + UCSD; Singh, L. Liu, Shen, D. Zhang, Gao, W. Chen — Microsoft Research; Shang — UC San Diego |
-| 41 | Combinatorial Innovation (2604.20548) | Shuai Chen · Chengzhi Zhang (corresponding) — Nanjing Univ. of Science and Technology |
-| 42 | LLMs Have Made Failure Worth Publishing (2604.06236) | Sungmin Lee — no affiliation printed |
-| 43 | DARWIN (2602.05848) | Henry Jiang — Georgia Tech, College of Computing (sole author) |
+| 3 | Exo (2611.00463) | Alexander Krentsel (corresponding), Sylvia Ratnasamy, Ion Stoica — University of California, Berkeley; Martin Casado — Andreessen Horowitz; Ankur Goyal — Braintrust |
+| 4 | Automated Researchers Can Mitigate Well-characterized Alignment Failures (2608.28945) | Chen Yueh-Han — Anthropic Fellows Program + Anthropic; Jiaxin Wen — UC Berkeley; Jan Hendrik Kirchner — Anthropic |
+| 5 | Auditing the Product, Not the Recursion (2610.27610) | Zihan Chen, Di Zhu — Stevens Institute of Technology; Lei Nico Zheng — University of Massachusetts Boston |
+| 6 | False Frontiers (2609.39102) | Meijia Chen — Rutgers; Hao Li, Zheng Lu, Hongshan Lin, Junbai Tian, Zijun Tian, Yufan Zou, Shuhan Sun, Zeyu Zhang, Yueting Li — Independent Researcher; Yichen Liu, Hanxin Chen — UC San Diego; Weizhi Du — University of Michigan; Tianyu Shi — McGill; Alaa Khamis — King Fahd University of Petroleum and Minerals |
+| 7 | SelfImprove-Bench (2611.02797) | Bangrui Xu, Sidi Chen — Shanghai Jiao Tong University + Theseus Labs + Humanlaya; Jie Yang — Shanghai Jiao Tong University + Theseus Labs + Shanghai AI Lab; Xuanhe Zhou (corresponding), Fan Wu — Shanghai Jiao Tong University + Theseus Labs; Jiantao Qiu — Shanghai AI Lab; Qianyu Yang, Zijie Wang, Zhoufutu Wen (corresponding) — Humanlaya. Xu, Yang and Chen are co-first authors |
+| 8 | CogRSI (2611.01113) | Yandan Zheng, Haoran Luo (corresponding) — Nanyang Technological University, Singapore; Xinliang Zhou — Stanford University; Anh Tuan Luu — Nanyang Technological University, Singapore + VinUniversity, Vietnam |
+| 9 | S3Gym (2608.31100) | ByteDance Seed, M-A-P, TokenWave.AI printed collectively; core contributors Jiajun Shi, Siyuan Tao, Yuhao Wu, Zexuan Wang, Jingyuan Zhang have no individual affiliation mapping in the paper |
+| 10 | Recursive Flint (October 2026 model release) | Recursive Superintelligence, Inc. — corporate model-card attribution; no individual paper byline |
+| 11 | Safin-1.5 (2610.40751) | Safin Team — Shanghai AI Laboratory; collective title-page byline, with no individual author–affiliation mapping |
+| 12 | SPADE (2608.19197) | Bo Liu — Washington + Stanford; Simon Yu, Weiyan Shi — Northeastern; Yiding Jiang, Seungone Kim — CMU; Ao Qu, Paul Pu Liang — MIT; Zichen Liu, Zijian Zhou — NUS; Junsu Kim — SNU; Mickel Liu, Luke Zettlemoyer, Natasha Jaques — Washington; Hanfei Yu — Stevens; Zhaorun Chen — Chicago; Yejin Choi — Stanford; Andrew Zhao, Tongzheng Ren — no affiliation printed |
+| 13 | CARE (2611.02839) | Yanbei Jiang — AI and Data Team, Keeta, Meituan + University of Melbourne; Haohang Liu — AI and Data Team, Keeta, Meituan + Fudan University; Xiaochen Zhao, Yuchen Ge, Runze Nie, Qitian Chen, Qi An, Haolin Song, Yufei Sun, Weijia Chen, Ruiyuan Wu, Zhen Luo, Ke Xing, Yongjun Yin — AI and Data Team, Keeta, Meituan; Chao Lei, Rena Gao, Yihao Ding, Jey Han Lau, Krista A. Ehinger — University of Melbourne; Xingjun Ma — Fudan University |
+| 14 | Dream-RSI (2609.14858) | Tong Zheng — Google + Maryland; Xidong Wu, Zheng Zhang, Chaoyi Zhang, Ruoqiao Wei, Xue Wang, Yue Zhuan, Renkai Xiang, Xinwu Cheng, Yunsong Guo — Google; Zhankui He, Benjamin Coleman, Di Bai, Wang-Cheng Kang — Google Deepmind; Rui Liu, Heng Huang — Maryland; Haolin Liu — Virginia |
+| 15 | HEMO (2610.40023) | Jianghan Zhu, Ni Zhang, Zhiguang Cao — School of Computing and Information Systems, Singapore Management University; Yifan Yang, Yew Soon Ong — College of Computing and Data Science, Nanyang Technological University; Cong Zhang — independent researcher, with prior Nanyang Technological University, Huawei Noah’s Ark Lab and TikTok Singapore affiliations explicitly printed |
+| 16 | ScienceCUA (2611.03238) | Daiqiang Li, Jingyi Peng, Guanren Qiao, Yujia Xiang, Zhiping Xu, Mingrui Luo (corresponding) — DeepAutonomy Technology Co., Ltd.; Rui Hu — Peking University; Jia Li — College of AI, Tsinghua University; Xuyang Liu — The Hong Kong Polytechnic University; Qiuzhuang Sun — Singapore Management University |
+| 17 | RSI-Env (2611.01736) | Wanying Qu, Jiyao Liu — Fudan; Zhiyuan Fan — HKUST; Jiang Zhou — Georgia Tech; Jianghan Shen — Nanjing University + Shanghai Artificial Intelligence Laboratory; Yanwei Fu — Fudan + Shanghai Innovation Institute; Dongrui Liu — Shanghai Artificial Intelligence Laboratory |
+| 18 | Meta^n (2608.24735) | Zae Myung Kim, Young-Jun Lee, Dongyeop Kang — University of Minnesota; Seungyeon Jwa — Seoul National University |
+| 19 | RSI-Anything (2610.13912) | Taoyong Cui — PhAI Labs + CUHK; Pinxian Zeng — Macau; Wanghan Xu — SJTU; Hao Xiao, Qiang Gao — Fudan; Shuhan Xue — PhAI Labs; Wanli Ouyang, Pheng Ann Heng — CUHK; Zhenfei Yin — PhAI Labs + Oxford; Yingcheng Wu — PhAI Labs + Stanford; Ling Yang — PhAI Labs + PKU. Mapping printed in Appendix A, referenced on the title page |
+| 20 | SPAR (2611.01695) | Hangming Zhang, C. L. Philip Chen, Tong Zhang — South China University of Technology; Yao Zhao, Haotian Kuang, Tengyue Ma (corresponding) — Alibaba Group. Hangming Zhang and Yao Zhao are co-first; Hangming’s work was during an Alibaba Group internship |
+| 21 | EpiAgent (2610.40227) | Xuanfa Jin, Xinyu Cui, Zhijian Ma, Xue Yan, Haifeng Zhang — Institute of Automation, Chinese Academy of Sciences + School of Artificial Intelligence, UCAS; Jian Zhao — Zhongguancun Academy; Jun Wang (corresponding) — AI Centre, Department of Computer Science, UCL |
+| 22 | Reward Hacking in Self-Improving Code Agents (OpenReview ikrQWGgxYg) | Bingchen Zhao · Dhruv Srikanth · Yuxiang Wu · Zhengyao Jiang — **all Weco AI (inferred, title page unreadable)** |
+| 23 | RSI survey, 1,250 papers (2607.07663) | Mingguang Chen — UC Riverside (corresponding); Licheng Wang — AlphaAvatar; Bo Qu — Illinois Institute of Technology |
+| 24 | Automated Weak-to-Strong Researcher (Anthropic) | Jiaxin Wen, Joe Benton, Jan Hendrik Kirchner, Jan Leike — Anthropic; Liang Qiu — Anthropic + Anthropic Fellows Program |
+| 25 | ShinkaEvolve (2509.19349) | Robert Tjarko Lange · Yuki Imajuku · Edoardo Cetin — all Sakana AI |
+| 26 | PostTrainBench (2603.08640) — workshop oral | Ben Rank, Maksym Andriushchenko (corresponding) — ELLIS Institute Tübingen + MPI for Intelligent Systems + Tübingen AI Center; Hardik Bhatnagar, Ameya Prabhu, Matthias Bethge — Univ. Tübingen + Tübingen AI Center; Shira Eisenberg (internship), Nguyen Karina — Thoughtful Lab |
+| 27 | Red Queen Gödel Machine (2606.26294) | Iacob, Shen, Kurmanji, Cao, Marino, Qiu — Cambridge; Jovanović, Sani, Lane — Cambridge + Flower Labs; Burkhardt, Venanzi — NVIDIA; Tastan — MBZUAI; Odonnat — Inria |
+| 28 | SLDAgent (2507.21184) | Haowei Lin — PKU + Wizard Quant; Haotian Ye, James Zou — Stanford; Feng, Huang, Y. Li — Wizard Quant; Jianzhu Ma — Tsinghua; Liang, Lim, Z. Li, X. Wang — PKU |
+| 29 | SpecBench (2605.21384) | Bingchen Zhao · Dhruv Srikanth · Yuxiang Wu · Zhengyao Jiang — all Weco AI |
+| 30 | Diversity Collapse in MAS (2604.18005) | N. Chen, Tong, Y. He, Zou, Q. Wang, B. He — NUS; Y. Yang, X. Zhang — CUHK-Shenzhen |
+| 31 | AutoSOTA (2604.05550) | Yu Li, X. Liu, R. Zhao, P. Liu, Z. Chen, Q. Yang, Zeng, T. Li, J. Xu — Tsinghua EE/BNRist; Shao, Su, Fengli Xu, Yong Li — Tsinghua + Zhongguancun; A. Xu — Zhongguancun + PKU; Fang — Zhongguancun + USTC; Tie-Yan Liu — Zhongguancun |
+| 32 | ALMA / Meta-learning Agentic Memory Designs (2602.07755) — workshop oral | Yiming Xiong — UBC; Shengran Hu — UBC + Vector Institute; Jeff Clune — UBC + Vector Institute + Canada CIFAR AI Chair |
+| 33 | Group-Evolving Agents (2602.04837) | Weng, Antoniades, Nathani, Z. Zhang, Pu, Xin Eric Wang — all UC Santa Barbara |
+| 34 | Safety in Self-Evolving Agents (2606.23075) | R. Lin, Q. Li, Z. Li, Shouling Ji — Zhejiang; Deng, Qing, Q. Li, Ke Xu — Tsinghua; Feng, Cui, Meng — Ant Group; Ma — Hangzhou Dianzi; Y. Zhang, T. Zhang — NTU; X. Ma — Fudan |
+| 35 | Barriers to Diversity in LLM Ideas (2602.20408) | Yuting Deng · Melanie Brucks · Olivier Toubia — all Columbia Business School |
+| 36 | Contextual Drag (2602.04288) | Yun Cheng, Xingyu Zhu (both corresponding), Haoyu Zhao, Sanjeev Arora — all Princeton Language and Intelligence, Princeton University |
+| 37 | Dead Science Walking (2606.04220) | Kargi Chauhan — UC Santa Cruz (sole author) |
+| 38 | HypoArena / Before the Action (2607.15766) | Zhong, W. Jiang — UCAS + ISCAS; X. Chen, Lu, H. Lin, Sun, Xianpei Han — ISCAS; W. Wang, Shi, B. Yang, J. Wang, H. Li, Zhai, B. Zhao, Hu Wei, H. Yu, Yongbin Li — Alibaba Group |
+| 39 | ForeSci (2606.00644) | Qiuyu Tian — Southeast Univ. + Zhongguancun; Haojie Yin — Duke Kunshan; Yingce Xia, Zequn Liu (corresponding) — Zhongguancun; Youyong Kong — Southeast Univ. |
+| 40 | CausalEvolve (2603.14575) | Yongqiang Chen — MBZUAI + CMU; Chenxi Liu, Bo Han — HKBU TMLR; Zhenhao Chen — MBZUAI; Tongliang Liu — Univ. Sydney SAIC + MBZUAI; Kun Zhang — MBZUAI + CMU |
+| 41 | On the Limits of Self-Improving (2601.05280) | Hector Zenil — King's College London + Oxford Immune Algorithmics (sole author) |
+| 42 | ArchEval (2607.03601) | C. Wang, Wan, Ma, Prakash, Qi, Do, Cheng, Tschand, Du, Reddi — Harvard; Shi — MIT |
+| 43 | ASI-Arch (2507.18074) | Yixiu Liu, Weixian Xu, Lyumanshan Ye — SJTU + SII + GAIR; Yang Nan, Xiangkun Hu — SII + GAIR; Zhen Qin — Taptap; Pengfei Liu (corresponding) — SJTU + SII + GAIR |
+| 44 | AC/DC (2604.14969) | Andrew Dai · Boris Meinardus · Ciaran Regan · Yingtao Tian · Yujin Tang — all Sakana AI (ICLR 2026) |
+| 45 | Delta-Based NAS (2605.04903) | Santosh Premi Adhikari · Radu Timofte · Dmitry Ignatov — all Computer Vision Lab, CAIDAS & IFI, Univ. Würzburg |
+| 46 | Learning to Evolve (OpenReview WnZHbe1Gu0) | Xuan Li, Zhanke Zhou, Zongze Li, Bo Han — HKBU; Jiangchao Yao — SJTU *(mapping from HKBU repository, not the PDF)* |
+| 47 | Evolutionary Discovery of RL Algorithms (2603.28416) | Alkis Sygkounas · Amy Loutfi · Andreas Persson — all Machine Perception and Interaction Lab, Örebro |
+| 48 | SIA (2605.27276) | Hebbar, Manawat, Bhatia, Baskaran — Hexo Labs Palo Alto; Verboomen — Hexo Labs Brussels; Palanimalai — Hexo Labs Toronto; Ivanova — Univ. Oxford |
+| 49 | Denominator Gaming (2605.09915) | Shan, Zheng, Xi, Zhu, Yu, W. Zhang, J. Lin — SJTU; Gao — Central South Univ.; Zeyu Zheng — CMU |
+| 50 | Test-time Recursive Thinking (2602.03094) | Zhuang — MSR + UCSD; Singh, L. Liu, Shen, D. Zhang, Gao, W. Chen — Microsoft Research; Shang — UC San Diego |
+| 51 | Combinatorial Innovation (2604.20548) | Shuai Chen · Chengzhi Zhang (corresponding) — Nanjing Univ. of Science and Technology |
+| 52 | LLMs Have Made Failure Worth Publishing (2604.06236) | Sungmin Lee — no affiliation printed |
+| 53 | DARWIN (2602.05848) | Henry Jiang — Georgia Tech, College of Computing (sole author) |
 | — | METR Time Horizon 1.1 | METR — corporate authorship, no individual bylines |
 | — | Pangram ICLR 2026 review census | Bradley Emi — Pangram Labs (sole byline) |
 | — | Verifying the Verifiers (OpenReview iRhaK8PsuB) | Authors unresolved — OpenReview bot wall |

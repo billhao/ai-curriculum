@@ -56,7 +56,7 @@
 
 ## Autonomous-Research
 - rsi-catchup-2026-08-to-11-guide
-  - August–November RSI research, November 4 comparison and revised priorities: runtime adaptation, search control, production learning, models, and evaluation.
+  - Structured RSI catch-up: problems, mechanisms, evidence, research significance, ranked reading, evaluation design, and connections to nanoGPT and post-training.
 - robin-guide
   - Robin (FutureHouse): closed-loop multi-agent biology; 2-phase hypothesis gen, BTL-ranked LLM judge, Finch consensus analysis; ripasudil/ABCA1 for dry AMD.
 - robin-architecture

@@ -63,6 +63,8 @@
   - Code-level walkthrough of the Robin repo: module map, orchestration flow, choix-based BTL ranking, code-vs-paper differences.
 - ai-scientist-guide
   - Sakana's The AI Scientist: fully autonomous ML research loop (idea→code via Aider→paper→automated reviewer); ~$15/paper; reviewer near-human.
+- scientist-two-guide
+  - Research feedback loops: subset screening, ablation-driven method revision, experimental rebuttals, evidence denominators, and calibrated safety claims.
 - popper-falsification-guide
   - Popper (Stanford): domain-general agentic hypothesis validation; sequential e-values/e-processes give any-time Type-I error control.
 - ai-co-scientist-guide

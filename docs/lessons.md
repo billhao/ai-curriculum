@@ -1,5 +1,12 @@
 # Lessons for curriculum guides
 
+## 2026-11-05 — Establish conference availability before filtering by topic
+
+For requests about recent conference research, first inventory which main-track
+and workshop collections are publicly available, distinguish accepted papers from
+submissions under review, and compare submission cutoffs as well as event dates.
+Use that inventory to choose venues before searching a specific topic such as RSI.
+
 ## 2026-11-04 — Teach the paper before evaluating it
 
 The RSI catch-up guide mixed technical fragments, unexplained benchmark numbers,

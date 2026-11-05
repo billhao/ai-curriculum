@@ -44,3 +44,48 @@ All listed main-track submission deadlines have passed. Six conferences have fin
 2. **ICML:** The official abstract deadline was Jan 23, 2026, corrected from Jan 22 in the previous table.
 3. **EMNLP:** ARR submission was due May 25, 2026, followed by commitment on Aug 2. ARR review submission and conference commitment are separate steps; see [ARR dates](https://aclrollingreview.org/dates).
 4. **NeurIPS:** Sydney main conference: Dec 8–10; Sydney workshops: Dec 11–12. Atlanta and Paris satellite programs run Dec 9–13. Main-track camera-ready papers are due Nov 6, 2026 AoE (Nov 7 at 19:59 China time).
+
+## RSI papers available online — November 5, 2026
+
+Search scope: NeurIPS 2026 main papers and relevant workshops, EMNLP 2026 Main and Findings, COLM 2026 main papers and relevant workshops, and public ICLR 2027 submissions. The selection covers persistent changes to agent code, skills, weights, search procedures, and evaluators, plus research systems and evaluation methods that support those changes.
+
+Dates below use first arXiv versions as a consistent proxy for research age, with earlier OpenReview publication or proceedings dates labeled where known. They are not acceptance dates, and a newer revision does not make an older paper a new research contribution. Main-track acceptance, workshop acceptance, Findings publication, and submissions under review are separate statuses.
+
+### Accepted main-conference papers and Findings
+
+| Paper | Venue | First arXiv / public release | Contribution / reason to read |
+| --- | --- | --- | --- |
+| [AutoSaddler](https://arxiv.org/abs/2608.23041) | [NeurIPS 2026 main poster](https://neurips.cc/virtual/2026/poster/151256) | Aug 24, 2026 | Diagnoses failed executions, makes structured source-code patches to the harness, and selects durable updates on validation tasks. |
+| [Meta-Harness](https://proceedings.colm.cc/paper_files/paper/2026/hash/fde1a69a5b6e554b2f1f727197d2651d-Abstract-Conference.html) | COLM 2026 main | [Mar 30, 2026](https://arxiv.org/abs/2603.28052) | Searches executable harness code with filesystem access to prior candidates, scores, and raw traces. |
+| [EvoX](https://proceedings.colm.cc/paper_files/paper/2026/hash/fc9f83d9925e6885e8f1ae1e17b3c44b-Abstract-Conference.html) | COLM 2026 main | [Feb 26, 2026](https://arxiv.org/abs/2602.23413) | Jointly evolves candidate solutions and executable search strategies governing their selection and variation. |
+| [Evo-Harness](https://aclanthology.org/2026.emnlp-main.969/) | EMNLP 2026 main | [Aug 15, 2026](https://arxiv.org/abs/2608.15071) | Compiles noisy, one-shot execution experience into persistent reusable skills for a frozen-model agent. |
+| [HarnessForge](https://aclanthology.org/2026.emnlp-main.1893/) | EMNLP 2026 main | [Jun 1, 2026](https://arxiv.org/abs/2606.01779) | Alternates harness edits with harness-conditioned LoRA SFT, selecting compatible harness–policy pairs. |
+| [OASIS](https://aclanthology.org/2026.findings-emnlp.2150/) | Findings of EMNLP 2026 | October 2026 proceedings; earlier preprint date unresolved | Uses same-task comparisons against an adaptive anchor to guide branch continuation, promotion, and reversion on changing task streams. |
+| [Meta^n](https://arxiv.org/abs/2608.24735) | [NeurIPS 2026 main poster](https://neurips.cc/virtual/2026/poster/151012) | Aug 25, 2026 | A fixed meta-operation reads the accumulated solver stack and its traces, then adds strategic preprocessing and callable helpers. |
+| [Group-Evolving Agents](https://proceedings.colm.cc/paper_files/paper/2026/hash/87b321515dc33137ffcc5d1654b7d182-Abstract-Conference.html) | COLM 2026 main | [Feb 4, 2026](https://arxiv.org/abs/2602.04837) | Evolves groups that share execution experience, tools, and artifacts across branches. |
+| [Harnessing Agentic Evolution](https://arxiv.org/abs/2605.13821) | [NeurIPS 2026 main poster](https://neurips.cc/virtual/2026/poster/156126) | May 13, 2026 | Makes search context and the evolutionary procedure editable through a meta-agent. |
+| [CoEvoSkills](https://arxiv.org/abs/2604.01687) | [COLM 2026 main proceedings](https://proceedings.colm.cc/paper_files/paper/2026/hash/68bad5506f0f9eea7ae75f01ae00d5e2-Abstract-Conference.html) | Apr 2, 2026 | Co-evolves executable skill packages and separate-session surrogate verifiers. |
+| [Beneath the Diff](https://aclanthology.org/2026.emnlp-main.1029/) | EMNLP 2026 main | [Aug 31, 2026](https://arxiv.org/abs/2609.00077) | Diagnoses repeated algorithmic mechanisms hidden beneath varied code diffs; adds semantic edit memory, coverage sampling, and an independently evaluated gate. |
+| [Harness Updating Is Not Harness Benefit](https://aclanthology.org/2026.emnlp-main.2326/) | EMNLP 2026 main | [May 28, 2026](https://arxiv.org/abs/2605.30621) | Separates producing useful harness updates from successfully activating and following them. |
+| [Heuresis](https://arxiv.org/abs/2606.25198) | [NeurIPS 2026 main poster](https://neurips.cc/virtual/2026/poster/155111) | Jun 23, 2026 | Compares autonomous ML research search strategies across quality, diversity, and novelty, with separate execution and grading. Accepted title: “Heuresis: Evaluating Search Strategies for Autonomous Machine Learning Research Agents.” |
+| [Towards Direct Evaluation of Harness Optimizers via Priority Ranking](https://arxiv.org/abs/2605.22505) | [NeurIPS 2026 main poster](https://neurips.cc/virtual/2026/poster/151969) | May 21, 2026 | SHOR directly tests prioritization of useful harness changes across human-verified scenarios. |
+| [Self-Trained Verification for Training- and Test-Time Self-Improvement](https://arxiv.org/abs/2605.30290) | [NeurIPS 2026 main poster](https://neurips.cc/virtual/2026/poster/153533) | May 28, 2026 | Trains a verifier from reference-informed teacher feedback, then uses it in generator refinement and RL. |
+
+### Accepted workshop papers
+
+| Paper | Venue | First arXiv / public release | Contribution / limit |
+| --- | --- | --- | --- |
+| [MELD](https://arxiv.org/abs/2610.24454) | NeurIPS 2026 TTCL workshop poster; [public venue listing](https://openreview.net/search?content=authors&group=all&sort=cdate%3Adesc&source=forum&term=~Tian_Lan4) | Sep 30, 2026 OpenReview publication; Oct 17 arXiv v1 | Alternating coordinator/scientist learning over a shared scientific derivation tree. LoRA adapters reset at each task start, so weight adaptation is task-local. |
+| [Who Verifies the Verifier?](https://arxiv.org/abs/2610.11464) | [NeurIPS 2026 Verify-Agents workshop](https://www.amazon.science/publications/who-verifies-the-verifier-co-evolving-inspectable-graders-with-self-improving-agents) | Oct 8, 2026 | Evolves inspectable graders alongside agent skills, anchored by reference cases. Always-pass graders can coexist with competitive downstream skill scores, so task score cannot establish verifier validity. |
+| [Agora](https://arxiv.org/abs/2609.18094) | [NeurIPS 2026 AutoMLR oral](https://automlr.com/papers/) | Sep 16, 2026 | Shared Git DAG of research claims, experiments, and replications across asynchronous agents; research infrastructure rather than a demonstrated self-improving learning algorithm. |
+
+### ICLR 2027 submissions under review
+
+| Paper | Public access and status | First arXiv / latest revision | Contribution |
+| --- | --- | --- | --- |
+| [R²Flow](https://arxiv.org/abs/2609.33867) | [Forum](https://openreview.net/forum?id=Wnrr8HTdq3); [anonymous ICLR submission PDF](http://mingdazhang.com/paper/r2flow-iclr2027.pdf), explicitly under review | Sep 27 / Oct 22, 2026 | Alternates flow-based orchestration learning, independent verification, and versioned skill-library updates. |
+| [CollabFlow](https://arxiv.org/abs/2609.38662) | [Forum](https://openreview.net/forum?id=j3EmDcM3e5); [anonymous ICLR submission PDF](http://mingdazhang.com/paper/collabflow-iclr2027.pdf), explicitly under review | Sep 29 / Oct 22, 2026 | Trains a director to construct teams and communication protocols; execution outcomes train subsequent directors. |
+
+Both ICLR submissions come from an overlapping author group. Their anonymous submission PDFs establish venue status; direct OpenReview forum access was blocked during this search, so forum creation and latest-modification timestamps remain unresolved. No ICLR 2027 acceptance is implied.
+
+For the next reading pass, prioritize AutoSaddler, Evo-Harness, Meta-Harness, EvoX, and Who Verifies the Verifier; pair them with Beneath the Diff and Harness Updating Is Not Harness Benefit when designing experiments. Compare MELD and CollabFlow with MASS, keeping task-local learning, persistent harness changes, and cross-task model learning distinct.

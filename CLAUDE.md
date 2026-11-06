@@ -2,6 +2,7 @@
 
 ## Repo organization
 Teaching guides live in topic subdirs: models, model-architecture, pretraining, sft, post-training, distillation, reasoning, inference, benchmarks, multimodal, agents, interp, knowledge-vs-intelligence; reference docs in reference/. Index/meta files stay at root: AI-Curriculum.md, _todo.md, CLAUDE.md, conferences.md, interp.md. A guide's path is <topic-dir>/<slug>.md.
+Save downloaded paper PDFs and original research posts in their corresponding topic directory, alongside related guides. Reserve output/ for generated artifacts; temporary download copies may live in temporary storage.
 
 ## _todo.md (reading backlog) maintenance
 _todo.md tracks guides created but not yet finished by the user, grouped by topic in suggested reading order. Each entry is two lines: a bullet with the bare slug (filename without .md), then a 2-space-indented sub-bullet with a ≤20-word description —

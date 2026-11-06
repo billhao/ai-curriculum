@@ -386,7 +386,7 @@ evidence needed to see the same selection bias affecting hard mathematics.
 1. Gao et al., [RSI-Dojo](https://arxiv.org/abs/2611.03698), 2026.
    Main source: construction pp. 4–5; training/evaluation pp. 5–6;
    results pp. 7–9; limitations p. 10.
-   [Downloaded PDF](../output/rsi-dojo-2611.03698.pdf).
+   [Downloaded PDF](rsi-dojo-2611.03698.pdf).
 2. Rank et al., [PostTrainBench](https://arxiv.org/abs/2603.08640), 2026.
    The originating automated-post-training benchmark.
 3. Yu et al., [AutoTrainess](https://arxiv.org/abs/2606.31551), 2026;

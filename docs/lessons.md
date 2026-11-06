@@ -1,5 +1,10 @@
 # Lessons for curriculum guides
 
+## 2026-11-06 — Keep downloaded sources with their topic
+
+Save paper PDFs and original research posts alongside related topic guides.
+Use output/ for generated artifacts, and update local links when moving sources.
+
 ## 2026-11-05 — Establish conference availability before filtering by topic
 
 For requests about recent conference research, first inventory which main-track

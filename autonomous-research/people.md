@@ -347,7 +347,7 @@ and are deliberately not recorded here.
 | University of Virginia | Haolin Liu | Dream-RSI (2609.14858) |
 | University of Washington | **Natasha Jaques (PI)** (SPADE joint last author); Luke Zettlemoyer, Bo Liu (joint Stanford), Mickel Liu | SPADE (2608.19197) |
 | Northeastern University | Simon Yu (co-first), Weiyan Shi; Dakuo Wang (Evo-Harness; Harness Updating Is Not Harness Benefit) | SPADE (2608.19197); [Evo-Harness](https://aclanthology.org/2026.emnlp-main.969.pdf); [Harness Updating Is Not Harness Benefit](https://aclanthology.org/2026.emnlp-main.2326.pdf), both EMNLP 2026 main |
-| Massachusetts Institute of Technology | Ao Qu, Paul Pu Liang; Omar Khattab (Meta-Harness last author, printed MIT) | SPADE (2608.19197); [Meta-Harness (2603.28052)](https://proceedings.colm.cc/paper_files/paper/2026/file/fde1a69a5b6e554b2f1f727197d2651d-Paper-Conference.pdf), COLM 2026 main |
+| Massachusetts Institute of Technology | Ao Qu, Paul Pu Liang; Omar Khattab (Meta-Harness last author, printed MIT); Rikiya Takehi, Jayden Teoh (co-first), Alex Zhang, Omar Khattab (Weight-Space Programming, all MIT CSAIL in the original post's author block) | SPADE (2608.19197); [Meta-Harness (2603.28052)](https://proceedings.colm.cc/paper_files/paper/2026/file/fde1a69a5b6e554b2f1f727197d2651d-Paper-Conference.pdf), COLM 2026 main; [Sparks of Weight-Space Programming](https://rikiyat.github.io/blog/weight-space-programming/), November 2026 research post |
 | Seoul National University | Seungyeon Jwa (Meta^n), Junsu Kim (SPADE) | [Meta^n (2608.24735)](https://arxiv.org/html/2608.24735v1), NeurIPS 2026; SPADE (2608.19197) |
 | University of Minnesota | **Dongyeop Kang (PI)** (Meta^n last author); Zae Myung Kim, Young-Jun Lee | [Meta^n (2608.24735)](https://arxiv.org/html/2608.24735v1), [NeurIPS 2026 poster](https://neurips.cc/virtual/2026/poster/151012) |
 | University of Chicago | Zhaorun Chen | SPADE (2608.19197) |
@@ -523,6 +523,7 @@ Not yet researched. Edges to establish first, in rough order of how much they ex
 | 71 | Combinatorial Innovation (2604.20548) | Shuai Chen · Chengzhi Zhang (corresponding) — Nanjing Univ. of Science and Technology |
 | 72 | LLMs Have Made Failure Worth Publishing (2604.06236) | Sungmin Lee — no affiliation printed |
 | 73 | DARWIN (2602.05848) | Henry Jiang — Georgia Tech, College of Computing (sole author) |
+| — | [Sparks of Weight-Space Programming](https://rikiyat.github.io/blog/weight-space-programming/) — November 2, 2026 research post | Rikiya Takehi and Jayden Teoh (co-first), Alex Zhang, Omar Khattab — all MIT CSAIL, explicitly listed in the original post's author block; no separate paper PDF |
 | — | METR Time Horizon 1.1 | METR — corporate authorship, no individual bylines |
 | — | Pangram ICLR 2026 review census | Bradley Emi — Pangram Labs (sole byline) |
 | — | Verifying the Verifiers (OpenReview iRhaK8PsuB) | Authors unresolved — OpenReview bot wall |

@@ -59,6 +59,8 @@
   - Structured RSI catch-up: problems, mechanisms, evidence, research significance, ranked reading, evaluation design, and connections to nanoGPT and post-training.
 - rsi-dojo-guide
   - Teach a post-training controller through executable environments and filtered trajectories; distinguish benchmark gains from recursive self-improvement.
+- weight-space-programming-implications
+  - Mechanism-level edits, neural compilation, causal debugging, hybrid training, and the boundaries of transferring repairs across models.
 - robin-guide
   - Robin (FutureHouse): closed-loop multi-agent biology; 2-phase hypothesis gen, BTL-ranked LLM judge, Finch consensus analysis; ripasudil/ABCA1 for dry AMD.
 - robin-architecture

@@ -1,7 +1,7 @@
 # ai-curriculum — project instructions
 
 ## Repo organization
-Teaching guides live in topic subdirs: models, model-architecture, pretraining, sft, post-training, distillation, reasoning, inference, benchmarks, multimodal, agents, interp, knowledge-vs-intelligence; reference docs in reference/. Index/meta files stay at root: AI-Curriculum.md, _todo.md, CLAUDE.md, conferences.md, interp.md. A guide's path is <topic-dir>/<slug>.md.
+Teaching guides live in topic subdirs: models, model-architecture, pretraining, sft, post-training, distillation, reasoning, inference, benchmarks, multimodal, agents, interp, knowledge-vs-intelligence; reference docs in reference/. Index/meta files stay at root: AI-Curriculum.md, _todo.md, AGENTS.md, conferences.md, interp.md. A guide's path is <topic-dir>/<slug>.md.
 Save downloaded paper PDFs and original research posts in their corresponding topic directory, alongside related guides. Reserve output/ for generated artifacts; temporary download copies may live in temporary storage.
 
 ## _todo.md (reading backlog) maintenance
@@ -11,7 +11,7 @@ _todo.md tracks guides created but not yet finished by the user, grouped by topi
 Topic headings mirror the topic subdirs (Title-Cased), so heading + slug give the path <topic-dir>/<slug>.md.
 On creating any new guide or educational doc (e.g. via /edu), save it into the matching topic subdir and smart-insert its two-line entry under the matching topic heading at the position matching suggested reading order; add a new heading (and dir) if none fits.
 When the user says they finished a guide, remove its two-line entry; drop the topic heading if it becomes empty.
-Only track likely-unread guides; exclude topics already in the user's Knows list (global CLAUDE.md User Background).
+Only track likely-unread guides; exclude topics already in the user's Knows list (global AGENTS.md User Background).
 Commit and push after every change.
 
 ## autonomous-research/people.md (living people & groups map) maintenance

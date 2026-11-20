@@ -57,6 +57,8 @@
 ## Autonomous-Research
 - rsi-catchup-2026-08-to-11-guide
   - Structured RSI catch-up: problems, mechanisms, evidence, research significance, ranked reading, evaluation design, and connections to nanoGPT and post-training.
+- vals-rsi-index-guide
+  - Four budgeted AI R&D campaigns; reference-anchored log scoring, current leaders, experimental findings, and why artifact improvement is not recursion.
 - rsi-dojo-guide
   - Teach a post-training controller through executable environments and filtered trajectories; distinguish benchmark gains from recursive self-improvement.
 - weight-space-programming-implications

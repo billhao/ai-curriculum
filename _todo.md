@@ -33,6 +33,8 @@
   - FlashAttention 4: latest exact-attention kernel; Blackwell-optimized IO-aware tiling and scheduling.
 
 ## Pretraining
+- perplexity-and-intelligence-guide
+  - Interpret OpenAI's loss curve, compare tokenizers using bits per byte, and understand what GPT and Claude APIs expose.
 - optimizers-adam-muon-guide
   - From AdamW to Muon: momentum, adaptive LR, and Muon's orthogonalized momentum (Newton-Schulz) for matrix params; used in Kimi K2/DeepSeek V4.
 

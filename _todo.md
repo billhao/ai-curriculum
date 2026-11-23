@@ -97,6 +97,8 @@
 ## Benchmarks
 - benchmarks-guide
   - Major 2026 LLM benchmarks: reasoning, code, agents, long-context, multimodal; SOTA scores and contamination caveats.
+- perplexity-cross-provider-comparison-guide
+  - Loss, perplexity, BPB/BPC, tokenization, API limits, contamination, and a protocol for fair cross-provider comparisons.
 - arc-agi-2-guide
   - ARC-AGI 2 benchmark: efficient few-shot abstraction on novel tasks; why it resists saturation through 2026.
 

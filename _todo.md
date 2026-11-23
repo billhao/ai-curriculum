@@ -33,8 +33,6 @@
   - FlashAttention 4: latest exact-attention kernel; Blackwell-optimized IO-aware tiling and scheduling.
 
 ## Pretraining
-- perplexity-and-intelligence-guide
-  - Interpret OpenAI's loss curve, compare tokenizers using bits per byte, and understand what GPT and Claude APIs expose.
 - optimizers-adam-muon-guide
   - From AdamW to Muon: momentum, adaptive LR, and Muon's orthogonalized momentum (Newton-Schulz) for matrix params; used in Kimi K2/DeepSeek V4.
 
@@ -97,8 +95,6 @@
 ## Benchmarks
 - benchmarks-guide
   - Major 2026 LLM benchmarks: reasoning, code, agents, long-context, multimodal; SOTA scores and contamination caveats.
-- perplexity-cross-provider-comparison-guide
-  - Loss, perplexity, BPB/BPC, tokenization, API limits, contamination, and a protocol for fair cross-provider comparisons.
 - arc-agi-2-guide
   - ARC-AGI 2 benchmark: efficient few-shot abstraction on novel tasks; why it resists saturation through 2026.
 

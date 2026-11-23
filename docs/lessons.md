@@ -28,3 +28,9 @@ scientific impact. Shorter optional entries still need a coherent explanation.
 
 Before delivery, read each entry as a learner: can the reader explain what changed,
 why it helps, what was demonstrated, and why to study it now?
+
+## 2026-11-23 — Keep mark-read instruction-only
+
+Hao rejected a helper-script design for /mark-read. Keep this skill entirely in
+Markdown instructions using direct reads and edits; do not reintroduce helper
+scripts or test code. Validate its behavior with read-only dry runs instead.

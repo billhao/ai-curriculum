@@ -2,7 +2,7 @@
 
 A technical guide to what perplexity measures, when loss comparisons are meaningful across providers, and why even a careful compression score is not a general-intelligence score.
 
-OpenAI's November 22, 2026 essay [Perplexity and Intelligence](https://openai.com/index/perplexity-and-intelligence/) ([saved original](perplexity-and-intelligence.html)) is the motivation. Jakub Pachocki reports base-model log-perplexity on a fixed held-out snapshot of OpenAI's internal codebase and proposes perplexity, together with other measurements, as a basis for shared safety limits. The essay supplies no displayed equation and does not disclose the logarithm base, tokenizer, context protocol, aggregation rule, or uncertainty intervals. Those omissions determine what an outside comparison can mean.
+OpenAI's November 22, 2026 essay [Perplexity and Intelligence](https://openai.com/index/perplexity-and-intelligence/) ([saved original](../benchmarks/perplexity-and-intelligence.html)) is the motivation. Jakub Pachocki reports base-model log-perplexity on a fixed held-out snapshot of OpenAI's internal codebase and proposes perplexity, together with other measurements, as a basis for shared safety limits. The essay supplies no displayed equation and does not disclose the logarithm base, tokenizer, context protocol, aggregation rule, or uncertainty intervals. Those omissions determine what an outside comparison can mean.
 
 ## Background
 
@@ -10,7 +10,7 @@ OpenAI's November 22, 2026 essay [Perplexity and Intelligence](https://openai.co
 
 2. **A Neural Probabilistic Language Model** (Bengio, Ducharme, Vincent, Jauvin, 2003) — learned a distributed next-word predictor with maximum likelihood, making held-out likelihood central to neural language modeling. [JMLR](https://www.jmlr.org/papers/v3/bengio03a.html)
 
-3. **Language Models are Unsupervised Multitask Learners** (Radford et al., OpenAI, 2019) — GPT-2 improved zero-shot language-modeling results on seven of eight benchmarks, while the report used perplexity, BPB, BPC, and accuracy in their respective native units. This was not one universally normalized leaderboard. [OpenAI report](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) · [saved PDF](language-models-unsupervised-multitask-learners.pdf)
+3. **Language Models are Unsupervised Multitask Learners** (Radford et al., OpenAI, 2019) — GPT-2 improved zero-shot language-modeling results on seven of eight benchmarks, while the report used perplexity, BPB, BPC, and accuracy in their respective native units. This was not one universally normalized leaderboard. [OpenAI report](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) · [saved PDF](../benchmarks/language-models-unsupervised-multitask-learners.pdf)
 
 4. **Scaling Laws for Neural Language Models** (Kaplan et al., OpenAI, 2020) — showed smooth power-law trends in held-out cross-entropy with model size, dataset size, and compute. Absolute values still belong to a particular data and evaluation protocol. [arXiv 2001.08361](https://arxiv.org/abs/2001.08361)
 

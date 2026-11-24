@@ -320,7 +320,7 @@ and are deliberately not recorded here.
 | UC Riverside (+AlphaAvatar, Illinois Tech) | Mingguang Chen (first author *and* corresponding — senior slot unclear); Licheng Wang; Bo Qu | RSI survey, 1,250 papers (2607.07663) |
 | Google DeepMind | **Matej Balog (PI)** (AlphaEvolve last author, listed as its lead on the RSI-workshop panel page); **Vivek Natarajan (PI)** (AI co-scientist last author); Alexander Novikov, Juraj Gottweis; Zhankui He, Benjamin Coleman, Di Bai, Wang-Cheng Kang (Dream-RSI) | AlphaEvolve (2506.13131); AI co-scientist (2502.18864); Dream-RSI (2609.14858) |
 | Zhongguancun Academy | **Tie-Yan Liu (PI)** (AutoSOTA last author); **Zequn Liu (PI)** (ForeSci corresponding); Yingce Xia; Jian Zhao (EpiAgent) | AutoSOTA senior; ForeSci senior/corresponding; EpiAgent (2610.40227) |
-| OpenAI | **Aleksander Madry (PI)** (MLE-bench last author); Chan Jun Shern, Neil Chowdhury | MLE-bench (2410.07095) — substrate only; no RSI paper in this map |
+| OpenAI | **Aleksander Madry (PI)** (MLE-bench last author); Chan Jun Shern, Neil Chowdhury | MLE-bench (2410.07095); [Research acceleration: The jagged frontier](https://openai.com/index/research-acceleration-jagged-frontier/) (November 2026 research report) |
 | Pangram Labs | **Bradley Emi (PI)** (CTO/co-founder, sole byline) | ICLR 2026 AI-generated-review census, 21% of 75,800 |
 | ISCAS + UCAS + Alibaba | **Xianpei Han (PI)**, **Yongbin Li (PI)**, **Hu Wei (PI)** (three marked corresponding authors); Le Sun, Hongyu Lin, Yaojie Lu (ISCAS); Tianyun Zhong (UCAS) | HypoArena / Before the Action (2607.15766) |
 | MBZUAI (+CMU) | **Kun Zhang (PI)** (MBZUAI + CMU); Yongqiang Chen, Zhenhao Chen; Bowei He and Xue Liu (Beneath the Diff, joint McGill); Yankai Chen and Xue (Steve) Liu (CoEvoSkills, joint McGill); Zhenting Wang (CoEvoSkills) | CausalEvolve (2603.14575); Red Queen co; [Beneath the Diff](https://aclanthology.org/2026.emnlp-main.1029.pdf), EMNLP 2026 main; [CoEvoSkills (2604.01687v2)](https://arxiv.org/pdf/2604.01687v2), COLM 2026 main |
@@ -554,6 +554,7 @@ Remaining edges to establish, in rough order of how much they explain:
 | 77 | DARWIN (2602.05848) | Henry Jiang — Georgia Tech, College of Computing (sole author) |
 | — | [Sparks of Weight-Space Programming](https://rikiyat.github.io/blog/weight-space-programming/) — November 2, 2026 research post | Rikiya Takehi and Jayden Teoh (co-first), Alex Zhang, Omar Khattab — all MIT CSAIL, explicitly listed in the original post's author block; no separate paper PDF |
 | — | METR Time Horizon 1.1 | METR — corporate authorship, no individual bylines |
+| — | [Research acceleration: The jagged frontier](https://openai.com/index/research-acceleration-jagged-frontier/) — November 18, 2026 research report | OpenAI — collective attribution in the report byline and citation |
 | — | Pangram ICLR 2026 review census | Bradley Emi — Pangram Labs (sole byline) |
 | — | Verifying the Verifiers (OpenReview iRhaK8PsuB) | Authors unresolved — OpenReview bot wall |
 | — | SAHOO, safeguarded alignment for RSI (OpenReview OAFPpQO0H9) | Authors unresolved — OpenReview bot wall |

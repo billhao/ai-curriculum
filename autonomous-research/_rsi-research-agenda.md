@@ -3,12 +3,12 @@ This doc describes the high level overall research agenda for RSI (recursive sel
 ## Overall problem
 Mₜ = model weights + harness
 
-Overall problem: Improve AI (Mₜ)'s ability to identify impactful problems and propose novel improvements on itself
+Ultimate problem: Improve AI (Mₜ)'s <u>ability to identify impactful problems and propose novel improvements</u> on itself
 
 Directions (high priority): pretraining, post-training
 More directions: harness, prompt, memory, scaling etc
 
-When using AI for RSI, directions and overall problem needs to be specified for current AI
+When using AI for RSI, directions and overall problem needs to be specified by human
 
 
 ## Suggested research workflow
@@ -20,5 +20,9 @@ When using AI for RSI, directions and overall problem needs to be specified for 
 5. verify with larger models if result is positive
 5. save results → publish to literature (internal repo/archive)
 
-Note, Allen AI's Asta seems a good infra for some of this research workflow. Other frameworks exist too
+Note, my own ~/projects/autonomous-science-lab or Allen AI's Asta may be a good infra for some of this research workflow. Other frameworks exist too
 
+## Input
+* Overall problem
+* Agent instructions
+* Literature (or online search)
